@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:id="@+id/main_id"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout
+        android:id="@+id/img_logo"
+        android:background="@drawable/logo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="50dp"
+            android:background="@drawable/logo"
+            android:layout_height="50dp"/>
+
+        <TextView
+            android:id="@+id/name_main"
+            android:layout_width="412dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="25dp" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="681dp"
+        android:layout_below="@+id/img_logo"
+        android:layout_marginTop="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".MainActivity">
+            <RelativeLayout
+                android:id="@+id/top_layout"
+                android:layout_width="411dp"
+                android:layout_height="402dp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp">
+
+                <ImageView
+                    android:id="@+id/anhnen"
+                    android:background="@color/colorAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"/>
+
+                <ImageView
+                    android:id="@+id/avtimg"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="110dp"
+                    android:layout_marginTop="110dp"></ImageView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:id="@+id/txtname"
+                    android:layout_height="42dp"
+                    android:text="Trọng Tài"
+                    android:layout_below="@+id/avtimg"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif-black"
+                    android:gravity="center"
+                    android:textSize="30dp" />
+                <TextView
+                    android:id="@+id/tieusu"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/txtname"
+                    android:layout_marginTop="0dp"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center"
+                    android:textSize="20dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_below="@id/top_layout"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_layout"
+                tools:ignore="MissingConstraints">
+
+                <LinearLayout
+                    android:id="@+id/edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="12">
+
+                    <com.beardedhen.androidbootstrap.BootstrapButton
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="10"
+                        android:background="@color/colorPrimaryDark"
+                        android:text="Chỉnh sửa trang cá nhân"
+                        android:textColor="#111"
+                        app:roundedCorners="true"
+                        app:showOutline="true" />
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_height="55dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="2" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/relativeLayout"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="right"
+                        android:text="Làm việc tại"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:id="@+id/lamviec"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="left"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="right"
+                        android:text="Sống tại"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:id="@+id/songtai"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="left"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="right"
+                        android:text="Đến từ"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:id="@+id/dentu"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="left"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/relationship"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="2"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="center"
+                        android:text="In Complex Relationship"
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:weightSum="8">
+
+                    <TextView
+                        android:id="@+id/followers"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="2"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="right"
+                        android:textSize="25dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="6"
+                        android:baselineAligned="false"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="left"
+                        android:text="Người đang theo dõi "
+                        android:textSize="25dp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Friends"
+                    android:textSize="30dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_friend"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/post"
+                        android:layout_width="152dp"
+                        android:layout_height="40dp"
+                        android:fontFamily="sans-serif-black"
+                        android:gravity="center"
+                        android:text="POST"
+                        android:textSize="20dp" />
+
+                    <ImageView
+                        android:id="@+id/avt_icon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_below="@id/post" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_below="@id/post"
+                        android:layout_toRightOf="@id/avt_icon" />
+                </RelativeLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

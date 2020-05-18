@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/home_drawermain"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9AC9C9C9"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/avtHome_header"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:weightSum="12"
+            android:gravity="start"
+            app:layout_constraintTop_toTopOf="parent">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2">
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_weight="4"
+                    android:src="@drawable/logo"
+                    app:bootstrapBrand="success"
+                    app:hasBorder="true"
+                    tools:layout_editor_absoluteX="16dp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:layout_weight="10"
+                android:weightSum="12">
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="2"
+                    android:text="a"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="md"
+                    app:buttonMode="regular"
+                    app:fontAwesomeIcon="fa_search"
+                    app:roundedCorners="true"
+                    app:showOutline="true"
+                    tools:layout_editor_absoluteX="264dp"
+                    tools:layout_editor_absoluteY="9dp" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_weight="2"
+                    android:text="a"
+                    app:bootstrapBrand="primary"
+                    app:buttonMode="regular"
+                    app:fontAwesomeIcon="fa_facebook_official"
+                    app:roundedCorners="true"
+                    app:showOutline="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/home_btnmess"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_weight="2"
+                    android:text="a"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapText="{fa_comments}"
+                    app:buttonMode="regular"
+                    app:fontAwesomeIcon="fa_comments"
+                    app:roundedCorners="true"
+                    app:showOutline="true" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/naviBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F5F6F6"
+            app:backgroundTint="#F5F6F6"
+
+            app:itemTextColor="@color/colorAccent"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/avtHome_header"
+            app:menu="@menu/bottom_nav_menu" />
+
+        <fragment
+            android:id="@+id/avtHome_frm"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:defaultNavHost="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/naviBar"
+            app:navGraph="@navigation/mobile_navigation" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <RelativeLayout
+
+        android:id="@+id/avtHome_ctnComments"
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="106dp"
+        android:background="@color/bootstrap_brand_secondary_border"
+        android:gravity="top">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/home_list_cmt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/inpcmt"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/customtxt1"
+                android:gravity="center"
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_list_cmt">
+
+                <com.beardedhen.androidbootstrap.BootstrapEditText
+                    android:id="@+id/home_adt_ipcmt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Ðánh giá c?a b?n"
+                    app:bootstrapBrand="success"
+                    app:bootstrapSize="sm"
+                    app:roundedCorners="true">
+
+                </com.beardedhen.androidbootstrap.BootstrapEditText>
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/home_adt_sendcmt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="hrllo"
+                    app:bootstrapBrand="success"
+                    app:bootstrapSize="md"
+                    app:buttonMode="regular"
+                    app:fontAwesomeIcon="fa_send"
+                    app:roundedCorners="true"
+                    app:showOutline="true" />
+
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
