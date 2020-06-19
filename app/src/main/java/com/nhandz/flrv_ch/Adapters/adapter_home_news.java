@@ -41,13 +41,12 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
 
     ArrayList<news> data_news;
     Context context;
-    DrawerLayout drawerLayout;
+    public  static DrawerLayout drawerLayout;
     SendIDBV sendIDBV;
 
-    public adapter_home_news(ArrayList<news> data_news, Context context, DrawerLayout drawerLayout) {
+    public adapter_home_news(ArrayList<news> data_news, Context context) {
         this.data_news = data_news;
         this.context = context;
-        this.drawerLayout = drawerLayout;
     }
 
 
@@ -66,7 +65,14 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
 
         int maxs= holder.ctntt.getWidth();
         holder.txtname.setText(String.valueOf(data_news.get(position).getName()));
-        GlideUrl url1=new GlideUrl(MainActivity.serverImg +""+data_news.get(position).getImg(),
+        String urlAvt="";
+        if (data_news.get(position).getImg().startsWith("http")){
+            urlAvt=data_news.get(position).getImg();
+        }
+        else {
+            urlAvt=MainActivity.serverImg +""+data_news.get(position).getImg();
+        }
+        GlideUrl url1=new GlideUrl(urlAvt,
                 new LazyHeaders
                         .Builder()
                         .addHeader("User-Agent",MainActivity.User_Agent)
@@ -132,7 +138,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         holder.iconcmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.CENTER);
+                drawerLayout.openDrawer(Gravity.RIGHT);
                 sendIDBV=new HomeActivity();
                 sendIDBV.GetID(String.valueOf(data_news.get(position).getIDBV()));
             }

@@ -38,7 +38,14 @@ public class adapter_comment extends RecyclerView.Adapter<adapter_comment.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        GlideUrl url=new GlideUrl(MainActivity.serverImg+""+data_comments.get(position).getAvt(),
+        String urlAvt="";
+        if (data_comments.get(position).getAvt().startsWith("http")){
+            urlAvt=data_comments.get(position).getAvt();
+        }
+        else {
+            urlAvt=MainActivity.serverImg +""+data_comments.get(position).getAvt();
+        }
+        GlideUrl url=new GlideUrl(urlAvt,
                 new LazyHeaders.Builder()
                         .addHeader("Cookie",MainActivity.cookies)
                         .build()

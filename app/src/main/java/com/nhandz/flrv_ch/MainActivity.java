@@ -27,13 +27,13 @@ import io.socket.emitter.Emitter;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String server= "http://192.168.2.235:8888/FLRV-CH";
-    public static String serverImg="http://192.168.2.235:8888";
+    public static String server= "http://192.168.61.43:8888/FLRV-CH";
+    public static String serverImg="http://192.168.61.43:8888";
     public static String cookies="__test=afd4ff1e1b7f9ade68ae2dc16420678d; expires=Thu, 31-Dec-38 23:55:55 GMT; path=/";
     public static String User_Agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ";
     public static String XSRF_TOKEN=""; //"eyJpdiI6InNYRzRBSW9acWRJSW1sd0hDbUQzaWc9PSIsInZhbHVlIjoiRzlUVW5vQ293ZGJOQ2ZIVjdBRVlLZDRHbFBmaXk1MzcwVDdhaDJ2aEpBb09cL3NyRUR1VVMzKytKdkYxRVdHc2UiLCJtYWMiOiI4ZmExOWQ4ZWUwNWEwZjUyNDg4ZGU5MDEzZDQzYWY2NWYxN2Y4NGQ5NmY4ZWI5YWVjMTVhZGI2Nzk0ODM0YWEwIn0%3D";
     public static account OnAccount=null;
-    public static String Nodeserver="https://nhandz.herokuapp.com/";//"http://192.168.1.2:3000";
+    public static String Nodeserver="https://nhandz.herokuapp.com/";//"http://192.168.61.38:3000";
     public static Socket mSocket;
 
     Button btnnext;

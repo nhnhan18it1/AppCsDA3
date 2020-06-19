@@ -48,6 +48,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.nhandz.flrv_ch.Adapters.adapter_comment;
 import com.nhandz.flrv_ch.Adapters.adapter_home_news;
+import com.nhandz.flrv_ch.ApiResuorce.NewsApi;
 import com.nhandz.flrv_ch.DT.SendIDBV;
 import com.nhandz.flrv_ch.DT.account;
 import com.nhandz.flrv_ch.DT.comments;
@@ -81,13 +82,14 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
     private BootstrapCircleThumbnail avtfix;
     private BootstrapEditText txtinputtus;
     private BootstrapButton btnmess;
-    private DrawerLayout drawerLayout;
+    public DrawerLayout drawerLayout;
     private RecyclerView recyclerViewCMT;
     ArrayList<comments> listCMT=new ArrayList<>();
     public static adapter_comment adapterCMT=null;
     private LinearLayout linearLayout_Header;
     private RelativeLayout relativeLayout_ctnComments;
     private BottomNavigationView bottomNavigationView;
+    SendIDBV sendIDBV;
 
 
     @Override
@@ -101,19 +103,8 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         String title = actionBar.getTitle().toString(); //Lấy tiêu đề nếu muốn
         actionBar.hide(); //Ẩn ActionBar nếu muốn
         Anhxa();
+        //sendIDBV.SendDrawerlayout(drawerLayout);
         initView2();
-        //initView();
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                Fragment selectedF = new HomeFragment();
-//                switch (item.getItemId()){
-//                    case R.id.navigation_home:selectedF=new HomeFragment();break;
-//                }
-//                getSupportFragmentManager().beginTransaction().replace(R.id.avtHome_frm,selectedF).commit();
-//                return false;
-//            }
-//        });
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.groupFragment,R.id.navigation_watch ,R.id.navigation_notifications,R.id.navigation_menu)
                 .build();
@@ -128,22 +119,6 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
                         .build()
         );
 
-//        Glide.with(getApplicationContext())
-//                .load(url2)
-//                .timeout(30000)
-//                .skipMemoryCache(false)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .error(R.drawable.logo)
-//                .into(avtfix);
-//        txtinputtus.setEnabled(true);
-//        txtinputtus.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent=new Intent(HomeActivity.this,baivietmoiActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
         btnmess.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,7 +126,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
                 startActivity(intent);
             }
         });
-        //new getNews().execute(MainActivity.server+"/api/getnews");
+        adapter_home_news.drawerLayout=drawerLayout;
 
     }
     public void Anhxa(){
@@ -181,7 +156,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
                 LinearLayoutManager.VERTICAL,
                 false);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adt=new adapter_home_news(listnews,getApplicationContext(),drawerLayout);
+        adt=new adapter_home_news(listnews,getApplicationContext());
         recyclerView.setAdapter(adt);
         //recyclerV2
         //adt.setLoadMore()
@@ -231,9 +206,9 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        recyclerView.getLayoutManager().scrollToPosition(0);
-        new getNews().execute(MainActivity.server+"/api/getnews");
-        listnews.removeAll(listnews);
+//        recyclerView.getLayoutManager().scrollToPosition(0);
+//        new NewsApi.getNews(listnews,adt).execute(MainActivity.server+"/api/getnews");
+//        listnews.removeAll(listnews);
 
         Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
     }
@@ -258,6 +233,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         callapi(IDBV);
     }
 
+
     public void callapi(String IDBV){
         if (adapterCMT!=null) Log.e("adt", "Getadt: !=null" );
         else Log.e("adt", "Getadt: =null" );
@@ -266,47 +242,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         new apicmt(adapterCMT).execute(IDBV);
     }
 
-    private class getNews extends AsyncTask<String,Void,String>{
 
-        OkHttpClient okHttpClient =new OkHttpClient.Builder()
-                .build();
-
-        @Override
-        protected String doInBackground(String... strings) {
-            RequestBody requestBody=new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("abc","1")
-                    .build();
-            Request request=new Request.Builder()
-                    .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ")
-                    .addHeader("Cookie", MainActivity.cookies)
-                    .url(strings[0])
-                    .post(requestBody)
-                    .build();
-            try {
-                Response response=okHttpClient.newCall(request).execute();
-                return response.body().string();
-            } catch (IOException e) {
-                //e.printStackTrace();
-                Log.e("getnews", "doInBackground: "+e );
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Gson gson=new Gson();
-            news[] newsx=gson.fromJson(s, com.nhandz.flrv_ch.DT.news[].class);
-            //Toast.makeText(HomeActivity.this, s, Toast.LENGTH_SHORT).show();
-            Log.e("ness", "onPostExecute: "+newsx.length );
-            for (int i=0;i<newsx.length;i++){
-                listnews.add(newsx[i]);
-            }
-
-            adt.notifyDataSetChanged();
-        }
-    }
     public class apicmt extends AsyncTask<String,Void,String>{
 
         private adapter_comment adapter;

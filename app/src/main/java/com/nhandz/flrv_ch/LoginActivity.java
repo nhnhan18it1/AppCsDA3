@@ -233,7 +233,7 @@ public class LoginActivity extends AppCompatActivity {
             LoginActivity.Name=accounts[0].getName();
             MainActivity.OnAccount=accounts[0];
 
-            String ttac="{IDND : ' "+accounts[0].getID()+" ' , Name : ' "+accounts[0].getName()+" ' , Avt : ' "+accounts[0].getAvt()+" ' }";
+            String ttac="{IDND : "+accounts[0].getID()+" , Name : ' "+accounts[0].getName()+" ' , Avt : ' "+accounts[0].getAvt()+" ' }";
             JSONObject jsonObject= null;
             try {
                 jsonObject = new JSONObject(ttac);

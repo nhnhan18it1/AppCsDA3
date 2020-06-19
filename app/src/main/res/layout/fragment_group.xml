@@ -35,7 +35,7 @@
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="3dp"
                     android:layout_weight="2"
-                    android:src="@drawable/ac11"
+                    android:src="@drawable/logo"
                     app:bootstrapBrand="success"
                     app:bootstrapSize="sm"
                     app:hasBorder="false"

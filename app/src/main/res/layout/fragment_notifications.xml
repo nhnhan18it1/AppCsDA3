@@ -3,66 +3,199 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/bootstrap_brand_secondary_fill"
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="391dp"
+        android:layout_height="174dp"
+        android:layout_marginTop="146dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/naviBar"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="1dp"
+        android:orientation="horizontal"
+        android:weightSum="12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:gravity="left"
+            android:paddingTop="12dp"
+            android:paddingLeft="5dp"
+            android:text="Thông báo"
+            android:textColor="#7B7DFF"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <at.markushi.ui.CircleButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:src="@drawable/ic_search"
+            app:cb_color="#B08F9A9E"
+            app:cb_pressedRingWidth="8dip" />
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="190dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+            android:id="@+id/bootstrapCircleThumbnail"
+            android:layout_width="60dp"
+            android:layout_height="180dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="4dp"
+            android:src="@drawable/logo"
+            app:bootstrapBrand="success"
+            app:bootstrapSize="lg"
+            app:hasBorder="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="260dp"
+            android:layout_height="39dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/bootstrap_brand_secondary_text"
+            android:textSize="16sp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="250dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="53dp"
+            android:textColor="@color/bootstrap_alert_cross_default"
+            android:textSize="16sp"
+            android:text="TextView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/bootstrapButton"
+            android:layout_width="138dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="3dp"
+            android:textStyle="bold"
+            app:bootstrapBrand="primary"
+            app:bootstrapSize="md"
+            app:bootstrapText="Chấp nhận"
+            app:buttonMode="regular"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:roundedCorners="true" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="40dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="3dp"
+            app:bootstrapBrand="secondary"
+            app:bootstrapSize="md"
+            app:bootstrapText="{fa_ellipsis_h}"
+            app:buttonMode="regular"
+            app:roundedCorners="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:layout_width="362dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="13dp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:bootstrapBrand="regular"
+            app:bootstrapSize="md"
+            app:bootstrapText="Xem tất cả"
+            app:buttonMode="regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bootstrapButton2"
+            app:roundedCorners="true" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/bootstrapButton2"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="13dp"
+            android:textStyle="bold"
+            app:bootstrapBrand="regular"
+            app:bootstrapSize="md"
+            app:bootstrapText="Xóa"
+            app:buttonMode="regular"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bootstrapButton"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:roundedCorners="true" />
 
         <LinearLayout
+            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="30dp"
+            android:layout_marginTop="1dp"
+            android:weightSum="12"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="1dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#C40378AE"
-                android:weightSum="12">
-
-                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                    android:id="@+id/home_avtfix"
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="3dp"
-                    android:layout_weight="2"
-                    android:src="@drawable/ac11"
-                    app:bootstrapBrand="success"
-                    app:bootstrapSize="sm"
-                    app:hasBorder="false"
-                    app:layout_constraintEnd_toStartOf="@+id/textView5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.beardedhen.androidbootstrap.BootstrapEditText
-                    android:id="@+id/home_inputtus"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="10"
-                    android:editable="false"
-                    android:hint="Bạn đang nghĩ gì?"
-                    app:bootstrapBrand="info"
-                    app:bootstrapSize="md"
-                    app:roundedCorners="true" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/home_rcyv_news"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginTop="0dp" />
+                android:layout_weight="8"
+                android:gravity="left"
+                android:paddingLeft="12dp"
+                android:text="Lời mời kết bạn"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="right"
+                android:text="Xem thêm"
+                android:textColor="@color/bootstrap_brand_primary"
+                android:textSize="12sp"
+                android:textStyle="italic" />
         </LinearLayout>
-    </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

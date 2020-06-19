@@ -65,7 +65,7 @@ public class ChatActivity extends AppCompatActivity {
         AX();
         event();
         new GetInforForChat(lf).execute();
-
+        CheckNodeConnect();
         MainActivity.mSocket.on("Server-send-messagePP", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -97,6 +97,17 @@ public class ChatActivity extends AppCompatActivity {
 //        initChat();
     }
 
+    public void CheckNodeConnect(){
+        if (MainActivity.mSocket.connected()){
+            Log.e("TAG", "CheckNodeConnect: true" );
+            return;}
+        else {
+            Log.e("TAG", "CheckNodeConnect: false" );
+            MainActivity.mSocket.connect();
+            CheckNodeConnect();
+        }
+    }
+
     public void AX(){
         txtName=findViewById(R.id.chatAc_Name);
         imgAvt=findViewById(R.id.chatAc_Avt);
@@ -119,10 +130,11 @@ public class ChatActivity extends AppCompatActivity {
                         jsonObject=new JSONObject("{'ID':'"+MainActivity.OnAccount.getID()+"','IDR':'"+AccOnChat.getID()+"','Name':'"+MainActivity.OnAccount.getName()+"','Content':'"+txtMessContent.getText().toString()+"'}");
                         MainActivity.mSocket.emit("Client-send-messagePP",jsonObject);
                         new  MessSengerApi.SendMess(adt,listChats,
-                                String.valueOf(AccOnChat.getID()),
-                                String.valueOf(MainActivity.OnAccount.getID()) ,
+                                String.valueOf(MainActivity.OnAccount.getID()),
+                                String.valueOf(AccOnChat.getID()) ,
                                  txtMessContent.getText().toString(),
                                 getApplicationContext()).execute();
+                        txtMessContent.setText("");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

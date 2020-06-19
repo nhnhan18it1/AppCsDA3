@@ -1,6 +1,7 @@
 package com.nhandz.flrv_ch.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,12 +31,14 @@ public class adapter_ContentChat extends RecyclerView.Adapter<adapter_ContentCha
     @Override
     public int getItemViewType(int position) {
         //return super.getItemViewType(position);
+
         if(listChats.get(position).getIDsend().equals(String.valueOf(MainActivity.OnAccount.getID()))){
             return 1;
         }
         else {
             return 0;
         }
+
     }
 
 
@@ -57,7 +60,7 @@ public class adapter_ContentChat extends RecyclerView.Adapter<adapter_ContentCha
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (holder.getItemViewType()==0){
+        if (getItemViewType(position)==0){
             if (AccOnChat!=null){
                 Glide.with(context)
                         .load(MainActivity.serverImg+""+AccOnChat.getAvt())
@@ -65,7 +68,6 @@ public class adapter_ContentChat extends RecyclerView.Adapter<adapter_ContentCha
             }
 
             holder.bootstrapLabel.setText(listChats.get(position).getContent());
-
         }
         else {
             holder.bootstrapLabel2.setText(listChats.get(position).getContent());
