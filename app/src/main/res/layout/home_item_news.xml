@@ -4,14 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#7A383A3A"
+    android:background="#7AE7ECEC"
     android:paddingBottom="12dp">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#79807F"
+        android:layout_marginStart="3dp"
+        android:layout_marginEnd="3dp"
+        android:background="#FFFFFF"
         android:orientation="vertical"
+        app:cardCornerRadius="25dp"
+        app:contentPaddingBottom="20dp"
+        app:layout_constraintBottom_creator="@integer/config_navAnimTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -19,25 +24,32 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F8F6F6">
+            android:paddingBottom="5dp"
+            android:background="#FFFFFF">
 
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/adt_news_ctntt" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/home_adt_head"
                 android:layout_width="match_parent"
                 android:layout_height="57dp"
-                android:background="@drawable/customtxt1"
                 android:orientation="horizontal"
                 android:paddingTop="1dp"
                 android:paddingBottom="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"><![CDATA[
-
-
-            />
-
-            ]]>
+                app:layout_constraintTop_toTopOf="parent">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/cmt_avt"
@@ -45,7 +57,7 @@
                     android:layout_height="55dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="1dp"
-                    app:civ_border_color="#FF000000"
+                    app:civ_border_color="#BAF2F6F2"
 
                     app:civ_border_width="2dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -54,18 +66,19 @@
 
                 <TextView
                     android:id="@+id/home_adt_header"
-                    android:layout_width="314dp"
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="3dp"
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginEnd="37dp"
+                    android:fontFamily="sans-serif-condensed-light"
                     android:paddingLeft="7dp"
                     android:paddingTop="5dp"
                     android:text="TextView"
                     android:textColor="#050C0C"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imageButton3"
                     app:layout_constraintStart_toEndOf="@+id/cmt_avt"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -82,6 +95,17 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cmt_avt"
                     app:layout_constraintTop_toBottomOf="@+id/home_adt_header" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="29dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="#00FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_more_vert" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
@@ -90,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:paddingLeft="3dp"
-                android:paddingTop="5dp"
+                android:paddingTop="2dp"
                 android:paddingRight="3dp"
                 android:paddingBottom="3dp"
                 android:text="TextView"
@@ -105,12 +129,12 @@
             <ImageView
                 android:id="@+id/home_adt_imgcontent"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_adt_txtcontent"
-                app:srcCompat="@drawable/ac11" />
+                app:srcCompat="@drawable/logo" />
 
 
             <LinearLayout
@@ -148,8 +172,8 @@
                 android:id="@+id/adt_news_ctntt"
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
-                android:layout_marginTop="9dp"
-                android:background="@drawable/customtxt1"
+                android:layout_marginTop="3dp"
+
                 android:orientation="horizontal"
                 android:weightSum="9"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -163,7 +187,6 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:orientation="horizontal">
-
                     <com.beardedhen.androidbootstrap.BootstrapButton
                         android:id="@+id/home_adt_iconlike"
                         android:layout_width="match_parent"
@@ -174,12 +197,13 @@
                         android:paddingTop="10sp"
                         android:textColor="@color/cardview_dark_background"
                         android:textSize="20sp"
-                        app:bootstrapBrand="primary"
+                        app:bootstrapBrand="secondary"
+                        app:materialIcon="md_3d_rotation"
                         app:bootstrapSize="md"
                         app:bootstrapText="{fa_thumbs_up} like"
                         app:buttonMode="regular"
                         app:roundedCorners="true"
-                        app:showOutline="true" />
+                        app:showOutline="false" />
 
 
                 </LinearLayout>
@@ -199,14 +223,15 @@
                         android:layout_marginLeft="0dp"
                         android:paddingLeft="10dp"
                         android:paddingTop="10sp"
-                        android:textColor="@color/cardview_dark_background"
-                        android:textSize="20sp"
-                        app:bootstrapBrand="primary"
+                        android:textColor="@color/design_default_color_secondary_variant"
+                        android:textSize="10sp"
+                        app:bootstrapBrand="secondary"
                         app:bootstrapSize="md"
-                        app:bootstrapText="{fa_comment} comments"
+                        app:bootstrapText="{fa_comment} comment"
                         app:buttonMode="regular"
                         app:roundedCorners="true"
-                        app:showOutline="true" />
+                        app:showOutline="false" />
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -225,34 +250,34 @@
                         android:layout_marginLeft="0dp"
                         android:paddingLeft="0dp"
                         android:paddingTop="10sp"
-                        android:textColor="@color/cardview_dark_background"
+                        android:textColor="@color/design_default_color_error"
+                        android:textColorHint="@color/bootstrap_brand_primary"
                         android:textSize="20sp"
-                        app:bootstrapBrand="primary"
+                        app:bootstrapBrand="secondary"
                         app:bootstrapSize="md"
                         app:bootstrapText="{fa_share_alt} Share"
                         app:buttonMode="regular"
                         app:roundedCorners="true"
-                        app:showOutline="true" />
+                        app:showOutline="false" />
                 </LinearLayout>
 
             </LinearLayout>
-            <![CDATA[
 
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="385dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="10dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-
-
-
-
-
-        />
-
-
-
-
-    ]]>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

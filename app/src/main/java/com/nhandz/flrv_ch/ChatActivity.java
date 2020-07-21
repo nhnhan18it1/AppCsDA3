@@ -1,17 +1,28 @@
 package com.nhandz.flrv_ch;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.UiThread;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.inputmethodservice.Keyboard;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyboardShortcutGroup;
 import android.view.View;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
@@ -33,6 +44,10 @@ import com.nhandz.flrv_ch.Adapters.*;
 
 import com.nhandz.flrv_ch.ApiResuorce.*;
 
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
+import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
+import net.yslibrary.android.keyboardvisibilityevent.Unregistrar;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,7 +68,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         ActionBar actionBar = getSupportActionBar();
@@ -64,17 +79,12 @@ public class ChatActivity extends AppCompatActivity {
         listfriend lf = (listfriend) intent.getSerializableExtra("dataUserForChat");
         AX();
         event();
+
         new GetInforForChat(lf).execute();
-        CheckNodeConnect();
+        //CheckNodeConnect();
         MainActivity.mSocket.on("Server-send-messagePP", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-//                ArrayList<NodeMess> nodeMesses=new ArrayList<>();
-//                Gson gson =new Gson();
-//                NodeMess[] messes=gson.fromJson((JsonArray)args[0],NodeMess[].class);
-//                for (int i=0;i<messes.length;i++){
-//                    nodeMesses.add(messes[i]);
-//                }
                 JSONObject jsonObject= (JSONObject)args[0];
                 try {
                     listChats.add(new Chats("x",jsonObject.getString("ID"),jsonObject.getString("IDR"),jsonObject.getString("Content"),"0","",""));
@@ -95,6 +105,17 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
 //        initChat();
+    }
+
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) {
+            Log.e("ChatAc", "onConfigurationChanged: true" );
+        } else if (newConfig.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_YES) {
+            Log.e("ChatAc", "onConfigurationChanged: false" );
+        }
     }
 
     public void CheckNodeConnect(){
@@ -127,6 +148,9 @@ public class ChatActivity extends AppCompatActivity {
                 if (!txtMessContent.getText().toString().equals("")){
                     JSONObject jsonObject;
                     try {
+                        listChats.add(new Chats("", String.valueOf(MainActivity.OnAccount.getID()) ,String.valueOf(AccOnChat.getID()),txtMessContent.getText().toString(),"","",""));
+                        adt.notifyDataSetChanged();
+                        listContentMess.scrollToPosition(listChats.size()-1);
                         jsonObject=new JSONObject("{'ID':'"+MainActivity.OnAccount.getID()+"','IDR':'"+AccOnChat.getID()+"','Name':'"+MainActivity.OnAccount.getName()+"','Content':'"+txtMessContent.getText().toString()+"'}");
                         MainActivity.mSocket.emit("Client-send-messagePP",jsonObject);
                         new  MessSengerApi.SendMess(adt,listChats,

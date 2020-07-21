@@ -65,7 +65,7 @@ public class adapter_listfriend extends RecyclerView.Adapter<adapter_listfriend.
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, ChatActivity.class);
-
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("dataUserForChat",listfriends.get(position));
                 context.startActivity(intent);
         }

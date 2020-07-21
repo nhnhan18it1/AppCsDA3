@@ -2,21 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:pile="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pagehome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.pagehome.PageHomeFragment">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView_CTfragHome"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="false"
+        android:overScrollMode="ifContentScrolls"
+        
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/naviBar"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/naviBar">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,8 +27,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="#C40378AE"
+                android:layout_height="50dp"
+                android:background="#2196F3"
                 android:weightSum="12">
 
                 <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
@@ -40,31 +42,101 @@
                     app:bootstrapBrand="success"
                     app:bootstrapSize="sm"
                     app:hasBorder="false"
-                    app:layout_constraintEnd_toStartOf="@+id/textView5"
+                    app:layout_constraintEnd_toStartOf="@+id/bvm_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.beardedhen.androidbootstrap.BootstrapEditText
                     android:id="@+id/home_inputtus"
-                    android:layout_width="0dp"
-                    android:layout_height="35dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
                     android:layout_weight="10"
+                    android:layout_width="0dp"
+                    android:layout_height="33dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="0dp"
+                    android:shadowColor="@color/bootstrap_brand_primary"
+                    android:background="@color/bootstrap_brand_primary"
+
                     android:editable="false"
+                    android:layout_gravity="end|center"
                     android:hint="Bạn đang nghĩ gì?"
-                    app:bootstrapBrand="info"
+                    app:bootstrapBrand="secondary"
                     app:bootstrapSize="md"
                     app:roundedCorners="true" />
+
+
             </LinearLayout>
+
+<!--            <com.stone.pile.libs.PileLayout-->
+<!--                android:id="@+id/pileLayout"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:paddingTop="5dp"-->
+<!--                android:paddingBottom="5dp"-->
+<!--                pile:displayCount="1.8"-->
+<!--                pile:interval="10dp"-->
+<!--                pile:scaleStep="0.32"-->
+<!--                pile:sizeRatio="1.12" />-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="65dp"
+                    android:layout_height="51dp"
+                    android:layout_marginTop="75dp"
+                    android:background="@drawable/ssop"
+
+                    android:elevation="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginEnd="5dp"
+                    android:elevation="2dp"
+                    android:src="@drawable/ac11"
+                    app:bootstrapBrand="secondary"
+                    app:bootstrapSize="xl"
+                    app:hasBorder="false"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView4"
+                    app:layout_constraintTop_toTopOf="@+id/imageView4" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/home_rcyv_story"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bootstrap_brand_secondary_fill"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_rcyv_news"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="0dp" />
+                android:layout_marginTop="0dp" >
 
+
+            </androidx.recyclerview.widget.RecyclerView>
+            <com.github.ybq.android.spinkit.SpinKitView
+                android:id="@+id/spin_kit"
+                style="@style/SpinKitView.Large.RotatingCircle"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="75dp"
+                android:layout_gravity="center"
+                app:SpinKit_Color="@color/design_default_color_primary" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

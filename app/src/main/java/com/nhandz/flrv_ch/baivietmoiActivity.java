@@ -1,6 +1,7 @@
 package com.nhandz.flrv_ch;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,11 +12,13 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beardedhen.androidbootstrap.BootstrapCircleThumbnail;
@@ -25,6 +28,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,6 +46,7 @@ public class baivietmoiActivity extends AppCompatActivity {
     private Button btnPost;
     private ImageView imgVP;
     private String path="";
+    private TextView txtName;
     private int REQUEST_CODE_IMGCHOICE=123;
     private BootstrapCircleThumbnail avt;
     private BootstrapEditText txtcontent;
@@ -50,6 +55,10 @@ public class baivietmoiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baivietmoi);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setTitle("TIÊU ĐỀ ACTIVITY"); //Thiết lập tiêu đề nếu muốn
+        String title = actionBar.getTitle().toString(); //Lấy tiêu đề nếu muốn
+        actionBar.hide(); //Ẩn ActionBar nếu muốn
         anhxa();
         imgVP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,9 +90,11 @@ public class baivietmoiActivity extends AppCompatActivity {
         );
         Glide.with(getApplicationContext())
                 .load(url2)
-                .timeout(30000)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .timeout(3000)
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(avt);
+        txtName.setText(MainActivity.OnAccount.getName());
 
     }
 
@@ -96,7 +107,17 @@ public class baivietmoiActivity extends AppCompatActivity {
             try {
                 InputStream inputStream=getContentResolver().openInputStream(uri);
                 Bitmap bitmap= BitmapFactory.decodeStream(inputStream);
-                imgVP.setImageBitmap(bitmap);
+                Glide.with(getApplicationContext())
+                        .load(bitmap)
+                        .fitCenter()
+                        .timeout(5000)
+                        .skipMemoryCache(false)
+                        .fitCenter()
+                        .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .override((int)MainActivity.Screen_width,700)
+                        .error(R.drawable.logo)
+                        .into(imgVP);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -121,6 +142,7 @@ public class baivietmoiActivity extends AppCompatActivity {
         imgVP=findViewById(R.id.home_imgP);
         avt=findViewById(R.id.bvm_avt);
         txtcontent=findViewById(R.id.bvm_edtcontent);
+        txtName=findViewById(R.id.bvm_name);
     }
 
 
@@ -148,15 +170,17 @@ public class baivietmoiActivity extends AppCompatActivity {
             String content_type=getType(file.getPath());
             String file_path=file.getAbsolutePath();
             RequestBody file_Body=RequestBody.create(MediaType.parse(content_type),file);
+
             RequestBody requestBody=new MultipartBody.Builder()
-                    .addFormDataPart("file_img","abc",file_Body)
+                    .addFormDataPart("fileimg",file_path.substring(file_path.lastIndexOf("/")+1),file_Body)
+                    //.addFormDataPart("b64_img",encodedImage)
                     .addFormDataPart("Content",content)
                     .addFormDataPart("IDND",IDND)
                     .setType(MultipartBody.FORM)
                     .build();
             Request request=new Request.Builder()
-                    .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ")
-                    .addHeader("Cookie", MainActivity.cookies)
+                    //.addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ")
+                    //.addHeader("Cookie", MainActivity.cookies)
                     .url(strings[0])
                     .post(requestBody)
                     .build();
@@ -177,6 +201,7 @@ public class baivietmoiActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+            Log.e("fpost", "onPostExecute: "+s );
             if (!s.equals("0")){
                 Toast.makeText(baivietmoiActivity.this, s, Toast.LENGTH_SHORT).show();
                 finish();

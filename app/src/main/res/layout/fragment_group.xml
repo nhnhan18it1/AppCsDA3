@@ -39,7 +39,7 @@
                     app:bootstrapBrand="success"
                     app:bootstrapSize="sm"
                     app:hasBorder="false"
-                    app:layout_constraintEnd_toStartOf="@+id/textView5"
+                    app:layout_constraintEnd_toStartOf="@+id/bvm_name"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 

@@ -36,9 +36,9 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_menu"
-        android:name="com.nhandz.flrv_ch.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.nhandz.flrv_ch.ui.dashboard.DashboardFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/page_menu_fragment" />
     <fragment
         android:id="@+id/groupFragment"
         android:name="com.nhandz.flrv_ch.GroupFragment"

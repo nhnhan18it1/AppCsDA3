@@ -25,7 +25,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static com.nhandz.flrv_ch.Service.Autosend.CHANNEL_1_ID;
+
 
 public class ConfigAutoSendActivity extends AppCompatActivity {
     private EditText txtContent;
@@ -105,28 +105,28 @@ public class ConfigAutoSendActivity extends AppCompatActivity {
                 new letSend(content,h,m).execute();
             }
 
-            else {
-                try {
-                    Log.e("rs_ausen", "onPostExecute: "+s );
-                    JSONObject jsonObject=new JSONObject(s);
-                    String status=jsonObject.getString("type");
-                    if (!status.equals("success")){
-                        new letSend(content,h,m).execute();
-                    }
-                    Notification nBui=new
-                            NotificationCompat.Builder(getApplicationContext(), CHANNEL_1_ID)
-                            .setSmallIcon(R.drawable.logo)
-                            .setContentTitle("Status send message")
-                            .setContentText(status)
-                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                            .setCategory(NotificationCompat.CATEGORY_PROMO)
-                            .build();
-                    NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(getApplicationContext());
-                    notificationManagerCompat.notify(1,nBui);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+//            else {
+//                try {
+//                    Log.e("rs_ausen", "onPostExecute: "+s );
+//                    JSONObject jsonObject=new JSONObject(s);
+//                    String status=jsonObject.getString("type");
+//                    if (!status.equals("success")){
+//                        new letSend(content,h,m).execute();
+//                    }
+//                    Notification nBui=new
+//                            NotificationCompat.Builder(getApplicationContext(), CHANNEL_1_ID)
+//                            .setSmallIcon(R.drawable.logo)
+//                            .setContentTitle("Status send message")
+//                            .setContentText(status)
+//                            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//                            .setCategory(NotificationCompat.CATEGORY_PROMO)
+//                            .build();
+//                    NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(getApplicationContext());
+//                    notificationManagerCompat.notify(1,nBui);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
 
 

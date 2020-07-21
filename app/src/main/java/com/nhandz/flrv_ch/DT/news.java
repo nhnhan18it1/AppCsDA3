@@ -11,6 +11,7 @@ public class news extends account implements Serializable {
     protected int CLike;
     protected String News_created_at;
     protected String News_updated_at;
+    private comments[] comments;
     //protected String name;
 
 
@@ -64,7 +65,20 @@ public class news extends account implements Serializable {
 
     }
 
-    public news(String name, String avt, int IDBV, int IDND, String content, String img, String type_content, int CLike, String news_created_at, String news_updated_at) {
+//    public news(String name, String avt, int IDBV, int IDND, String content, String img, String type_content, int CLike, String news_created_at, String news_updated_at) {
+//        super(name, avt);
+//        this.IDBV = IDBV;
+//        this.IDND = IDND;
+//        Content = content;
+//        Img = img;
+//        this.type_content = type_content;
+//        this.CLike = CLike;
+//        News_created_at = news_created_at;
+//        News_updated_at = news_updated_at;
+//
+//    }
+
+    public news(String name, String avt, int IDBV, int IDND, String content, String img, String type_content, int CLike, String news_created_at, String news_updated_at,comments[] comments) {
         super(name, avt);
         this.IDBV = IDBV;
         this.IDND = IDND;
@@ -74,6 +88,7 @@ public class news extends account implements Serializable {
         this.CLike = CLike;
         News_created_at = news_created_at;
         News_updated_at = news_updated_at;
+        this.comments=comments;
     }
 
     public news(){
@@ -87,6 +102,7 @@ public class news extends account implements Serializable {
         String updated_at=null;
         String name=null;
     }
+
 
 
 
@@ -160,5 +176,9 @@ public class news extends account implements Serializable {
 
     public void setUpdated_at(String updated_at) {
         this.News_updated_at = updated_at;
+    }
+
+    public comments[] getCmt() {
+        return comments;
     }
 }

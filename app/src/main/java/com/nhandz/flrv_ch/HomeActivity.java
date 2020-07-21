@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -18,6 +19,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -30,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -44,6 +47,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
 import com.nhandz.flrv_ch.Adapters.adapter_comment;
@@ -67,6 +71,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.beardedhen.androidbootstrap.*;
+import com.nhandz.flrv_ch.Service.ReceiveMess;
+import com.nhandz.flrv_ch.ui.pagehome.PageHomeFragment;
 
 
 public class HomeActivity extends AppCompatActivity implements SendIDBV {
@@ -87,8 +93,9 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
     ArrayList<comments> listCMT=new ArrayList<>();
     public static adapter_comment adapterCMT=null;
     private LinearLayout linearLayout_Header;
-    private RelativeLayout relativeLayout_ctnComments;
+    private CardView relativeLayout_ctnComments;
     private BottomNavigationView bottomNavigationView;
+    private ImageButton btnCloseDr;
     SendIDBV sendIDBV;
 
 
@@ -102,6 +109,8 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         actionBar.setTitle("TIÊU ĐỀ ACTIVITY"); //Thiết lập tiêu đề nếu muốn
         String title = actionBar.getTitle().toString(); //Lấy tiêu đề nếu muốn
         actionBar.hide(); //Ẩn ActionBar nếu muốn
+        Intent intent=new Intent(HomeActivity.this, ReceiveMess.class);
+        startService(intent);
         Anhxa();
         //sendIDBV.SendDrawerlayout(drawerLayout);
         initView2();
@@ -112,7 +121,12 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-
+        BadgeDrawable badgeDrawable=bottomNavigationView.getOrCreateBadge(R.id.navigation_notifications);
+        badgeDrawable.setBackgroundColor(Color.RED);
+        badgeDrawable.setBadgeTextColor(Color.WHITE);
+        badgeDrawable.setMaxCharacterCount(3);
+        badgeDrawable.setNumber(20);
+        badgeDrawable.setVisible(true);
         GlideUrl url2=new GlideUrl(MainActivity.serverImg+""+LoginActivity.Avt,
                 new LazyHeaders.Builder()
                         .addHeader("Cookie",MainActivity.cookies)
@@ -127,13 +141,24 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
             }
         });
         adapter_home_news.drawerLayout=drawerLayout;
+        btnCloseDr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.closeDrawers();
+            }
+        });
 
     }
     public void Anhxa(){
         avtfix=findViewById(R.id.home_avtfix);
         txtinputtus=findViewById(R.id.home_inputtus);
         btnmess=findViewById(R.id.home_btnmess);
+        btnCloseDr=findViewById(R.id.atvt_home_closeDrawer);
+
         drawerLayout=findViewById(R.id.home_drawermain);
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+
+
         linearLayout_Header=findViewById(R.id.avtHome_header);
         //drawerLayout.openDrawer(Gravity.CENTER);
         relativeLayout_ctnComments=findViewById(R.id.avtHome_ctnComments);
@@ -145,6 +170,8 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         relativeLayout_ctnComments.requestLayout();
         Log.e("headWidth", "Anhxa: "+width );
         bottomNavigationView=findViewById(R.id.naviBar);
+        //bottomNavigationView.set
+
 
 
     }
@@ -209,8 +236,13 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
 //        recyclerView.getLayoutManager().scrollToPosition(0);
 //        new NewsApi.getNews(listnews,adt).execute(MainActivity.server+"/api/getnews");
 //        listnews.removeAll(listnews);
-
+        if (bottomNavigationView.getSelectedItemId()==R.id.navigation_home){
+            PageHomeFragment.reLoadNews();
+        }
         Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+        if (PageHomeFragment.nestedScrollView!=null){
+            PageHomeFragment.nestedScrollView.smoothScrollTo(0,0);
+        }
     }
 
     public String getRealPathFromURI(Uri contentUri) {
@@ -225,21 +257,32 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
             return cursor.getString(column_index);
     }
 
-    @Override
-    public void GetID(String IDBV) {
-        Log.e("idbvclick", "GetID: "+IDBV+"-"+listCMT.size() );
-//            if (adapterCMT!=null) Log.e("adt", "Getadt: !=null" );
-//            else Log.e("adt", "Getadt: =null" );
-        callapi(IDBV);
-    }
-
 
     public void callapi(String IDBV){
-        if (adapterCMT!=null) Log.e("adt", "Getadt: !=null" );
-        else Log.e("adt", "Getadt: =null" );
-        //listCMT.removeAll(listCMT);
-        adapterCMT.notifyDataSetChanged();
+
         new apicmt(adapterCMT).execute(IDBV);
+    }
+
+    @Override
+    public void GetCmt(comments[] cmt) {
+        Log.e("idbvclick", "GetCmt: "+cmt.length+"-"+listCMT.size() );
+//            if (adapterCMT!=null) Log.e("adt", "Getadt: !=null" );
+//            else Log.e("adt", "Getadt: =null" );
+        //callapi(IDBV);
+        ArrayList<comments> cmm=new ArrayList<>();
+        if (adapterCMT!=null){
+            Log.e("adt", "Getadt: !=null" );
+            //listCMT.removeAll(listCMT);
+            for (int i=0;i<cmt.length;i++){
+                cmm.add(cmt[i]);
+            }
+
+        }
+        else Log.e("adt", "Getadt: =null" );
+        adapterCMT.UpdateData(cmm);
+        adapterCMT.notifyDataSetChanged();
+
+        //listCMT.removeAll(listCMT);
     }
 
 

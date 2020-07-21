@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -91,10 +92,10 @@ public class adapter_ContentChat extends RecyclerView.Adapter<adapter_ContentCha
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        BootstrapLabel bootstrapLabel;
+        TextView bootstrapLabel;
         LinearLayout Container;
         BootstrapCircleThumbnail avtF;
-        BootstrapLabel bootstrapLabel2;
+        TextView bootstrapLabel2;
         LinearLayout Container2;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

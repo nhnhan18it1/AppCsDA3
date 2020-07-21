@@ -4,6 +4,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,15 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Login(MainActivity.server+"/api/login");
-                //Login2(MainActivity.server+"/api/login");
-//                if (json!=""){
-//                    //new ReadJsonAcc().execute(json);
-//                    new GLogin().execute(json);
-//
-//                }
-//                else {
-//                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
-//                }
+                //new  LoginX().execute();
 
 
             }
@@ -213,6 +206,44 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    public class LoginX extends AsyncTask<Void,Void,String>{
+
+        OkHttpClient okHttpClient =new OkHttpClient.Builder()
+                .build();
+        private  String user = txtUser.getText().toString().trim();
+        private  String pass = pwfPass.getText().toString().trim();
+        @Override
+        protected String doInBackground(Void... voids) {
+            RequestBody requestBody=new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("username",user)
+                    .addFormDataPart("password",pass)
+                    .build();
+
+            okhttp3.Request request=new okhttp3.Request.Builder()
+                    .url(MainActivity.server+"/api/login")
+                    .method("post",requestBody)
+                    .build();
+            try {
+                okhttp3.Response response=okHttpClient.newCall(request).execute();
+                return response.body().string();
+            } catch (IOException e) {
+                //e.printStackTrace();
+                Log.e("getnews", "doInBackground: "+e );
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s!=null){
+                new GLogin().execute(s);
+            }
+
+        }
+    }
+
     private class GLogin extends AsyncTask<String,Void,String>{
 
 
@@ -224,7 +255,7 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-
+            Log.e("login", "onPostExecute: "+s );
             //Toast.makeText(LoginActivity.this, account.toString(), Toast.LENGTH_SHORT).show();
             Gson gson=new Gson();
             account[] accounts=gson.fromJson(s,account[].class);
@@ -241,7 +272,9 @@ public class LoginActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             MainActivity.mSocket.emit("client-send-ID",jsonObject);
-
+            SharedPreferences.Editor editor= MainActivity.getSharedPreferences().edit();
+            editor.putString("ID",String.valueOf(accounts[0].getID()));
+            editor.commit();
             Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
             startActivity(intent);
         }

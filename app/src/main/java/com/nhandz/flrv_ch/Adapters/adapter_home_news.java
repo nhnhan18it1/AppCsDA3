@@ -2,11 +2,14 @@ package com.nhandz.flrv_ch.Adapters;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -71,21 +74,22 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         }
         else {
             urlAvt=MainActivity.serverImg +""+data_news.get(position).getImg();
+            urlAvt=urlAvt.trim();
         }
         GlideUrl url1=new GlideUrl(urlAvt,
                 new LazyHeaders
                         .Builder()
-                        .addHeader("User-Agent",MainActivity.User_Agent)
-                        .addHeader("Cookie",MainActivity.cookies)
-                        .addHeader("XSRF-TOKEN","eyJpdiI6InNYRzRBSW9acWRJSW1sd0hDbUQzaWc9PSIsInZhbHVlIjoiRzlUVW5vQ293ZGJOQ2ZIVjdBRVlLZDRHbFBmaXk1MzcwVDdhaDJ2aEpBb09cL3NyRUR1VVMzKytKdkYxRVdHc2UiLCJtYWMiOiI4ZmExOWQ4ZWUwNWEwZjUyNDg4ZGU5MDEzZDQzYWY2NWYxN2Y4NGQ5NmY4ZWI5YWVjMTVhZGI2Nzk0ODM0YWEwIn0%3D")
                         .build()
                 );
         Glide
                 .with(context.getApplicationContext())
                 .load(url1)
-                .timeout(30000)
+                .timeout(3000)
                 .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .fitCenter()
+                //.centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                //.override((int)MainActivity.Screen_width,500)
                 .error(R.drawable.logo)
                 .into(holder.Imgcontent);
         holder.txtContent.setText(data_news.get(position).getContent());
@@ -99,8 +103,8 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         Glide
                 .with(context.getApplicationContext())
                 .load(url2)
-                .timeout(30000)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .timeout(3000)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.logo)
                 .into(holder.Imgavt);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -111,15 +115,15 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             }
         });
         holder.txtTime.setText("1 gio trước");
-
-
-        holder.ctnshare.setWeightSum(maxs/3);
-
-        holder.ctncmt.setWeightSum(maxs/3);
-
         holder.txtclike.setText(String.valueOf(data_news.get(position).getCLike())+" người đã thích");
         //Log.e("time", "onBindViewHolder: "+data_news.get(position).getCreated_at() );
-        new apicmt(holder.listcmt,holder.txtccmt).execute(String.valueOf(data_news.get(position).getIDBV()));
+        //new apicmt(holder.listcmt,holder.txtccmt).execute(String.valueOf(data_news.get(position).getIDBV()));
+        if (data_news.get(position).getCmt()==null){
+            holder.txtccmt.setText("0 bình luận");
+        }
+        else {
+            holder.txtccmt.setText(data_news.get(position).getCmt().length+" bình luận");
+        }
 
 
         holder.ctnlike.setWeightSum(maxs/3);
@@ -129,7 +133,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             public void onClick(View v) {
                 Log.e("letclick", "onClick: like" );
 
-                new postlike(String.valueOf(data_news.get(position).getIDBV()),String.valueOf(MainActivity.OnAccount.getID()),holder.iconlike,holder.txtclike).execute();
+                //new postlike(String.valueOf(data_news.get(position).getIDBV()),String.valueOf(MainActivity.OnAccount.getID()),holder.iconlike,holder.txtclike).execute();
                 //holder.iconlike.setTextColor(com.beardedhen.androidbootstrap.R.color.bootstrap_brand_primary);
                 //holder.txtlike.setTextColor(com.beardedhen.androidbootstrap.R.color.bootstrap_brand_primary);
 
@@ -140,7 +144,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.RIGHT);
                 sendIDBV=new HomeActivity();
-                sendIDBV.GetID(String.valueOf(data_news.get(position).getIDBV()));
+                sendIDBV.GetCmt(data_news.get(position).getCmt());
             }
         });
 

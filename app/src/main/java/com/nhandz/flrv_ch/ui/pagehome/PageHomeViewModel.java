@@ -15,23 +15,15 @@ import java.util.ArrayList;
 public class PageHomeViewModel extends ViewModel {
     private MutableLiveData<ArrayList<news>> mNews;
     private MutableLiveData<String> mAvt;
-    private adapter_home_news adt;
-    private ArrayList<news> listnews;
+    public static ArrayList<news> listnews;
 
     public PageHomeViewModel() {
         mNews=new MutableLiveData<>();
         mAvt=new MutableLiveData<>();
         mAvt.setValue(MainActivity.OnAccount.getAvt());
-
-    }
-
-    public void setDataRe(adapter_home_news adt,ArrayList<news> news){
-        this.adt=adt;
-        this.listnews=news;
-    }
-
-    public void UpdateDataNews(){
-        new NewsApi.getNews(listnews,adt).execute(MainActivity.server+"/api/getnews");
+        if (listnews!=null){
+            mNews.setValue(listnews);
+        }
     }
 
     public LiveData<String> getAvt(){
@@ -40,5 +32,8 @@ public class PageHomeViewModel extends ViewModel {
 
     public LiveData<ArrayList<news>> getNews(){return mNews;}
 
+    public MutableLiveData<ArrayList<news>> getmNews() {
+        return mNews;
+    }
     // TODO: Implement the ViewModel
 }

@@ -29,8 +29,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class Autosend extends Service {
-    public static final String CHANNEL_1_ID="Channel 1";
-    public static final String CHANNEL_2_ID="Channel 2";
+    public String CHANNEL_1_ID="Channel 1";
+    public String CHANNEL_2_ID="Channel 2";
     String Content;
     String h;
     String m;

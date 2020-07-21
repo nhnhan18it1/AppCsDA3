@@ -70,8 +70,7 @@ public class MessSengerApi {
             Log.e("sendMess", "onPostExecute: "+s );
             if (!s.equals(null)){
                if (s.equals("success!")){
-                   chatsArrayList.add(new Chats("",IDsend,IDeceive,Content,"","",""));
-                   adt.notifyDataSetChanged();
+
                }
                else {
                    Toast.makeText(context, "Tin nhắn Chưa Được gửi!!!", Toast.LENGTH_SHORT).show();

@@ -53,8 +53,8 @@ public class adapter_comment extends RecyclerView.Adapter<adapter_comment.ViewHo
         Glide.
                 with(context.getApplicationContext())
                 .load(url)
-                .timeout(30000)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .timeout(5000)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.thongbao)
                 .into(holder.imgAvt);
         holder.txtname.setText(data_comments.get(position).getName());

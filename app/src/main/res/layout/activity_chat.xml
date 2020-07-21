@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_marginTop="1dp"
-        android:background="#F1FBFD"
+        android:background="#FFFFFF"
         android:weightSum="14"
+        app:layout_constraintBottom_toTopOf="@+id/chatAc_listMess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,31 +26,29 @@
             app:bootstrapBrand="secondary"
             app:bootstrapText="{fa_arrow_left}"
             app:buttonMode="regular"
-            app:showOutline="false"
-            />
+            app:showOutline="false" />
 
         <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
             android:id="@+id/chatAc_Avt"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
             android:layout_gravity="center"
+            android:layout_weight="2"
             android:src="@drawable/icons_search"
             app:bootstrapBrand="secondary"
             app:bootstrapSize="xl"
-            app:hasBorder="false"
-            />
+            app:hasBorder="false" />
 
         <TextView
             android:id="@+id/chatAc_Name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
+            android:background="#00FFFFFF"
+            android:paddingStart="4dp"
             android:text="TextView"
             android:textSize="18sp"
-            android:paddingStart="4dp"
             android:textStyle="bold"
-            android:background="@color/bootstrap_thumbnail_background"
 
             />
 
@@ -61,8 +60,7 @@
             app:bootstrapBrand="secondary"
             app:bootstrapText="{fa_phone_square}"
             app:buttonMode="regular"
-            app:showOutline="false"
-           />
+            app:showOutline="false" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/chatAc_btnVideocall"
@@ -81,7 +79,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             app:bootstrapBrand="secondary"
-
+            android:layout_gravity="end"
             app:bootstrapText="{fa_info_circle}"
             app:buttonMode="regular"
             app:roundedCorners="true"
@@ -106,7 +104,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatAc_listMess"
         android:layout_width="match_parent"
-        android:layout_height="631dp"
+        android:layout_height="650dp"
         android:layout_marginTop="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -118,6 +116,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="1dp"
         android:layout_marginEnd="1dp"
+        android:background="@color/bootstrap_brand_secondary_border"
         android:weightSum="10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
