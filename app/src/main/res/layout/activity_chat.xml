@@ -13,7 +13,6 @@
         android:layout_marginTop="1dp"
         android:background="#FFFFFF"
         android:weightSum="14"
-        app:layout_constraintBottom_toTopOf="@+id/chatAc_listMess"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -77,9 +76,9 @@
             android:id="@+id/chatAc_btnInfor"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_gravity="end"
             android:layout_weight="2"
             app:bootstrapBrand="secondary"
-            android:layout_gravity="end"
             app:bootstrapText="{fa_info_circle}"
             app:buttonMode="regular"
             app:roundedCorners="true"
@@ -96,19 +95,19 @@
         android:background="#D7E0E6"
         android:backgroundTint="#999EA1"
         android:outlineAmbientShadowColor="#B3B3B3"
-        app:layout_constraintBottom_toTopOf="@+id/chatAc_listMess"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chatAc_listMess"
         android:layout_width="match_parent"
-        android:layout_height="650dp"
-        android:layout_marginTop="1dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider4" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/constraintLayout4"

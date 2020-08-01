@@ -1,13 +1,32 @@
 package com.nhandz.flrv_ch.DT;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Notification {
+    @SerializedName("ID")
+    @Expose
     private  String ID;
+    @SerializedName("IDBV")
+    @Expose
     private  String IDBV;
+    @SerializedName("IDNG")
+    @Expose
     private  String IDNG;
+    @SerializedName("Type")
+    @Expose
     private  String Type;
+    @SerializedName("isRead")
+    @Expose
     private  boolean isRead;
+    @SerializedName("created_at")
+    @Expose
     private  String created_at;
+    @SerializedName("updated_at")
+    @Expose
     private  String updated_at;
+    @SerializedName("accountx")
+    @Expose
     private  account accountx;
 
     public Notification(String ID, String IDBV, String IDNG, String type, boolean isRead, String created_at, String updated_at, account accountx) {

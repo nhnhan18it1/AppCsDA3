@@ -1,11 +1,17 @@
 package com.nhandz.flrv_ch;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +43,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import com.nhandz.flrv_ch.Alert.*;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private static SharedPreferences sharedPreferences;
     public static float Screen_width;
     public static float Screen_height;
+    private static final int ALL_PERMISSIONS_CODE = 1 ;
+    Dialog alert_login;
     Button btnnext;
     TextviewFont textviewFont;
     protected boolean shouldAskPermissions() {
@@ -69,7 +79,20 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences getSharedPreferences(){
         return sharedPreferences;
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
+        if (requestCode == ALL_PERMISSIONS_CODE
+                && grantResults.length == 2
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            // all permissions granted
+            //start();
+        } else {
+            //finish();
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,16 +106,32 @@ public class MainActivity extends AppCompatActivity {
         Screen_height = displayMetrics.heightPixels;
         Screen_width = displayMetrics.widthPixels;
         askPermissions();
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET,Manifest.permission.READ_EXTERNAL_STORAGE}, ALL_PERMISSIONS_CODE);
+        } else {
+            // all permissions already granted
+            //start();
+        }
+        alert_login=new Dialog(this);
+        alert_login.setContentView(R.layout.alert_readylogin);
+        alert_login.setCanceledOnTouchOutside(false);
+        alert_login.show();
+        if (OnAccount!=null){
+            Intent intent=new Intent(MainActivity.this,HomeActivity.class);
+            startActivity(intent);
+        }
         try {
             mSocket= IO.socket(Nodeserver);
-
+            mSocket.connect();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
 
-        mSocket.connect();
+
         sharedPreferences=getSharedPreferences("clientConfig",MODE_PRIVATE);
         String s = sharedPreferences.getString("ID","");
+
         if (s==""){
             Log.e("MainAc", "onCreate: Not login" );
             Intent intent=new Intent(MainActivity.this,LoginActivity.class);
@@ -154,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public class LoadFullInfor extends AsyncTask<Void,String,String>{
         OkHttpClient okHttpClient=new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
                 .build();
 
         private String ID;
@@ -169,8 +209,8 @@ public class MainActivity extends AppCompatActivity {
                     .addFormDataPart("ID",ID)
                     .build();
             Request request=new Request.Builder()
-                    .addHeader("cookies",cookies)
-                    .addHeader("User_Agent",User_Agent)
+//                    .addHeader("cookies",cookies)
+//                    .addHeader("User_Agent",User_Agent)
                     .url(MainActivity.server+"/api/loadInforUser_full")
                     .post(requestBody)
                     .build();
@@ -210,6 +250,11 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
+            }
+            else if (s==null||s=="[]"){
+                alert_login.dismiss();
+                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
             }
         }
     }

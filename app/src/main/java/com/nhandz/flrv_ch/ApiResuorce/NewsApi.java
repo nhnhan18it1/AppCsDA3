@@ -6,12 +6,15 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.MemoryCategory;
 import com.google.gson.Gson;
 import com.nhandz.flrv_ch.DT.news;
 import com.nhandz.flrv_ch.MainActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -22,8 +25,10 @@ import com.nhandz.flrv_ch.Adapters.*;
 import com.nhandz.flrv_ch.ui.pagehome.PageHomeFragment;
 import com.nhandz.flrv_ch.DT.*;
 import com.nhandz.flrv_ch.ui.pagehome.PageHomeViewModel;
+import com.stone.pile.libs.PileLayout;
 
 public class NewsApi {
+
     public static class getNews extends AsyncTask<String,Void,String> {
 
         private ArrayList<news> listnews;
@@ -32,6 +37,10 @@ public class NewsApi {
         private MutableLiveData<ArrayList<news>> mlistnews2;
         private String Ck;
         OkHttpClient okHttpClient =new OkHttpClient.Builder()
+                .connectTimeout(20, TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(20, TimeUnit.SECONDS)
+                .retryOnConnectionFailure(true)
                 .build();
 
         public getNews(ArrayList<news> listnews, adapter_home_news adt) {
@@ -79,8 +88,6 @@ public class NewsApi {
                     .addFormDataPart("offset",off)
                     .build();
             Request request=new Request.Builder()
-                    .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ")
-                    .addHeader("Cookie", MainActivity.cookies)
                     .url(MainActivity.server+"/api/getnews2")
                     .post(requestBody)
                     .build();
@@ -88,10 +95,11 @@ public class NewsApi {
                 Response response=okHttpClient.newCall(request).execute();
                 return response.body().string();
             } catch (IOException e) {
-                //e.printStackTrace();
-                Log.e("getnews", "doInBackground: "+e );
+                e.printStackTrace();
+                Log.e("getnews", "doInBackground: "+e+off );
+                return null;
             }
-            return null;
+
         }
 
         @Override
@@ -128,10 +136,12 @@ public class NewsApi {
                     }
                 }
                 adt.notifyDataSetChanged();
-                PageHomeFragment.isLoading=false;
+
             }
-
-
+            PageHomeFragment.isLoading=false;
+            if (PageHomeFragment.swipeRefreshLayout!=null){
+                PageHomeFragment.swipeRefreshLayout.setRefreshing(false);
+            }
         }
     }
     public static class getStory extends AsyncTask<Void,Void,String>{
@@ -142,11 +152,18 @@ public class NewsApi {
 
         private ArrayList<Story> stories;
         private adapter_story adapter_story;
-
+        private PileLayout pileLayout;
+        private PileLayout.Adapter adt;
         public getStory( ArrayList<Story> stories, com.nhandz.flrv_ch.Adapters.adapter_story adapter_story) {
 
             this.stories = stories;
             this.adapter_story = adapter_story;
+        }
+
+        public getStory(ArrayList<Story> stories, PileLayout pileLayout,PileLayout.Adapter adt) {
+            this.stories = stories;
+            this.pileLayout = pileLayout;
+            this.adt=adt;
         }
 
         @Override
@@ -176,14 +193,93 @@ public class NewsApi {
             if (s!=null && !s.equals("[]") && s.indexOf("html")==(-1)){
                 Gson gson=new Gson();
                 Story[] sts=gson.fromJson(s,Story[].class);
-                if (PageHomeFragment.first){
+                if (pileLayout!=null){
                     stories.removeAll(stories);
-                    PageHomeFragment.first=false;
+                    for ( Story st:sts ) {
+                        stories.add(st);
+                    }
+                    pileLayout.notifyDataSetChanged();
+                    //adt.notify();
+//                    adt.notifyAll();
                 }
-                for ( Story st:sts ) {
-                    stories.add(st);
+                else {
+                    if (PageHomeFragment.first){
+                        stories.removeAll(stories);
+                        PageHomeFragment.first=false;
+                    }
+                    for ( Story st:sts ) {
+                        stories.add(st);
+                    }
+                    adapter_story.notifyDataSetChanged();
                 }
-                adapter_story.notifyDataSetChanged();
+
+            }
+
+
+        }
+    }
+    public static class getNewsProfile extends AsyncTask<String,Void,String> {
+
+        private ArrayList<news> listnews;
+        private adapter_home_news adt;
+        OkHttpClient okHttpClient =new OkHttpClient.Builder()
+                .retryOnConnectionFailure(true)
+                .build();
+
+        public getNewsProfile(ArrayList<news> listnews, adapter_home_news adt) {
+            this.listnews = listnews;
+            this.adt = adt;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String off="";
+            off=String.valueOf(listnews.size());
+
+
+            RequestBody requestBody=new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("offset",off)
+                    .build();
+            Request request=new Request.Builder()
+                    .url(MainActivity.server+"/api/getnews2")
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response=okHttpClient.newCall(request).execute();
+                return response.body().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Log.e("getnews", "doInBackground: "+e );
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Gson gson=new Gson();
+            Log.e("newApi", "onPostExecute: "+s );
+            if (s!=null){
+                news[] newsx=gson.fromJson(s, com.nhandz.flrv_ch.DT.news[].class);
+                //Toast.makeText(HomeActivity.this, s, Toast.LENGTH_SHORT).show();
+
+                for (int i=0;i<newsx.length;i++){
+                    if (newsx[i]!=null){
+                        if (newsx[i].getCmt()!=null){
+                            //Log.e("ness", "onPostExecute: "+newsx[i].getCmt() );
+                        }
+                        listnews.add(newsx[i]);
+                    }
+                }
+                adt.notifyDataSetChanged();
+
             }
 
 

@@ -72,6 +72,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.beardedhen.androidbootstrap.*;
 import com.nhandz.flrv_ch.Service.ReceiveMess;
+import com.nhandz.flrv_ch.VideoCall.RCallActivity;
+import com.nhandz.flrv_ch.VideoCall.SendCallActivity;
 import com.nhandz.flrv_ch.ui.pagehome.PageHomeFragment;
 
 
@@ -96,6 +98,11 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
     private CardView relativeLayout_ctnComments;
     private BottomNavigationView bottomNavigationView;
     private ImageButton btnCloseDr;
+    private BootstrapButton btnFacebook;
+    private BootstrapButton btnSendCmt;
+    private BootstrapEditText txtCmt;
+    private BootstrapButton btnSearch;
+    public static int OnIDBV=0;
     SendIDBV sendIDBV;
 
 
@@ -109,7 +116,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         actionBar.setTitle("TIÊU ĐỀ ACTIVITY"); //Thiết lập tiêu đề nếu muốn
         String title = actionBar.getTitle().toString(); //Lấy tiêu đề nếu muốn
         actionBar.hide(); //Ẩn ActionBar nếu muốn
-        Intent intent=new Intent(HomeActivity.this, ReceiveMess.class);
+        final Intent intent=new Intent(HomeActivity.this, ReceiveMess.class);
         startService(intent);
         Anhxa();
         //sendIDBV.SendDrawerlayout(drawerLayout);
@@ -147,19 +154,56 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
                 drawerLayout.closeDrawers();
             }
         });
+        btnFacebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopService(intent);
+            }
+        });
+        btnSendCmt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (adapter_comment.data_comments!=null){
+                    adapter_comment.data_comments.add(new comments(OnIDBV,
+                            MainActivity.OnAccount.getID(),
+                            MainActivity.OnAccount.getName(),
+                            MainActivity.OnAccount.getAvt(),
+                            txtCmt.getText().toString(),
+                            "",
+                            ""));
+                }
+                adapterCMT.notifyDataSetChanged();
+                new SendCmt().execute();
 
+            }
+        });
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1=new Intent(HomeActivity.this, RCallActivity.class);
+                startActivity(intent1);
+            }
+        });
+        btnSearch.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Intent intent1=new Intent(HomeActivity.this, SendCallActivity.class);
+                startActivity(intent1);
+                return false;
+            }
+        });
     }
     public void Anhxa(){
         avtfix=findViewById(R.id.home_avtfix);
         txtinputtus=findViewById(R.id.home_inputtus);
         btnmess=findViewById(R.id.home_btnmess);
         btnCloseDr=findViewById(R.id.atvt_home_closeDrawer);
-
+        btnFacebook=findViewById(R.id.avtHome_facebook);
         drawerLayout=findViewById(R.id.home_drawermain);
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
-
+        btnSendCmt=findViewById(R.id.home_adt_sendcmt);
         linearLayout_Header=findViewById(R.id.avtHome_header);
+        txtCmt=findViewById(R.id.home_adt_ipcmt);
         //drawerLayout.openDrawer(Gravity.CENTER);
         relativeLayout_ctnComments=findViewById(R.id.avtHome_ctnComments);
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -171,7 +215,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         Log.e("headWidth", "Anhxa: "+width );
         bottomNavigationView=findViewById(R.id.naviBar);
         //bottomNavigationView.set
-
+        btnSearch=findViewById(R.id.avtHome_search);
 
 
     }
@@ -226,6 +270,9 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         recyclerViewCMT.setLayoutManager(linearLayoutManagerCMT);
         adapterCMT=new adapter_comment(listCMT,getApplicationContext());
         recyclerViewCMT.setAdapter(adapterCMT);
+        ViewGroup.LayoutParams params=recyclerViewCMT.getLayoutParams();
+        params.height=(int)(MainActivity.Screen_height-330);
+        recyclerViewCMT.setLayoutParams(params);
         //listCMT.add(new comments(1,2,"asd","asd","asd","sad","asd"));
         //adapterCMT.notifyDataSetChanged();
     }
@@ -264,11 +311,12 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
     }
 
     @Override
-    public void GetCmt(comments[] cmt) {
+    public void GetCmt(comments[] cmt,int IDBV) {
         Log.e("idbvclick", "GetCmt: "+cmt.length+"-"+listCMT.size() );
 //            if (adapterCMT!=null) Log.e("adt", "Getadt: !=null" );
 //            else Log.e("adt", "Getadt: =null" );
         //callapi(IDBV);
+        OnIDBV=IDBV;
         ArrayList<comments> cmm=new ArrayList<>();
         if (adapterCMT!=null){
             Log.e("adt", "Getadt: !=null" );
@@ -337,5 +385,55 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         }
     }
 
+    public class SendCmt extends AsyncTask<Void,Void,String>
+    {
+        String cmtct="";
+        OkHttpClient okHttpClient=new OkHttpClient.Builder()
+                .build();
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            cmtct=txtCmt.getText().toString();
+            txtCmt.setText("");
+        }
+
+        @Override
+        protected String doInBackground(Void... voids) {
+            if (OnIDBV==0){
+                return null;
+            }
+            if (cmtct.equals("")||cmtct.equals(null)){
+                return null;
+            }
+            RequestBody requestBody=new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    .addFormDataPart("IDBV",String.valueOf(OnIDBV))
+                    .addFormDataPart("ID",String.valueOf(MainActivity.OnAccount.getID()))
+                    .addFormDataPart("Avt",MainActivity.OnAccount.getAvt())
+                    .addFormDataPart("Name",MainActivity.OnAccount.getName())
+                    .addFormDataPart("CmtContent",cmtct)
+                    .addFormDataPart("Content","Cũng đã bình luận về bài viết")
+                    .build();
+            Request request=new Request.Builder()
+                    .url(MainActivity.server+"/api/scmt")
+                    .post(requestBody)
+                    .build();
+            try {
+                Response response=okHttpClient.newCall(request).execute();
+                return response.body().string();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+
+
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.e("heme_sencmt", "onPostExecute: "+s );
+        }
+    }
 }

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.MemoryCategory;
 import com.nhandz.flrv_ch.ApiResuorce.NewsApi;
+import com.nhandz.flrv_ch.ApiResuorce.Utils2;
 import com.nhandz.flrv_ch.DT.news;
 import com.nhandz.flrv_ch.HomeActivity;
 import com.nhandz.flrv_ch.MainActivity;
@@ -35,6 +37,10 @@ import com.nhandz.flrv_ch.Adapters.*;
 import com.beardedhen.androidbootstrap.*;
 import com.nhandz.flrv_ch.baivietmoiActivity;
 import com.stone.pile.libs.*;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.nhandz.flrv_ch.MainActivity.server;
 
@@ -57,10 +63,12 @@ public class PageHomeFragment extends Fragment {
     public static NestedScrollView nestedScrollView;
     private EditText inputNews;
     private RecyclerView rVwStory;
+    public static SwipeRefreshLayout swipeRefreshLayout;
     public static boolean isLoading=false;
     public static adapter_story adtStory;
     public static ArrayList<Story> stories;
     public static boolean first=true;
+    private static int count=0;
 
 
     @Nullable
@@ -77,8 +85,27 @@ public class PageHomeFragment extends Fragment {
     public static void reLoadNews(){
         if (recyclerViewNews!=null && adt!=null){
                 //listnews.removeAll(listnews);
-             new NewsApi.getNews(listnews,adt,"reload").execute(server+"/api/getnews");
+             //new NewsApi.getNews(listnews,adt,"reload").execute(server+"/api/getnews");
              recyclerViewNews.scrollToPosition(0);
+             swipeRefreshLayout.setRefreshing(true);
+             count=0;
+            Utils2.getInstance().getRetrofitInstance().getNews("0").enqueue(new Callback<news[]>() {
+                @Override
+                public void onResponse(Call<news[]> call, Response<news[]> response) {
+                    Log.e("F_home", "onResponse: "+response.body().length );
+                    listnews.removeAll(listnews);
+                    for (news n:response.body()
+                         ) {
+                        listnews.add(n);
+                    }
+                    adt.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<news[]> call, Throwable t) {
+                    Log.e("F_home", "onResponse: "+t.getMessage() );
+                }
+            });
         }
     }
 
@@ -101,16 +128,25 @@ public class PageHomeFragment extends Fragment {
                         .into(Avt);
             }
         });
+        if (MainActivity.OnAccount!=null){
+            Glide.with(getContext())
+                    .load(MainActivity.serverImg+""+MainActivity.OnAccount.getAvt())
+                    .error(R.drawable.logo)
+                    .into(Avt);
+        }
+
         if (mViewModel.getmNews().getValue()==null){
             if (PageHomeViewModel.listnews!=null){
                 listnews=PageHomeViewModel.listnews;
                 initRecycleView();
-                new NewsApi.getNews(listnews,adt,mViewModel.getNews()).execute(server+"/api/test1");
+                //new NewsApi.getNews(listnews,adt,mViewModel.getNews()).execute(server+"/api/test1");
+                getLnews(String.valueOf(listnews.size()));
             }
             else {
                 listnews=new ArrayList<>();
                 initRecycleView();
-                new NewsApi.getNews(listnews,adt,mViewModel.getNews()).execute(server+"/api/test1");
+                //new NewsApi.getNews(listnews,adt,mViewModel.getNews()).execute(server+"/api/test1");
+                getLnews(String.valueOf(listnews.size()));
             }
         }
         else {
@@ -145,7 +181,15 @@ public class PageHomeFragment extends Fragment {
             }
         });
 
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listnews.removeAll(listnews);
+                count=0;
+                //new NewsApi.getNews(listnews,adt,mViewModel.getNews()).execute(server+"/api/test1");
+                getLnews("0");
+            }
+        });
 
 //        pileLayout.setAdapter(new PileLayout.Adapter() {
 //
@@ -220,8 +264,9 @@ public class PageHomeFragment extends Fragment {
                 //Log.e("home_frag","y="+(scrollY-(v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()))+" x="+scrollX);
                 if (!isLoading){
                     if (scrollY-(v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight())==0){
-                        isLoading=true;
-                        new NewsApi.getNews(listnews,adt).execute(server+"/api/test1");
+                        //isLoading=true;
+                        getLnews(String.valueOf(listnews.size()));
+                        //new NewsApi.getNews(listnews,adt).execute(server+"/api/test1");
                         //adt.notifyDataSetChanged();
                     }
                 }
@@ -229,6 +274,42 @@ public class PageHomeFragment extends Fragment {
             }
         });
         inputNews=container.findViewById(R.id.home_inputtus);
+        swipeRefreshLayout=container.findViewById(R.id.swipeRefreshLayout);
+    }
+
+    public void getLnews(String s){
+        s=String.valueOf(10*count);
+        Log.e("F_home", "getLnews:s "+s );
+        if (isLoading){
+            return;
+        }
+        isLoading=true;
+        count++;
+        Utils2.getInstance().getRetrofitInstance().getNews(s).enqueue(new Callback<news[]>() {
+            @Override
+            public void onResponse(Call<news[]> call, Response<news[]> response) {
+                Log.e("F_home", "onResponse: "+response.body().length );
+                if (listnews.size()>=30){
+                    for (int i=0;i<10;i++)
+                    listnews.remove(i);
+                }
+                //listnews.removeAll(listnews);
+                for (news n:response.body()
+                ) {
+                    listnews.add(n);
+                }
+                adt.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
+                isLoading=false;
+            }
+
+            @Override
+            public void onFailure(Call<news[]> call, Throwable t) {
+                Log.e("F_home", "onResponse: "+t.getMessage() );
+                swipeRefreshLayout.setRefreshing(false);
+                isLoading=false;
+            }
+        });
     }
 
     private void initRecycleView(){
@@ -236,9 +317,9 @@ public class PageHomeFragment extends Fragment {
         final LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL,
                 false);
-
+        linearLayoutManager.setAutoMeasureEnabled(true);
         recyclerViewNews.setLayoutManager(linearLayoutManager);
-        adt=new adapter_home_news(listnews,getContext());
+        adt=new adapter_home_news(listnews,getContext(),getFragmentManager());
         recyclerViewNews.setAdapter(adt);
         recyclerViewNews.setNestedScrollingEnabled(false);
     }

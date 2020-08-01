@@ -1,7 +1,10 @@
 package com.nhandz.flrv_ch.Adapters;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.media.MediaBrowserCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
@@ -16,15 +19,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.DialogCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.beardedhen.androidbootstrap.api.attributes.BootstrapBrand;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
+import com.nhandz.flrv_ch.Alert.News_bottom_sheet;
 import com.nhandz.flrv_ch.DT.*;
 import com.nhandz.flrv_ch.HomeActivity;
 import com.nhandz.flrv_ch.MainActivity;
@@ -46,12 +53,17 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
     Context context;
     public  static DrawerLayout drawerLayout;
     SendIDBV sendIDBV;
-
+    FragmentManager fragmentManager;
     public adapter_home_news(ArrayList<news> data_news, Context context) {
         this.data_news = data_news;
         this.context = context;
     }
 
+    public adapter_home_news(ArrayList<news> data_news, Context context, FragmentManager fragmentManager) {
+        this.data_news = data_news;
+        this.context = context;
+        this.fragmentManager = fragmentManager;
+    }
 
     @NonNull
     @Override
@@ -84,7 +96,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         Glide
                 .with(context.getApplicationContext())
                 .load(url1)
-                .timeout(3000)
+                .timeout(10000)
                 .skipMemoryCache(false)
                 .fitCenter()
                 //.centerCrop()
@@ -104,7 +116,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
                 .with(context.getApplicationContext())
                 .load(url2)
                 .timeout(3000)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .error(R.drawable.logo)
                 .into(holder.Imgavt);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -132,10 +144,11 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             @Override
             public void onClick(View v) {
                 Log.e("letclick", "onClick: like" );
+                holder.iconlike.getBootstrapBrand();
+                holder.iconlike.setTextColor(context.getResources().getColor(R.color.bootstrap_brand_danger));
+                holder.iconlike.setClickable(false);
+                new postlike(String.valueOf(data_news.get(position).getIDBV()),String.valueOf(MainActivity.OnAccount.getID()),holder.iconlike,holder.txtclike,data_news.get(position)).execute();
 
-                //new postlike(String.valueOf(data_news.get(position).getIDBV()),String.valueOf(MainActivity.OnAccount.getID()),holder.iconlike,holder.txtclike).execute();
-                //holder.iconlike.setTextColor(com.beardedhen.androidbootstrap.R.color.bootstrap_brand_primary);
-                //holder.txtlike.setTextColor(com.beardedhen.androidbootstrap.R.color.bootstrap_brand_primary);
 
             }
         });
@@ -144,7 +157,17 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             public void onClick(View v) {
                 drawerLayout.openDrawer(Gravity.RIGHT);
                 sendIDBV=new HomeActivity();
-                sendIDBV.GetCmt(data_news.get(position).getCmt());
+                sendIDBV.GetCmt(data_news.get(position).getCmt(),data_news.get(position).getIDBV());
+            }
+        });
+        holder.btnshowmn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (fragmentManager!=null){
+                    News_bottom_sheet news_bottom_sheet=new News_bottom_sheet();
+                    news_bottom_sheet.show(fragmentManager,"");
+                }
+
             }
         });
 
@@ -201,19 +224,24 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         private String IDNL;
         private BootstrapButton txticon;
         private TextView txtclike;
+        private news count;
 
         OkHttpClient okHttpClient=new OkHttpClient.Builder()
                 .build();
 
-        public postlike(String IDBV, String IDNL, BootstrapButton txticon,TextView cl) {
+        public postlike(String IDBV, String IDNL, BootstrapButton txticon,TextView cl,news c) {
             this.IDBV = IDBV;
             this.IDNL = IDNL;
             this.txticon=txticon;
             this.txtclike=cl;
             //this.txtTl = txtTl;
+            count=c;
         }
 
-
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
 
         @Override
         protected String doInBackground(Void... voids) {
@@ -228,8 +256,11 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
                     .url(MainActivity.server+"/api/postlike")
                     .post(requestBody)
                     .build();
+
             try {
+
                 Response response=okHttpClient.newCall(request).execute();
+
                 return response.body().string();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -245,15 +276,21 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             s=s.trim();
             Log.e("postlike", "onPostExecute: "+s );
             if (s.equals("true")){
-                txticon.setShowOutline(false);
+                txticon.setTextColor(context.getResources().getColor(R.color.bootstrap_brand_danger));
+                count.setCLike(count.getCLike()+1);
+                txtclike.setText((count.getCLike())+ " người đã thích");
             }
             else {
-                txticon.setShowOutline(true);
+                txticon.setTextColor(context.getResources().getColor(R.color.bootstrap_brand_secondary_text));
+                count.setCLike(count.getCLike()-1);
+                txtclike.setText((count.getCLike())+ " người đã thích");
+                //txticon.setShowOutline(true);
 //                txticon.setTextColor(R.color.bootstrap_gray);
 //                //txtTl.setTextColor(R.color.bootstrap_gray);
 //                txticon.setBackgroundColor(R.color.bootstrap_brand_success);
             }
-            new loadclike(IDBV,txtclike).execute();
+            txticon.setClickable(true);
+            //new loadclike(IDBV,txtclike).execute();
 
         }
     }
@@ -445,6 +482,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         LinearLayout ctncmt;
         LinearLayout ctnshare;
         DrawerLayout drawerLayout;
+        ImageButton btnshowmn;
         //TextView txtlike;
         //de.hdodenhof.circleimageview.CircleImageView cimgT;
 
@@ -468,6 +506,8 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             iconshare=itemView.findViewById(R.id.home_adt_iconshare);
             ctncmt=itemView.findViewById(R.id.home_adt_ctncmt);
             ctnshare=itemView.findViewById(R.id.home_adt_ctnshare);
+
+            btnshowmn=itemView.findViewById(R.id.item_news_showmn);
 
         }
     }

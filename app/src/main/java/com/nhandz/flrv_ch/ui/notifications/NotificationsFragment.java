@@ -17,21 +17,34 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.MemoryCategory;
 import com.google.gson.Gson;
+import com.nhandz.flrv_ch.ApiResuorce.Utils2;
 import com.nhandz.flrv_ch.MainActivity;
 import com.nhandz.flrv_ch.R;
 
 import java.io.IOException;
+import java.security.Timestamp;
 import java.util.ArrayList;
 import com.nhandz.flrv_ch.DT.*;
 import com.nhandz.flrv_ch.Adapters.*;
+import com.nhandz.flrv_ch.VideoCall.TurnServerPojo;
+import com.nhandz.flrv_ch.VideoCall.Utils;
 
+import org.json.JSONArray;
+
+import okhttp3.Cache;
+import okhttp3.ConnectionPool;
 import okhttp3.FormBody;
+import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class NotificationsFragment extends Fragment {
 
@@ -50,7 +63,7 @@ public class NotificationsFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
-
+        Glide.get(getContext()).setMemoryCategory(MemoryCategory.HIGH);
         itemView=root;
         Anhxa();
         return root;
@@ -101,7 +114,31 @@ public class NotificationsFragment extends Fragment {
         adt_notifi=new adapter_notification(Listnotifications,getContext());
         reNotifications.setAdapter(adt_notifi);
         if (notificationsViewModel.getmNotification().getValue()==null){
-            new LoadNoti().execute();
+            //new LoadNoti().execute();
+            Utils2.getInstance().getRetrofitInstance().getNotification(String.valueOf(MainActivity.OnAccount.getID())).enqueue(new Callback<Notification[]>() {
+                @Override
+                public void onResponse(Call<Notification[]> call, retrofit2.Response<Notification[]> response) {
+
+
+                    ArrayList ss=new ArrayList();
+                    for (Notification nt:response.body()
+                         ) {
+                        Listnotifications.add(nt);
+                        if (nt!=null){
+                            Log.e("F_notification","onResponse"+nt.getIDBV());
+                        }
+
+                    }
+                    adt_notifi.notifyDataSetChanged();
+                    //notificationsViewModel.setmNotification(Listnotifications);
+                    //adt_notifi.notifyDataSetChanged();
+                }
+
+                @Override
+                public void onFailure(Call<Notification[]> call, Throwable t) {
+                    Log.e("F_notification","onFailure"+t.getMessage());
+                }
+            });
         }
 
         notificationsViewModel.getmNotification().observe(getViewLifecycleOwner(), new Observer<ArrayList<Notification>>() {
@@ -140,8 +177,8 @@ public class NotificationsFragment extends Fragment {
                     .addFormDataPart("ID", String.valueOf(MainActivity.OnAccount.getID()))
                     .build();
             Request request=new Request.Builder()
-                    .addHeader("cookies",MainActivity.cookies)
-                    .addHeader("User_Agent",MainActivity.User_Agent)
+//                    .addHeader("cookies",MainActivity.cookies)
+//                    .addHeader("User_Agent",MainActivity.User_Agent)
                     .post(requestBody)
                     .url(MainActivity.server+"/api/loadAdvise")
                     .build();
@@ -171,18 +208,24 @@ public class NotificationsFragment extends Fragment {
     }
 
     public class LoadNoti extends AsyncTask<Void,Void,String>{
+
         OkHttpClient okHttpClient=new OkHttpClient.Builder()
-                .build();
+                .build()
+                ;
+
+
 
         @Override
         protected String doInBackground(Void... voids) {
+            okHttpClient.dispatcher().setMaxRequestsPerHost(50);
+            okHttpClient.dispatcher().executorService().shutdown();
             RequestBody requestBody=new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
                     .addFormDataPart("ID", String.valueOf(MainActivity.OnAccount.getID()))
                     .build();
             Request request=new Request.Builder()
-                    .addHeader("cookies",MainActivity.cookies)
-                    .addHeader("User_Agent",MainActivity.User_Agent)
+//                    .addHeader("cookies",MainActivity.cookies)
+//                    .addHeader("User_Agent",MainActivity.User_Agent)
                     .post(requestBody)
                     .url(MainActivity.server+"/api/loadnoti")
                     .build();

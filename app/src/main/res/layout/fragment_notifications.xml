@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@color/bootstrap_brand_secondary_fill"
+    android:backgroundTint="@color/bootstrap_brand_secondary_fill"
     android:layout_height="match_parent"
     android:weightSum="18"
     tools:context=".ui.notifications.NotificationsFragment">
@@ -123,7 +124,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notifi_reNotification"
         android:layout_width="match_parent"
-        android:layout_height="483dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_weight="11"
         app:layout_constraintEnd_toEndOf="parent"

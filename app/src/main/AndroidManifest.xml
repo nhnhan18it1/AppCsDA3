@@ -10,6 +10,14 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
 
     <uses-feature
         android:name="android.hardware.camera.any"
@@ -25,11 +33,14 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileActivity"></activity>
+
+        <activity android:name=".DtStoryActivity"></activity>
+        <activity android:name=".ProfileActivity" />
 
         <service
             android:name=".Service.ReceiveMess"
@@ -46,7 +57,9 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ChatActivity" />
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name=".ChatActivity" />
         <activity android:name=".MessengerListActivity" />
 
         <meta-data
@@ -69,6 +82,8 @@
         <activity android:name=".ipconfig" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".VideoCall.RCallActivity" />
+        <activity android:name=".VideoCall.SendCallActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,6 +1,7 @@
 package com.nhandz.flrv_ch.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.nhandz.flrv_ch.DT.Story;
+import com.nhandz.flrv_ch.DtStoryActivity;
 import com.nhandz.flrv_ch.MainActivity;
 import com.nhandz.flrv_ch.R;
 import com.beardedhen.androidbootstrap.*;
@@ -45,6 +47,13 @@ public class adapter_story extends RecyclerView.Adapter<adapter_story.ViewHolder
                 .centerCrop()
                 //.centerInside()
                 .into(holder.imageView);
+        holder.itv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(context, DtStoryActivity.class);
+                context.startActivity(intent);
+            }
+        });
 
     }
 

@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class adapter_comment extends RecyclerView.Adapter<adapter_comment.ViewHolder> {
 
-    ArrayList<comments> data_comments;
+    public  static ArrayList<comments> data_comments;
     Context context;
 
     public adapter_comment(ArrayList<comments> data_comments, Context context) {

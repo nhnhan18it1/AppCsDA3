@@ -52,13 +52,17 @@ public class adapter_listfriend extends RecyclerView.Adapter<adapter_listfriend.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
-        if (Integer.parseInt(listfriends.get(position).getID1()) == MainActivity.OnAccount.getID())
-        {
-            new loadinforFR(listfriends.get(position).getID2(),holder.avt,holder.txtname).execute();
-        }
-        else{
-            new loadinforFR(listfriends.get(position).getID1(),holder.avt,holder.txtname).execute();
-        }
+//        if (Integer.parseInt(listfriends.get(position).getID1()) == MainActivity.OnAccount.getID())
+//        {
+//            new loadinforFR(listfriends.get(position).getID2(),holder.avt,holder.txtname).execute();
+//        }
+//        else{
+//            new loadinforFR(listfriends.get(position).getID1(),holder.avt,holder.txtname).execute();
+//        }
+        Glide.with(context)
+                .load(MainActivity.serverImg+listfriends.get(position).getAccountx()[0].getAvt())
+                .into(holder.avt);
+        holder.txtname.setText(listfriends.get(position).getAccountx()[0].getName());
         holder.txtfirtmess.setText("hello!");
         holder.btnOnline.setShowOutline(listfriends.get(position).isOnline());
         holder.itView1.setOnClickListener(new View.OnClickListener() {

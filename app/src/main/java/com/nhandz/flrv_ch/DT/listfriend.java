@@ -17,13 +17,28 @@ public class listfriend implements Serializable {
     private String ID2;
     private String created_at;
     private String update_at;
-    private boolean IsOnline=true;
+    private boolean IsOnline=false;
+    private account[] accountx;
 
     public listfriend(String ID1, String ID2, String created_at, String update_at) {
         this.ID1 = ID1;
         this.ID2 = ID2;
         this.created_at = created_at;
         this.update_at = update_at;
+    }
+
+    public listfriend(String ID1, String ID2, String created_at, String update_at, boolean isOnline, account[] accountx) {
+        this.ID1 = ID1;
+        this.ID2 = ID2;
+        this.created_at = created_at;
+        this.update_at = update_at;
+        IsOnline = isOnline;
+        this.accountx = accountx;
+    }
+
+
+    public account[] getAccountx() {
+        return accountx;
     }
 
     public boolean isOnline() {

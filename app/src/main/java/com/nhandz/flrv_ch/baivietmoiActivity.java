@@ -4,6 +4,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -50,6 +52,7 @@ public class baivietmoiActivity extends AppCompatActivity {
     private int REQUEST_CODE_IMGCHOICE=123;
     private BootstrapCircleThumbnail avt;
     private BootstrapEditText txtcontent;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,7 @@ public class baivietmoiActivity extends AppCompatActivity {
         actionBar.setTitle("TIÊU ĐỀ ACTIVITY"); //Thiết lập tiêu đề nếu muốn
         String title = actionBar.getTitle().toString(); //Lấy tiêu đề nếu muốn
         actionBar.hide(); //Ẩn ActionBar nếu muốn
+
         anhxa();
         imgVP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +72,6 @@ public class baivietmoiActivity extends AppCompatActivity {
                 startActivityForResult(intent,REQUEST_CODE_IMGCHOICE);
             }
         });
-
 
 
         btnPost.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +146,7 @@ public class baivietmoiActivity extends AppCompatActivity {
         avt=findViewById(R.id.bvm_avt);
         txtcontent=findViewById(R.id.bvm_edtcontent);
         txtName=findViewById(R.id.bvm_name);
+        dialog=new Dialog(this);
     }
 
 
@@ -162,6 +166,9 @@ public class baivietmoiActivity extends AppCompatActivity {
             content=txtcontent.getText().toString();
             IDND=String.valueOf(MainActivity.OnAccount.getID());
 
+            dialog.setContentView(R.layout.alert_readylogin);
+            dialog.setTitle("Uploading");
+            dialog.show();
         }
 
         @Override
@@ -208,6 +215,7 @@ public class baivietmoiActivity extends AppCompatActivity {
             }
             else {
                 Toast.makeText(baivietmoiActivity.this, "Loi upload", Toast.LENGTH_SHORT).show();
+
             }
 
         }

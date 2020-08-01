@@ -20,7 +20,7 @@ public class PageHomeViewModel extends ViewModel {
     public PageHomeViewModel() {
         mNews=new MutableLiveData<>();
         mAvt=new MutableLiveData<>();
-        mAvt.setValue(MainActivity.OnAccount.getAvt());
+//        mAvt.setValue(MainActivity.OnAccount.getAvt());
         if (listnews!=null){
             mNews.setValue(listnews);
         }

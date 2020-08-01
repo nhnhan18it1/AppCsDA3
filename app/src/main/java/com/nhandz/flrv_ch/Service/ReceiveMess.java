@@ -120,6 +120,31 @@ public class ReceiveMess extends Service {
                 }
             });
 
+            socket.on("notifyCMT", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    try {
+                        JSONArray jsonArray=new JSONArray(args);
+                        JSONObject jsonObject= (JSONObject) jsonArray.get(0);
+
+
+
+                        Notification notification= new NotificationCompat.Builder(getApplicationContext(), CHANNEL_1_ID)//Notification(getApplicationContext(),5);
+                                .setSmallIcon(R.drawable.logo)
+                                .setContentTitle("Binh luan : "+jsonObject.get("Name"))
+                                .setContentText(""+jsonObject.get("Content"))
+                                .setAutoCancel(true)
+                                .setContentIntent(pendingIntent)
+                                .build();
+                        NotificationManager notificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                        notificationManager.notify(3,notification);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
             return Service.START_STICKY;
         }catch (Exception e){
             e.printStackTrace();

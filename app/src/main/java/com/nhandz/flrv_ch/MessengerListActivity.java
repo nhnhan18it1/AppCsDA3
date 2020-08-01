@@ -49,12 +49,10 @@ public class MessengerListActivity extends AppCompatActivity {
         actionBar.setTitle("TIÊU ĐỀ ACTIVITY"); //Thiết lập tiêu đề nếu muốn
         String title = actionBar.getTitle().toString(); //Lấy tiêu đề nếu muốn
         actionBar.hide(); //Ẩn ActionBar nếu muốn
-
         initView();
         initListFriend();
-
         new loadListFriend().execute();
-        GlideUrl url2=new GlideUrl(MainActivity.serverImg+""+LoginActivity.Avt,
+        GlideUrl url2=new GlideUrl(MainActivity.serverImg+""+MainActivity.OnAccount.getAvt(),
                 new LazyHeaders.Builder()
                         .addHeader("Cookie",MainActivity.cookies)
                         .build()
@@ -62,9 +60,8 @@ public class MessengerListActivity extends AppCompatActivity {
 
         Glide.with(getApplicationContext())
                 .load(url2)
-                .timeout(30000)
                 .skipMemoryCache(false)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.drawable.logo)
                 .into(BctAvt);
         MainActivity.mSocket.on("server-send-listus", new Emitter.Listener() {
@@ -125,8 +122,6 @@ public class MessengerListActivity extends AppCompatActivity {
                     .build();
             Log.d("ìnorid", "doInBackground: "+MainActivity.OnAccount.getID());
             Request request=new Request.Builder()
-                    .addHeader("User-Agent",MainActivity.User_Agent)
-                    .addHeader("Cookie",MainActivity.cookies)
                     .url(MainActivity.server+"/api/loadlistfr")
                     .post(requestBody)
                     .build();
@@ -150,7 +145,7 @@ public class MessengerListActivity extends AppCompatActivity {
                 }
             }
             adt.notifyDataSetChanged();
-            new GetListFriendFromNode().execute();
+            MainActivity.mSocket.emit("mobile-require-list");
             Log.e("lisf", "onPostExecute: "+s );
 
         }
@@ -159,7 +154,7 @@ public class MessengerListActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            MainActivity.mSocket.emit("mobile-require-list");
+
             return null;
         }
 

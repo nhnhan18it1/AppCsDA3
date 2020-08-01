@@ -5,12 +5,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:orientation="horizontal"
+        android:elevation="3dp"
+        android:weightSum="12"
+        android:background="#83292020"
+        >
+        <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+            android:id="@+id/story_avt"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            app:hasBorder="false"
+            app:bootstrapSize="sm"
+            app:bootstrapBrand="secondary"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:id="@+id/story_name"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:layout_height="match_parent"
+            android:text="nhan dz"
+            android:layout_gravity="center"
+
+            android:fontFamily="@font/roboto_thin"
+            android:textColor="@color/bootstrap_thumbnail_background"
+            android:gravity="left|center"
+            />
+    </LinearLayout>
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageView"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        app:riv_corner_radius="5dp"/>
+        android:background="#00373A3C"
+        app:riv_corner_radius="5dp"
+        />
 
     <ImageView
         android:id="@+id/playbutton"
@@ -19,5 +55,7 @@
 
         android:layout_gravity="center"
         app:srcCompat="@drawable/play" />
+
+
 
 </FrameLayout>
