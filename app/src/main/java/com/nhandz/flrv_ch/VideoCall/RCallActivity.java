@@ -20,6 +20,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.webrtc.AudioSource;
 import org.webrtc.AudioTrack;
+import org.webrtc.Camera2Enumerator;
+import org.webrtc.CameraEnumerator;
 import org.webrtc.DefaultVideoDecoderFactory;
 import org.webrtc.DefaultVideoEncoderFactory;
 import org.webrtc.EglBase;
@@ -32,6 +34,8 @@ import org.webrtc.SessionDescription;
 import org.webrtc.SurfaceTextureHelper;
 import org.webrtc.SurfaceViewRenderer;
 import org.webrtc.VideoCapturer;
+import org.webrtc.VideoFrame;
+import org.webrtc.VideoSink;
 import org.webrtc.VideoSource;
 import org.webrtc.VideoTrack;
 
@@ -66,6 +70,7 @@ public class RCallActivity extends AppCompatActivity implements SignallingClient
     AudioTrack localAudioTrack;
 
     SurfaceViewRenderer remoteVideoView;
+    SurfaceViewRenderer selfVideoView;
     VideoCapturer videoCapturer;
     EglBase eglBase;
     boolean gotUserMedia;
@@ -180,13 +185,13 @@ public class RCallActivity extends AppCompatActivity implements SignallingClient
                 .setVideoDecoderFactory(defaultVideoDecoderFactory)
                 .createPeerConnectionFactory();
 
-        //videoCapturer=createVideoCapturer();
+        videoCapturer=createVideoCapturer();
 
         MediaConstraints mediaConstraints=new MediaConstraints();
         SurfaceTextureHelper surfaceTextureHelper = SurfaceTextureHelper.create("CaptureThread", eglBase.getEglBaseContext());
-        //videoSource = peerConnectionFactory.createVideoSource(videoCapturer.isScreencast());
-        //videoCapturer.initialize(surfaceTextureHelper, getApplicationContext(), videoSource.getCapturerObserver());
-        //localvideoTrack=peerConnectionFactory.createVideoTrack("100",videoSource);
+        videoSource = peerConnectionFactory.createVideoSource(videoCapturer.isScreencast());
+        videoCapturer.initialize(surfaceTextureHelper, getApplicationContext(), videoSource.getCapturerObserver());
+        localvideoTrack=peerConnectionFactory.createVideoTrack("100",videoSource);
 
         audioSource=peerConnectionFactory.createAudioSource(mediaConstraints);
         localAudioTrack=peerConnectionFactory.createAudioTrack("101",audioSource);
@@ -198,10 +203,43 @@ public class RCallActivity extends AppCompatActivity implements SignallingClient
         if (SignallingClient.getInstance().isInitiator){
             onTryToStart();
         }
+        selfVideoView.setEnabled(true);
+        remoteVideoView.setEnabled(true);
+        if (videoCapturer != null) {
+            videoCapturer.startCapture(1024, 720, 30);
+        }
+
+
+        ProxyVideoSink localVideoSink = new ProxyVideoSink();
+
+        localvideoTrack.addSink(selfVideoView);
+        localVideoSink.setTarget(selfVideoView);
+
+
+        gotUserMedia=true;
+        if (SignallingClient.getInstance().isInitiator){
+            onTryToStart();
+        }
         //onTryToStart();
 
     }
+    private static class ProxyVideoSink implements VideoSink {
+        private VideoSink target;
 
+        @Override
+        synchronized public void onFrame(VideoFrame frame) {
+            if (target == null) {
+                Log.e("TAG", "Dropping frame in proxy because target is null.");
+                return;
+            }
+
+            target.onFrame(frame);
+        }
+
+        synchronized public void setTarget(VideoSink target) {
+            this.target = target;
+        }
+    }
     public void call(){
         sdpConstraints = new MediaConstraints();
         sdpConstraints.mandatory.add(
@@ -232,6 +270,7 @@ public class RCallActivity extends AppCompatActivity implements SignallingClient
         btn_Offer=findViewById(R.id.btn_offer);
         btn_start=findViewById(R.id.btn_setStart);
         btn_TryStart=findViewById(R.id.btn_trytoS);
+        selfVideoView=findViewById(R.id.camera_self);
         SetEvent();
     }
     public void SetEvent(){
@@ -276,6 +315,8 @@ public class RCallActivity extends AppCompatActivity implements SignallingClient
         eglBase = EglBase.create();
         remoteVideoView.init(eglBase.getEglBaseContext(), null);
         remoteVideoView.setZOrderMediaOverlay(true);
+        selfVideoView.init(eglBase.getEglBaseContext(),null);
+        selfVideoView.setZOrderMediaOverlay(true);
     }
 
     private void hangup() {
@@ -310,8 +351,8 @@ public class RCallActivity extends AppCompatActivity implements SignallingClient
     private void addStreamToLocalPeer() {
         //creating local mediastream
         MediaStream stream = peerConnectionFactory.createLocalMediaStream("102");
-        //stream.addTrack(localAudioTrack);
-        //stream.addTrack(localvideoTrack);
+        stream.addTrack(localAudioTrack);
+        stream.addTrack(localvideoTrack);
         localPeer.addStream(stream);
     }
 
@@ -493,5 +534,47 @@ public class RCallActivity extends AppCompatActivity implements SignallingClient
             }
             //return null;
         }
+    }
+
+    private VideoCapturer createVideoCapturer() {
+        VideoCapturer videoCapturer;
+        Log.d("TAG", "Creating capturer using camera1 API.");
+        videoCapturer = createCameraCapturer(new Camera2Enumerator(getApplicationContext()));
+
+        return videoCapturer;
+    }
+
+
+    private VideoCapturer createCameraCapturer(CameraEnumerator enumerator) {
+        final String[] deviceNames = enumerator.getDeviceNames();
+
+        // First, try to find front facing camera
+        Log.d("TAG", "Looking for front facing cameras.");
+        for (String deviceName : deviceNames) {
+            if (enumerator.isFrontFacing(deviceName)) {
+                Log.d("TAG", "Creating front facing camera capturer.");
+                VideoCapturer videoCapturer = enumerator.createCapturer(deviceName, null);
+
+                if (videoCapturer != null) {
+                    return videoCapturer;
+                }
+            }
+        }
+
+
+        // Front facing camera not found, try something else
+        Log.d("TAG", "Looking for other cameras.");
+        for (String deviceName : deviceNames) {
+            if (!enumerator.isBackFacing(deviceName)) {
+                Log.d("TAG", "Creating other camera capturer.");
+                VideoCapturer videoCapturer = enumerator.createCapturer(deviceName, null);
+
+                if (videoCapturer != null) {
+                    return videoCapturer;
+                }
+            }
+        }
+
+        return null;
     }
 }

@@ -7,11 +7,19 @@
     android:layout_height="match_parent"
     tools:context=".VideoCall.RCallActivity">
 
+    <org.webrtc.SurfaceViewRenderer
+        android:id="@+id/camera_self"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:elevation="10dp"
+
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="600dp"
         android:orientation="horizontal"
         android:weightSum="12"
         app:layout_constraintEnd_toEndOf="parent"

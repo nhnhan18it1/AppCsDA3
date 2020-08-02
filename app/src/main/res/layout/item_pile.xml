@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         android:elevation="3dp"
         android:weightSum="12"
-        android:background="#83292020"
+        android:background="#00292020"
         >
         <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
             android:id="@+id/story_avt"

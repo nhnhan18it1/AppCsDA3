@@ -6,23 +6,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#27292B"
+    android:id="@+id/bgStory"
     tools:context=".DtStoryActivity">
 
-    <com.stone.pile.libs.PileLayout
-        android:id="@+id/pileLayout"
+    <eightbitlab.com.blurview.BlurView
+        android:id="@+id/blurSto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        pile:displayCount="1.8"
-        pile:interval="10dp"
-        pile:scaleStep="0.9"
-        pile:sizeRatio="2.2"
-        />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.stone.pile.libs.PileLayout
+            android:id="@+id/pileLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:paddingTop="5dp"
+            android:layout_gravity="center"
+            android:paddingBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            pile:displayCount="1.8"
+            pile:interval="10dp"
+            pile:scaleStep="0.8"
+            pile:sizeRatio="2.1" />
+    </eightbitlab.com.blurview.BlurView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -334,10 +334,6 @@ public class SendCallActivity extends AppCompatActivity implements SignallingCli
         return videoCapturer;
     }
 
-    public void onIceCandidateReceived(PeerConnection localPeer, IceCandidate iceCandidate) {
-        //we have received ice candidate. We can set it to the other peer.
-        SignallingClient.getInstance().emitIceCandidate(iceCandidate);
-    }
 
     private VideoCapturer createCameraCapturer(CameraEnumerator enumerator) {
         final String[] deviceNames = enumerator.getDeviceNames();
@@ -370,6 +366,10 @@ public class SendCallActivity extends AppCompatActivity implements SignallingCli
         }
 
         return null;
+    }
+    public void onIceCandidateReceived(PeerConnection localPeer, IceCandidate iceCandidate) {
+        //we have received ice candidate. We can set it to the other peer.
+        SignallingClient.getInstance().emitIceCandidate(iceCandidate);
     }
 
     @Override
@@ -422,8 +422,8 @@ public class SendCallActivity extends AppCompatActivity implements SignallingCli
         runOnUiThread(() -> {
             ViewGroup.LayoutParams params = localVideoView.getLayoutParams();
             if (remoteVisible) {
-                params.height = 100;
-                params.width = 100;
+                params.height = 250;
+                params.width = 250;
             } else {
                 params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
             }
@@ -443,93 +443,93 @@ public class SendCallActivity extends AppCompatActivity implements SignallingCli
         rtcConfig.continualGatheringPolicy = PeerConnection.ContinualGatheringPolicy.GATHER_CONTINUALLY;
         // Use ECDSA encryption.
         rtcConfig.keyType = PeerConnection.KeyType.ECDSA;
-        localPeer= peerConnectionFactory.createPeerConnection(peericeServers, new PeerConnection.Observer() {
-            @Override
-            public void onSignalingChange(PeerConnection.SignalingState signalingState) {
-
-            }
-
-            @Override
-            public void onIceConnectionChange(PeerConnection.IceConnectionState iceConnectionState) {
-
-            }
-
-            @Override
-            public void onIceConnectionReceivingChange(boolean b) {
-
-            }
-
-            @Override
-            public void onIceGatheringChange(PeerConnection.IceGatheringState iceGatheringState) {
-
-            }
-
-            @Override
-            public void onIceCandidate(IceCandidate iceCandidate) {
-                onIceCandidateReceived(localPeer,iceCandidate);
-                Log.e("main2", "createPeerConnection: "+iceCandidate );
-            }
-
-            @Override
-            public void onIceCandidatesRemoved(IceCandidate[] iceCandidates) {
-
-            }
-
-            @Override
-            public void onAddStream(MediaStream mediaStream) {
-                Log.e("main2", "onAddStream: Received Remote stream"+mediaStream );
-                gotRemoteStream(mediaStream);
-            }
-
-            @Override
-            public void onRemoveStream(MediaStream mediaStream) {
-
-            }
-
-            @Override
-            public void onDataChannel(DataChannel dataChannel) {
-
-            }
-
-            @Override
-            public void onRenegotiationNeeded() {
-
-            }
-
-            @Override
-            public void onAddTrack(RtpReceiver rtpReceiver, MediaStream[] mediaStreams) {
-                final VideoTrack videoTrack = mediaStreams[0].videoTracks.get(0);
-                AudioTrack audioTrack = mediaStreams[0].audioTracks.get(0);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            //remoteRenderer = new VideoRenderer(remoteVideoView);
-                            remoteVideoView.setVisibility(View.VISIBLE);
-                            videoTrack.addSink(remoteVideoView);
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-            }
-        });
-//        localPeer = peerConnectionFactory.createPeerConnection(peericeServers, new CustomPeerConnectionObserver("localPeerCreation"){
+//        localPeer= peerConnectionFactory.createPeerConnection(peericeServers, new PeerConnection.Observer() {
+//            @Override
+//            public void onSignalingChange(PeerConnection.SignalingState signalingState) {
+//
+//            }
+//
+//            @Override
+//            public void onIceConnectionChange(PeerConnection.IceConnectionState iceConnectionState) {
+//
+//            }
+//
+//            @Override
+//            public void onIceConnectionReceivingChange(boolean b) {
+//
+//            }
+//
+//            @Override
+//            public void onIceGatheringChange(PeerConnection.IceGatheringState iceGatheringState) {
+//
+//            }
+//
 //            @Override
 //            public void onIceCandidate(IceCandidate iceCandidate) {
-//                super.onIceCandidate(iceCandidate);
 //                onIceCandidateReceived(localPeer,iceCandidate);
 //                Log.e("main2", "createPeerConnection: "+iceCandidate );
 //            }
 //
 //            @Override
+//            public void onIceCandidatesRemoved(IceCandidate[] iceCandidates) {
+//
+//            }
+//
+//            @Override
 //            public void onAddStream(MediaStream mediaStream) {
-//                Log.e("main2", "onAddStream: Received Remote stream" );
-//                super.onAddStream(mediaStream);
+//                Log.e("main2", "onAddStream: Received Remote stream"+mediaStream );
 //                gotRemoteStream(mediaStream);
 //            }
+//
+//            @Override
+//            public void onRemoveStream(MediaStream mediaStream) {
+//
+//            }
+//
+//            @Override
+//            public void onDataChannel(DataChannel dataChannel) {
+//
+//            }
+//
+//            @Override
+//            public void onRenegotiationNeeded() {
+//
+//            }
+//
+//            @Override
+//            public void onAddTrack(RtpReceiver rtpReceiver, MediaStream[] mediaStreams) {
+//                final VideoTrack videoTrack = mediaStreams[0].videoTracks.get(0);
+//                AudioTrack audioTrack = mediaStreams[0].audioTracks.get(0);
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        try {
+//                            //remoteRenderer = new VideoRenderer(remoteVideoView);
+//                            remoteVideoView.setVisibility(View.VISIBLE);
+//                            videoTrack.addSink(remoteVideoView);
+//
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+//            }
 //        });
+        localPeer = peerConnectionFactory.createPeerConnection(peericeServers, new CustomPeerConnectionObserver("localPeerCreation"){
+            @Override
+            public void onIceCandidate(IceCandidate iceCandidate) {
+                super.onIceCandidate(iceCandidate);
+                onIceCandidateReceived(localPeer,iceCandidate);
+                Log.e("main2", "createPeerConnection: "+iceCandidate );
+            }
+
+            @Override
+            public void onAddStream(MediaStream mediaStream) {
+                Log.e("main2", "onAddStream: Received Remote stream" );
+                super.onAddStream(mediaStream);
+                gotRemoteStream(mediaStream);
+            }
+        });
 
         addStreamToLocalPeer();
 

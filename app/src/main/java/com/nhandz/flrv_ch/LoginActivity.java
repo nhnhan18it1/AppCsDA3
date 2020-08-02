@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -35,6 +37,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import eightbitlab.com.blurview.BlurView;
+import eightbitlab.com.blurview.RenderScriptBlur;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.RequestBody;
@@ -46,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     ImageButton btnBack;
     ProgressBar progressBar;
+    BlurView blurView;
     public static String ID="1";
     public static String Avt="/FLRV-CH/local/public/assets/img/avatar/avt_Nguyen Hai Nhan_56.png";
     public static String Name="Nguyen Hai Nhan";
@@ -84,6 +89,22 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
             startActivity(intent);
         }
+        float radius = 10f;
+
+        View decorView = getWindow().getDecorView();
+        //ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
+        ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+        //Set drawable to draw in the beginning of each blurred frame (Optional).
+        //Can be used in case your layout has a lot of transparent space and your content
+        //gets kinda lost after after blur is applied.
+        Drawable windowBackground = decorView.getBackground();
+
+        blurView.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new RenderScriptBlur(this))
+                .setBlurRadius(radius)
+                .setHasFixedTransformationMatrix(true);
+
     }
 
     public void Anhxa(){
@@ -92,6 +113,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin=findViewById(R.id.btnLogin);
         progressBar=(ProgressBar) findViewById(R.id.loadLogin);
         btnBack=findViewById(R.id.btn_Login_Back);
+        blurView=findViewById(R.id.blurView);
     }
 
     public void Login(String url){
