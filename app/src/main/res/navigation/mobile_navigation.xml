@@ -38,12 +38,16 @@
         android:id="@+id/navigation_menu"
         android:name="com.nhandz.flrv_ch.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/page_menu_fragment" />
+        tools:layout="@layout/page_menu_fragment" >
+        <action
+            android:id="@+id/action_navigation_menu_to_navigation_home"
+            app:destination="@id/navigation_home" />
+    </fragment>
     <fragment
         android:id="@+id/groupFragment"
-        android:name="com.nhandz.flrv_ch.GroupFragment"
+        android:name="com.nhandz.flrv_ch.ui.findfriend.FindFriendFragment"
         android:label="fragment_group"
-        tools:layout="@layout/fragment_group" >
+        tools:layout="@layout/find_friend_fragment">
         <action
             android:id="@+id/action_groupFragment_to_navigation_watch"
             app:destination="@id/navigation_watch" />

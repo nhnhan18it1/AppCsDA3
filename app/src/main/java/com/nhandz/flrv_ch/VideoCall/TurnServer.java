@@ -18,4 +18,6 @@ public interface TurnServer {
     @POST("api/getnews2")
     @FormUrlEncoded
     Call<news[]> getNews(@Field("offset") String offset);
+    @GET("api/getGalary")
+    Call<news[]> getGalary();
 }
