@@ -1,8 +1,10 @@
 package com.nhandz.flrv_ch.Adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.media.MediaBrowserCompat;
 import android.util.DisplayMetrics;
@@ -19,7 +21,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.app.DialogCompat;
+import androidx.core.util.Pair;
+import androidx.core.view.ViewCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,6 +38,7 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
 import com.nhandz.flrv_ch.Alert.News_bottom_sheet;
 import com.nhandz.flrv_ch.DT.*;
+import com.nhandz.flrv_ch.DetailnewsActivity;
 import com.nhandz.flrv_ch.HomeActivity;
 import com.nhandz.flrv_ch.MainActivity;
 import com.nhandz.flrv_ch.R;
@@ -54,6 +60,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
     public  static DrawerLayout drawerLayout;
     SendIDBV sendIDBV;
     FragmentManager fragmentManager;
+    private Activity mActivity;
     public adapter_home_news(ArrayList<news> data_news, Context context) {
         this.data_news = data_news;
         this.context = context;
@@ -63,6 +70,13 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         this.data_news = data_news;
         this.context = context;
         this.fragmentManager = fragmentManager;
+    }
+
+    public adapter_home_news(ArrayList<news> data_news, Context context, FragmentManager fragmentManager, Activity mActivity) {
+        this.data_news = data_news;
+        this.context = context;
+        this.fragmentManager = fragmentManager;
+        this.mActivity = mActivity;
     }
 
     @NonNull
@@ -170,54 +184,22 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
 
             }
         });
+        holder.Imgcontent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(context, DetailnewsActivity.class);
+                intent.putExtra("news",data_news.get(position));
+                androidx.core.util.Pair<View,String> viewStringPair= Pair.create((View) holder.Imgcontent, ViewCompat.getTransitionName(holder.Imgcontent));
+                ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,
+                        holder.Imgcontent,
+                        ViewCompat.getTransitionName(holder.Imgcontent)
+                        );
+                context.startActivity(intent,optionsCompat.toBundle());
+            }
+        });
 
     }
 
-    public void loadlikecount(final TextView txtcl, final int IDBV){
-        OkHttpClient okHttpClient= new OkHttpClient.Builder()
-                .build();
-
-
-    }
-
-    public class loadimgG extends AsyncTask<Void,Void,GlideUrl>{
-
-        private Context context;
-        private ImageView imageView;
-        private String url;
-
-        public loadimgG(Context context, ImageView imageView, String url) {
-            this.context = context;
-            this.imageView = imageView;
-            this.url = url;
-        }
-
-        @Override
-        protected GlideUrl doInBackground(Void... voids) {
-            GlideUrl url2=new GlideUrl(url,
-                    new LazyHeaders.Builder()
-                            .addHeader("User-Agent",MainActivity.User_Agent)
-                            .addHeader("Cookie",MainActivity.cookies)
-                            .build()
-            );
-            return url2;
-        }
-
-        @Override
-        protected void onPostExecute(GlideUrl glideUrl) {
-            super.onPostExecute(glideUrl);
-            Glide
-                    .with(context)
-                    .load(glideUrl)
-                    .timeout(30000)
-                    .skipMemoryCache(false)
-                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                    .error(R.drawable.logo)
-                    .override(450,300)
-                    .into(imageView);
-
-        }
-    }
 
     public class postlike extends AsyncTask<Void,Void,String>{
         private String IDBV;
@@ -295,166 +277,9 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         }
     }
 
-    public class loadclike extends AsyncTask<Void,Void,String>{
-
-        private String IDBV;
-        private TextView txtclike;
-        OkHttpClient okHttpClient=new OkHttpClient.Builder()
-                .build();
-
-        public loadclike(String IDBV, TextView txtclike) {
-            this.IDBV = IDBV;
-            this.txtclike = txtclike;
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            RequestBody requestBody=new MultipartBody.Builder()
-                    .addFormDataPart("IDBV",String.valueOf(IDBV))
-                    .build();
-            Request request=new Request.Builder()
-                    .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ")
-                    .addHeader("Cookie", MainActivity.cookies)
-                    .url(MainActivity.server+"/api/loadclike")
-                    .post(requestBody)
-                    .build();
-            try {
-                Response response=okHttpClient.newCall(request).execute();
-                return response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return "0";
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.e("réponlike", "onPostExecute: "+s );
-            txtclike.setText(s+" người đã thích");
-        }
-    }
-
-    public class sendcmt extends AsyncTask<Void,Void,String>{
-
-        private String IDBV;
-        private String IDNBL;
-        private String Content;
-
-        public sendcmt(String IDBV, String IDNBL, String content) {
-            this.IDBV = IDBV;
-            this.IDNBL = IDNBL;
-            Content = content;
-        }
-
-        OkHttpClient okHttpClient=new OkHttpClient.Builder()
-                .build();
 
 
-        @Override
-        protected String doInBackground(Void... voids) {
-            RequestBody requestBody=new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("Content",Content )
-                    .addFormDataPart("IDNBL",IDNBL)
-                    .addFormDataPart("IDBV",IDBV)
-                    .build();
-            Request request
-                    =new Request.Builder()
-                    .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ")
-                    .addHeader("Cookie", MainActivity.cookies)
-                    .url(MainActivity.server+"/api/putcomment")
-                    .post(requestBody)
-                    .build();
-            try {
-                Response response=okHttpClient.newCall(request).execute();
-                return response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Log.e("putcmt", "onPostExecute: "+s );
-        }
-    }
-
-    public void getcmt(int IDBV){
-        OkHttpClient okHttpClient=new OkHttpClient.Builder()
-                .build();
-        RequestBody requestBody=new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("IDBV",String.valueOf(IDBV))
-                .build();
-        Request request=new Request.Builder()
-                .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ")
-                .addHeader("Cookie", MainActivity.cookies)
-                .url(MainActivity.server+"/api/getcmt")
-                .post(requestBody)
-                .build();
-        try {
-            Response response=okHttpClient.newCall(request).execute();
-            Gson gson=new Gson();
-            comments[] comments=gson.fromJson(response.body().string(), com.nhandz.flrv_ch.DT.comments[].class);
-            Log.e("adt_cmt", "getcmt: "+comments.length );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public class apicmt extends AsyncTask<String,Void,String>{
-
-        private ArrayList<comments> lcmt=new ArrayList<>();
-        private RecyclerView rcy;
-        private TextView txtcCmt;
-
-        public apicmt(RecyclerView rcy,TextView txtc) {
-            this.rcy = rcy;
-            this.txtcCmt=txtc;
-        }
-
-        OkHttpClient okHttpClient=new OkHttpClient.Builder()
-                .build();
-        @Override
-        protected String doInBackground(String... strings) {
-            RequestBody requestBody=new MultipartBody.Builder()
-                    .setType(MultipartBody.FORM)
-                    .addFormDataPart("IDBV",strings[0])
-                    .build();
-            Request request=new Request.Builder()
-                    .addHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.10240 ")
-                    .addHeader("Cookie", MainActivity.cookies)
-                    .url(MainActivity.server+"/api/getcmt")
-                    .post(requestBody)
-                    .build();
-            try {
-                Response response=okHttpClient.newCall(request).execute();
-                return response.body().string();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return "";
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            Gson gson=new Gson();
-            comments[] comments=gson.fromJson(s, comments[].class);
-            txtcCmt.setText(String.valueOf(comments.length)+" bình luận");
-            for (int i=0;i<comments.length;i++){
-                lcmt.add(comments[i]);
-            }
-            //adapter_comment adapter_comment=new adapter_comment(lcmt,context.getApplicationContext());
-            //rcy.setAdapter(adapter_comment);
-            Log.e("adt_cmt", "getcmt: "+comments.length );
-        }
-    }
 
     @Override
     public int getItemCount() {
@@ -483,6 +308,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         LinearLayout ctnshare;
         DrawerLayout drawerLayout;
         ImageButton btnshowmn;
+        View itv;
         //TextView txtlike;
         //de.hdodenhof.circleimageview.CircleImageView cimgT;
 
@@ -508,7 +334,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             ctnshare=itemView.findViewById(R.id.home_adt_ctnshare);
 
             btnshowmn=itemView.findViewById(R.id.item_news_showmn);
-
+            itv=itemView;
         }
     }
 }

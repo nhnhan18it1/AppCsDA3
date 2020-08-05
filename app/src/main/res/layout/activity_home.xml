@@ -11,12 +11,12 @@
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#F2F6F6">
+        android:background="@color/bootstrap_brand_secondary_fill">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:contentScrim="@color/bootstrap_brand_secondary_fill"
+            app:contentScrim="@color/bootstrap_dropdown_divider"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
 
             app:toolbarId="@+id/toolbar">
@@ -125,9 +125,9 @@
                 android:id="@+id/naviBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+                android:background="@color/bootstrap_brand_secondary_fill"
 
-                app:backgroundTint="#F5F6F6"
+                app:backgroundTint="@color/bootstrap_brand_secondary_fill"
                 app:itemTextColor="@color/colorAccent"
                 app:labelVisibilityMode="unlabeled"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -201,11 +201,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="670dp"
                     android:maxHeight="700dp"
-                    app:layout_constraintBottom_toTopOf="@+id/inpcmt"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+                    app:layout_constraintTop_toBottomOf="@+id/home_headCMT" />
 
 
                 <LinearLayout
@@ -215,7 +214,7 @@
                     android:layout_marginBottom="51dp"
                     android:foregroundGravity="bottom"
                     android:background="@color/bootstrap_brand_secondary_fill"
-                    android:elevation="2dp"
+                    android:elevation="10dp"
                     android:gravity="center"
                     android:backgroundTint="@color/bootstrap_brand_secondary_fill"
                     android:orientation="horizontal"

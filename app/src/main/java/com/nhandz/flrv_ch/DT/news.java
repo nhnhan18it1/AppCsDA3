@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import java.io.Serializable;
 
-public class news extends account implements Serializable, Parcelable {
+public class news extends account implements Serializable{
     protected int IDBV;
     protected int IDND;
     protected String Content;
@@ -184,22 +184,22 @@ public class news extends account implements Serializable, Parcelable {
     public comments[] getCmt() {
         return comments;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(IDBV);
-        parcel.writeInt(IDND);
-        parcel.writeString(Content);
-        parcel.writeString(Img);
-        parcel.writeString(type_content);
-        parcel.writeInt(CLike);
-        parcel.writeString(News_created_at);
-        parcel.writeString(News_updated_at);
-        parcel.writeArray(comments);
-    }
+//
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//    @Override
+//    public void writeToParcel(Parcel parcel, int i) {
+//        parcel.writeInt(IDBV);
+//        parcel.writeInt(IDND);
+//        parcel.writeString(Content);
+//        parcel.writeString(Img);
+//        parcel.writeString(type_content);
+//        parcel.writeInt(CLike);
+//        parcel.writeString(News_created_at);
+//        parcel.writeString(News_updated_at);
+//        parcel.writeArray(comments);
+//    }
 }

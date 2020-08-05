@@ -6,6 +6,7 @@
         <item name="colorPrimary">#142073</item>
         <item name="colorPrimaryDark">#000000</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowContentTransitions">true</item>
     </style>
 
 </resources>

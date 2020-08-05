@@ -7,7 +7,196 @@
     android:layout_height="match_parent"
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".DetailnewsActivity"
-    tools:deviceIds="wear">
+    >
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:weightSum="12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <Button
+            android:id="@+id/dtnA_btnBack"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:backgroundTint="#00D9534F"
+            android:background="#00D9534F"
+            android:backgroundTintMode="multiply"
+            android:drawableLeft="@drawable/ic_baseline_arrow_back_24"
+            android:paddingStart="5dp"/>
+
+        <TextView
+            android:id="@+id/dtnA_txtName2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:gravity="left|center"
+            android:fontFamily="@font/roboto"
+            android:text="nhandz"
+            android:paddingStart="10dp"
+            android:textColor="@color/bootstrap_brand_secondary_text"
+            android:textSize="20sp" />
+        <at.markushi.ui.CircleButton
+            android:id="@+id/dtnA_btnSearch"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:gravity="end|center"
+            android:layout_height="45dp"
+            android:layout_gravity="end|center"
+            android:src="@drawable/ic_search"
+            app:cb_color="#C1D9DC"
+            app:cb_pressedRingWidth="8dip" />
+    </LinearLayout>
+
+    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+        android:id="@+id/dtn_imgAvt"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:src="@drawable/backgroundl"
+        app:bootstrapBrand="secondary"
+        app:bootstrapSize="xs"
+        app:hasBorder="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
+    <TextView
+        android:id="@+id/dtnA_txtName"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/roboto"
+        android:text="TextView"
+        android:textColor="@color/bootstrap_brand_secondary_text"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/dtn_imgAvt"
+        app:layout_constraintTop_toBottomOf="@+id/divider6" />
+
+    <TextView
+        android:id="@+id/dtnA_txtTime"
+        android:layout_width="209dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/roboto"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/dtn_imgAvt"
+        app:layout_constraintTop_toBottomOf="@+id/dtnA_txtName" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="3dp"
+        android:background="#00000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider6"
+        app:srcCompat="@drawable/ic_baseline_more_vert" />
+
+    <ImageView
+        android:id="@+id/dtnA_imgvContent"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dtnA_txtcontent"
+        app:srcCompat="@drawable/backgroundl" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:orientation="horizontal"
+        android:transitionName="simple_activity_transition"
+        android:weightSum="12"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dtnA_imgvContent">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/dtnA_btnLike"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="#03818A91"
+            android:drawablePadding="-5dp"
+            android:paddingLeft="15dp"
+            app:bootstrapBrand="secondary"
+            app:bootstrapText="{fa_thumbs_up} like" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/dtnA_btnComment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="#03818A91"
+            android:drawablePadding="-5dp"
+            android:paddingLeft="15dp"
+            app:bootstrapBrand="secondary"
+            app:bootstrapText="{fa_thumbs_up} comments" />
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/dtnA_btnShare"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:background="#03818A91"
+            android:drawablePadding="-5dp"
+            android:paddingLeft="15dp"
+            app:bootstrapBrand="secondary"
+            app:bootstrapText="{fa_thumbs_up} share" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dtnA_txtSlike"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="left|center"
+        android:paddingLeft="10dp"
+        android:fontFamily="@font/roboto"
+        android:textSize="17sp"
+        android:text="bạn và 22 người khác"
+        android:drawableLeft="@drawable/ic_baseline_thumb_up_alt_24"
+        android:drawablePadding="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+
+    <TextView
+        android:id="@+id/dtnA_txtcontent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:text="TextView"
+        android:paddingStart="10dp"
+        android:gravity="left|center"
+        android:fontFamily="@font/roboto"
+        android:textSize="15sp"
+        android:textColor="#090909"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dtn_imgAvt" />
+
+    <View
+        android:id="@+id/divider6"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

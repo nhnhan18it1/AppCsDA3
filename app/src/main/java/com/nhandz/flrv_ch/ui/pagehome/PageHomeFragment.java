@@ -126,7 +126,7 @@ public class PageHomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         NestedScrollView nestedScrollView;
-
+        getActivity();
         //mViewModel=new PageHomeViewModel(adt,listnews);
         if (mViewModel==null){
             mViewModel = ViewModelProviders.of(this).get(PageHomeViewModel.class);
