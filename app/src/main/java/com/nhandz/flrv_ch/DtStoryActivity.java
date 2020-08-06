@@ -4,8 +4,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -57,7 +55,7 @@ public class DtStoryActivity extends AppCompatActivity {
                 ViewHolder viewHolder = (ViewHolder) view.getTag();
                 if (viewHolder==null){
                     viewHolder=new ViewHolder();
-                    viewHolder.imageView=view.findViewById(R.id.imageView);
+                    viewHolder.imageView=view.findViewById(R.id.main_logo);
                     viewHolder.avt=view.findViewById(R.id.story_avt);
                     viewHolder.txtname=view.findViewById(R.id.story_name);
                     view.setTag(viewHolder);

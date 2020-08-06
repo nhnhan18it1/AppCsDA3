@@ -40,7 +40,7 @@
             />
     </LinearLayout>
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/imageView"
+        android:id="@+id/main_logo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"

@@ -102,21 +102,21 @@ public class SendCallActivity extends AppCompatActivity implements SignallingCli
         create=findViewById(R.id.button_create);
         join=findViewById(R.id.button_join);
         start=findViewById(R.id.button_start);
-        txtname=findViewById(R.id.txt_name);
+        //txtname=findViewById(R.id.txt_name);
         trystart=findViewById(R.id.trytostart);
         SignallingClient.getInstance().context=getApplicationContext();
         SignallingClient.getInstance().init(this);
         create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignallingClient.getInstance().emitInitStatement_create(txtname.getText().toString());
+                SignallingClient.getInstance().emitInitStatement_create("123");
                 //doAnswer();
             }
         });
         join.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SignallingClient.getInstance().emitInitStatement_join(txtname.getText().toString());
+                SignallingClient.getInstance().emitInitStatement_join("123");
             }
         });
         start.setOnClickListener(new View.OnClickListener() {
@@ -204,7 +204,7 @@ public class SendCallActivity extends AppCompatActivity implements SignallingCli
         localVideoView.setEnableHardwareScaler(true);
         remoteVideoView.init(eglBase.getEglBaseContext(), null);
         localVideoView.setMirror(true);
-//        localVideoView.setZOrderMediaOverlay(true);
+        localVideoView.setZOrderMediaOverlay(true);
 //        remoteVideoView.setZOrderMediaOverlay(true);
     }
 

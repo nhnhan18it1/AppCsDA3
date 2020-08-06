@@ -15,12 +15,17 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.gson.Gson;
 import com.nhandz.flrv_ch.DT.NodeFriend;
 import com.nhandz.flrv_ch.DT.TextviewFont;
@@ -60,9 +65,12 @@ public class MainActivity extends AppCompatActivity {
     public static float Screen_width;
     public static float Screen_height;
     private static final int ALL_PERMISSIONS_CODE = 1 ;
+    private SpinKitView mlogin;
+    private Animation topAni;
     Dialog alert_login;
     Button btnnext;
     TextviewFont textviewFont;
+    ImageView logo;
     protected boolean shouldAskPermissions() {
         return (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1);
     }
@@ -113,10 +121,10 @@ public class MainActivity extends AppCompatActivity {
             // all permissions already granted
             //start();
         }
-        alert_login=new Dialog(this);
-        alert_login.setContentView(R.layout.alert_readylogin);
-        alert_login.setCanceledOnTouchOutside(false);
-        alert_login.show();
+//        alert_login=new Dialog(this);
+//        alert_login.setContentView(R.layout.alert_readylogin);
+//        alert_login.setCanceledOnTouchOutside(false);
+//        alert_login.show();
         if (OnAccount!=null){
             Intent intent=new Intent(MainActivity.this,HomeActivity.class);
             startActivity(intent);
@@ -127,11 +135,35 @@ public class MainActivity extends AppCompatActivity {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+        mlogin=findViewById(R.id.mlogin);
+        mlogin.setVisibility(View.INVISIBLE);
+        topAni= AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        logo=findViewById(R.id.main_logo);
+        logo.setAnimation(topAni);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Do something after 100ms
+                start();
+                //handler.postDelayed(this, 2000);
+            }
+        }, 1500);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//            }
+//        });
+        //start();
 
 
+    }
+
+    private void start(){
         sharedPreferences=getSharedPreferences("clientConfig",MODE_PRIVATE);
         String s = sharedPreferences.getString("ID","");
-
+        mlogin.setVisibility(View.VISIBLE);
         if (s==""){
             Log.e("MainAc", "onCreate: Not login" );
             Intent intent=new Intent(MainActivity.this,LoginActivity.class);
@@ -141,40 +173,15 @@ public class MainActivity extends AppCompatActivity {
             Log.e("MainAc", "onCreate:lohined "+s );
             new LoadFullInfor(s).execute();
         }
-//        MainActivity.mSocket.on("server-send-listus", new Emitter.Listener() {
+//        btnnext=findViewById(R.id.btnNext);
+//        //btnnext.setVisibility(View.INVISIBLE);
+//        btnnext.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void call(Object... args) {
-//                ArrayList<NodeFriend> nodeFriends=new ArrayList<>();
-//                JSONArray jsonArray=(JSONArray)args[0];
-//                try {
-//                    for (int i=0;i<jsonArray.length();i++){
-//                        JSONObject jsonObject=(JSONObject) jsonArray.get(i);
-//                        nodeFriends.add(new NodeFriend(
-//                                jsonObject.getString("IDND"),
-//                                jsonObject.getString("Name"),
-//                                jsonObject.getString("Avt"),
-//                                jsonObject.getString("IDN")
-//                        ));
-//
-//
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                Log.e("l-lít", "call: "+nodeFriends.size() );
-//
+//            public void onClick(View v) {
+//                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
+//                startActivity(intent);
 //            }
 //        });
-
-        btnnext=findViewById(R.id.btnNext);
-        //btnnext.setVisibility(View.INVISIBLE);
-        btnnext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,LoginActivity.class);
-                startActivity(intent);
-            }
-        });
 
         textviewFont=findViewById(R.id.main_ipconfig);
         textviewFont.setOnClickListener(new View.OnClickListener() {
@@ -189,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent=new Intent(MainActivity.this,HomeActivity.class);
             startActivity(intent);
         }
-
     }
+
     public class LoadFullInfor extends AsyncTask<Void,String,String>{
         OkHttpClient okHttpClient=new OkHttpClient.Builder()
                 .retryOnConnectionFailure(true)
@@ -252,7 +259,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
             else if (s==null||s=="[]"){
-                alert_login.dismiss();
+                //alert_login.dismiss();
                 Intent intent=new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(intent);
             }
