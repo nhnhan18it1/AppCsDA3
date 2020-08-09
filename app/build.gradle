@@ -95,4 +95,6 @@ dependencies {
     // Annotation processor
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-alpha06"
+
+    implementation "com.github.tcking:giraffeplayer2:0.1.25-full"
 }

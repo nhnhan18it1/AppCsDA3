@@ -95,7 +95,8 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         int maxs= holder.ctntt.getWidth();
         holder.txtname.setText(String.valueOf(data_news.get(position).getName()));
         String urlAvt="";
-        if (data_news.get(position).getImg().startsWith("http")){
+
+        if (data_news.get(position).getAvt()!=null && data_news.get(position).getImg().startsWith("http")){
             urlAvt=data_news.get(position).getImg();
         }
         else {
@@ -116,7 +117,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
                 //.centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 //.override((int)MainActivity.Screen_width,500)
-                .error(R.drawable.logo)
+                .error(R.drawable.logo2)
                 .into(holder.Imgcontent);
         holder.txtContent.setText(data_news.get(position).getContent());
 
@@ -131,7 +132,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
                 .load(url2)
                 .timeout(3000)
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-                .error(R.drawable.logo)
+                .error(R.drawable.logo2)
                 .into(holder.Imgavt);
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

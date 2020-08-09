@@ -285,8 +285,13 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
 //        listnews.removeAll(listnews);
         if (bottomNavigationView.getSelectedItemId()==R.id.navigation_home){
             PageHomeFragment.reLoadNews();
+            Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
         }
-        Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+        else {
+            
+        }
+
+
         if (PageHomeFragment.nestedScrollView!=null){
             PageHomeFragment.nestedScrollView.smoothScrollTo(0,0);
         }

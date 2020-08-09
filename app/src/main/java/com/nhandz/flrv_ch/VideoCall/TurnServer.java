@@ -8,6 +8,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface TurnServer {
     @GET("turnsv")///_turn/streamx
@@ -20,4 +21,7 @@ public interface TurnServer {
     Call<news[]> getNews(@Field("offset") String offset);
     @GET("api/getGalary")
     Call<news[]> getGalary();
+    @GET("api/getvideo")
+
+    Call<news[]> getVideo(@Query("ID") String ID, @Query("offset") String offset);
 }

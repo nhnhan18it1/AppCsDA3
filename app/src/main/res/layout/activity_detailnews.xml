@@ -145,7 +145,7 @@
             android:drawablePadding="-5dp"
             android:paddingLeft="15dp"
             app:bootstrapBrand="secondary"
-            app:bootstrapText="{fa_thumbs_up} comments" />
+            app:bootstrapText="{fa_comment} comments" />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:id="@+id/dtnA_btnShare"
@@ -156,7 +156,7 @@
             android:drawablePadding="-5dp"
             android:paddingLeft="15dp"
             app:bootstrapBrand="secondary"
-            app:bootstrapText="{fa_thumbs_up} share" />
+            app:bootstrapText="{fa_share_alt} share" />
     </LinearLayout>
 
     <TextView
