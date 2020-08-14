@@ -41,9 +41,9 @@
                         android:layout_marginLeft="3dp"
                         android:layout_marginRight="0dp"
                         android:layout_weight="4"
-                        android:src="@drawable/logo"
+                        android:src="@drawable/logo3"
                         app:bootstrapBrand="success"
-                        app:hasBorder="true"
+                        app:hasBorder="false"
                         tools:layout_editor_absoluteX="16dp" />
 
                 </LinearLayout>
@@ -126,7 +126,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/bootstrap_brand_secondary_fill"
+                app:itemIconSize="26dp"
+                app:itemHorizontalTranslationEnabled="true"
 
+                app:itemRippleColor="@color/bootstrap_brand_success"
                 app:backgroundTint="@color/bootstrap_brand_secondary_fill"
                 app:itemTextColor="@color/colorAccent"
                 app:labelVisibilityMode="unlabeled"

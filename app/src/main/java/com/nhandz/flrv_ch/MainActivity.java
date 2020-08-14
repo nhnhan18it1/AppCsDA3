@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int ALL_PERMISSIONS_CODE = 1 ;
     private SpinKitView mlogin;
     private Animation topAni;
+    private boolean isFisrt=true;
     Dialog alert_login;
     Button btnnext;
     TextviewFont textviewFont;
@@ -95,9 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 && grantResults.length == 2
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                 && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+            isFisrt=true;
             // all permissions granted
             //start();
         } else {
+
             //finish();
         }
     }
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
                 || ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.RECORD_AUDIO, Manifest.permission.INTERNET,Manifest.permission.READ_EXTERNAL_STORAGE}, ALL_PERMISSIONS_CODE);
+            isFisrt=false;
         } else {
             // all permissions already granted
             //start();
@@ -145,7 +149,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //Do something after 100ms
-                start();
+                if (!isFisrt){
+                    start();
+                }
                 //handler.postDelayed(this, 2000);
             }
         }, 1500);

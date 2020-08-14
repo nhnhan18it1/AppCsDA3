@@ -21,8 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp">
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
             <ImageButton
                 android:id="@+id/btn_Login_Back"
                 android:layout_width="wrap_content"
@@ -38,12 +38,13 @@
                 android:layout_width="121dp"
                 android:layout_height="72dp"
                 android:layout_marginStart="144dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="56dp"
                 android:layout_marginEnd="146dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/logo" />
+                app:srcCompat="@drawable/logo3" />
 
             <EditText
                 android:id="@+id/txtTaiKhoan"
@@ -53,6 +54,7 @@
                 android:layout_marginTop="53dp"
                 android:layout_marginEnd="32dp"
                 android:ems="10"
+                android:textSize="20sp"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:drawablePadding="5dp"
                 android:hint="Tài khoản"
@@ -73,6 +75,7 @@
                 android:drawablePadding="5dp"
                 android:drawableStart="@drawable/ic_baseline_lock_24"
                 android:ems="10"
+                android:textSize="20sp"
                 android:hint="Mật Khẩu"
                 android:inputType="textPassword"
                 android:text="123456"
@@ -81,19 +84,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtTaiKhoan" />
 
-            <Button
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="152dp"
-                android:layout_marginTop="64dp"
-                android:layout_marginEnd="154dp"
-                android:layout_marginBottom="42dp"
-                android:text="Đăng nhập"
-                app:layout_constraintBottom_toTopOf="@+id/loadLogin"
+                android:layout_height="45dp"
+                android:layout_marginStart="133dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginEnd="133dp"
+                android:textColor="@color/bootstrap_brand_danger"
+                android:textStyle="bold"
+                app:bootstrapBrand="primary"
+                app:bootstrapSize="lg"
+                app:bootstrapText="{fa_sign_in} Đăng Nhập"
+                app:buttonMode="regular"
+
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pwfMatkhau" />
+                app:layout_constraintTop_toBottomOf="@+id/pwfMatkhau"
+                app:roundedCorners="true" />
 
             <ProgressBar
                 android:id="@+id/loadLogin"
@@ -101,12 +111,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="180dp"
-                android:layout_marginTop="42dp"
+                android:layout_marginTop="80dp"
                 android:layout_marginEnd="183dp"
                 android:backgroundTint="@color/colorPrimary"
                 android:outlineAmbientShadowColor="@color/colorPrimary"
                 android:outlineSpotShadowColor="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.45"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 

@@ -22,8 +22,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
-    <uses-feature android:name="android.hardware.type.watch" />
 
+    <uses-feature android:name="android.hardware.type.watch" />
     <uses-feature
         android:name="android.hardware.camera.any"
         android:required="true" />
@@ -43,16 +43,20 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize">
-
+        <activity android:name=".Detail2Activity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+            ></activity>
         <activity
             android:name=".DetailnewsActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="@string/title_activity_detailnews">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            android:label="@string/title_activity_detailnews"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".DtStoryActivity" />
         <activity android:name=".ProfileActivity" />

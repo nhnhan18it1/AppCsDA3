@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dtn2A_cstLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    tools:context=".Detail2Activity">
+
+
+    <ImageView
+        android:id="@+id/dtn2A_imgContent"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout7"
+        app:srcCompat="@drawable/backgroundl" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout6"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#00100F0F"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout12"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:orientation="horizontal"
+            android:weightSum="12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/dtn2A_btnLike"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:background="#03818A91"
+                android:backgroundTint="#00100F0F"
+                android:drawablePadding="-5dp"
+                android:paddingLeft="15dp"
+                app:bootstrapBrand="primary"
+                app:bootstrapText="{fa_thumbs_up} like" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/dtn2A_btnComment"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:background="#03818A91"
+                android:backgroundTint="#00100F0F"
+                android:drawablePadding="-5dp"
+                android:paddingLeft="15dp"
+                app:bootstrapBrand="primary"
+                app:bootstrapText="{fa_comment} comments" />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:id="@+id/dtn2A_btnShare"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:background="#03818A91"
+                android:backgroundTint="#00100F0F"
+                android:drawablePadding="-5dp"
+                android:paddingLeft="15dp"
+                app:bootstrapBrand="primary"
+                app:bootstrapText="{fa_share_alt} share" />
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/divider9"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="4dp"
+            android:background="?android:attr/listDivider"
+            android:backgroundTint="@color/bootstrap_brand_secondary_fill"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout12"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout13"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="1dp"
+            android:orientation="horizontal"
+            android:weightSum="12"
+            app:layout_constraintBottom_toTopOf="@+id/divider9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:drawableLeft="@drawable/ic_baseline_thumb_up_alt_24"
+                android:drawablePadding="5dp"
+                android:gravity="left|center"
+                android:paddingLeft="5dp"
+                android:text="nhandz và 10 người khác"
+                android:textColor="@color/bootstrap_brand_secondary_fill" />
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:gravity="end|center"
+                android:paddingEnd="10dp"
+                android:text="20 bình luận"
+                android:textColor="@color/bootstrap_brand_secondary_fill" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dtn2A_txtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/roboto"
+            android:paddingLeft="10dp"
+            android:text="Nhan123"
+            android:textColor="@color/bootstrap_brand_secondary_fill"
+            android:textSize="19sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dtn2A_txtContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:paddingLeft="11dp"
+            android:text="Rõ ràng"
+            android:textColor="@color/bootstrap_brand_secondary_fill"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dtn2A_txtName" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_thin"
+            android:paddingLeft="10dp"
+            android:text="2 GIỜ TRƯỚC"
+            android:textColor="@color/bootstrap_brand_secondary_fill"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dtn2A_txtContent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/constraintLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:background="#00100F0F"
+        android:elevation="10dp"
+        android:gravity="end"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_baseline_fastfood_24" />
+
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_baseline_fastfood_24" />
+
+        <ImageButton
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:background="#00FFFFFF"
+            android:src="@drawable/ic_baseline_more_vert_light" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

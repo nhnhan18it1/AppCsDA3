@@ -25,6 +25,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.nhandz.flrv_ch.DT.account;
@@ -47,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText txtUser;
     EditText pwfPass;
-    Button btnLogin;
+    BootstrapButton btnLogin;
     ImageButton btnBack;
     ProgressBar progressBar;
     BlurView blurView;
@@ -59,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TypefaceProvider.registerDefaultIconSets();
         setContentView(R.layout.activity_login);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("TIÊU ĐỀ ACTIVITY"); //Thiết lập tiêu đề nếu muốn
@@ -69,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent=new Intent(LoginActivity.this,HomeActivity.class);
             startActivity(intent);
         }
-        progressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.INVISIBLE);
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +82,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                btnLogin.setEnabled(false);
                 Login(MainActivity.server+"/api/login");
                 //new  LoginX().execute();
 
@@ -125,10 +130,14 @@ public class LoginActivity extends AppCompatActivity {
                if (response.trim()!="fail"){
                    json=response;
                    //Log.e("loginJ", "onResponse: "+response );
+                   progressBar.setVisibility(View.INVISIBLE);
+                   btnLogin.setEnabled(false);
                    new GLogin().execute(response);
 
                }
                else {
+                   progressBar.setVisibility(View.INVISIBLE);
+                   btnLogin.setEnabled(true);
                    json="";
                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
                }
@@ -139,7 +148,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("ErrC", "onErrorResponse: "+error.toString() );
-
+                progressBar.setVisibility(View.INVISIBLE);
+                btnLogin.setEnabled(true);
                 Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         })

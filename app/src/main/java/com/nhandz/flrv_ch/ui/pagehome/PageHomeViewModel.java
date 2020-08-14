@@ -9,6 +9,7 @@ import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.SavedStateViewModelFactory;
 import androidx.lifecycle.ViewModel;
 
+import com.nhandz.flrv_ch.DT.SavaData;
 import com.nhandz.flrv_ch.DT.news;
 import com.nhandz.flrv_ch.Adapters.*;
 import com.nhandz.flrv_ch.MainActivity;
@@ -28,7 +29,14 @@ public class PageHomeViewModel extends ViewModel {
 
         if (mNews==null){
             mNews=new MutableLiveData<>();
-            createNews();
+            if (SavaData.getInstance().listNews.size()==0){
+
+                createNews();
+            }
+            else {
+                mNews.setValue(SavaData.getInstance().listNews);
+            }
+
         }
         mAvt=new MutableLiveData<>();
 //        mAvt.setValue(MainActivity.OnAccount.getAvt());
@@ -60,6 +68,7 @@ public class PageHomeViewModel extends ViewModel {
                 for (news sx:response.body()
                      ) {
                     s.add(sx);
+                    SavaData.getInstance().SetListNews(sx);
                 }
                 mNews.postValue(s);
                 Log.e(TAG, "onResponse: "+response.body().length );

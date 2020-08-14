@@ -103,6 +103,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
     private BootstrapEditText txtCmt;
     private BootstrapButton btnSearch;
     public static int OnIDBV=0;
+    public static BadgeDrawable badgeDrawable;
     SendIDBV sendIDBV;
 
 
@@ -123,12 +124,13 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         initView2();
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.groupFragment,R.id.navigation_watch ,R.id.navigation_notifications,R.id.navigation_menu)
+
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.avtHome_frm);
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
-        BadgeDrawable badgeDrawable=bottomNavigationView.getOrCreateBadge(R.id.navigation_notifications);
+        badgeDrawable=bottomNavigationView.getOrCreateBadge(R.id.navigation_notifications);
         badgeDrawable.setBackgroundColor(Color.RED);
         badgeDrawable.setBadgeTextColor(Color.WHITE);
         badgeDrawable.setMaxCharacterCount(3);
@@ -214,7 +216,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         relativeLayout_ctnComments.requestLayout();
         Log.e("headWidth", "Anhxa: "+width );
         bottomNavigationView=findViewById(R.id.naviBar);
-        //bottomNavigationView.set
+
         btnSearch=findViewById(R.id.avtHome_search);
 
 

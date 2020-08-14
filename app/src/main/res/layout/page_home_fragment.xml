@@ -131,7 +131,7 @@
                     android:id="@+id/home_rcyv_news"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="10dp"
                     android:nestedScrollingEnabled="true" />
 
 

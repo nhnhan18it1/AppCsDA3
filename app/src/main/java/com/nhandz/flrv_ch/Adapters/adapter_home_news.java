@@ -38,6 +38,7 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
 import com.nhandz.flrv_ch.Alert.News_bottom_sheet;
 import com.nhandz.flrv_ch.DT.*;
+import com.nhandz.flrv_ch.Detail2Activity;
 import com.nhandz.flrv_ch.DetailnewsActivity;
 import com.nhandz.flrv_ch.HomeActivity;
 import com.nhandz.flrv_ch.MainActivity;
@@ -115,6 +116,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
                 .skipMemoryCache(false)
                 .fitCenter()
                 //.centerCrop()
+                .placeholder(R.drawable.loading)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 //.override((int)MainActivity.Screen_width,500)
                 .error(R.drawable.logo2)
@@ -188,7 +190,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         holder.Imgcontent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, DetailnewsActivity.class);
+                Intent intent=new Intent(context, Detail2Activity.class);
                 intent.putExtra("news",data_news.get(position));
                 androidx.core.util.Pair<View,String> viewStringPair= Pair.create((View) holder.Imgcontent, ViewCompat.getTransitionName(holder.Imgcontent));
                 ActivityOptionsCompat optionsCompat=ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) context,

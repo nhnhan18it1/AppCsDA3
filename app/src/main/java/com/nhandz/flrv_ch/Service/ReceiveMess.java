@@ -103,7 +103,7 @@ public class ReceiveMess extends Service {
 
                         JSONObject jsonObject= (JSONObject) jsonArray.get(0);
                         Notification notification= new NotificationCompat.Builder(getApplicationContext(), CHANNEL_1_ID)//Notification(getApplicationContext(),5);
-                                .setSmallIcon(R.drawable.logo)
+                                .setSmallIcon(R.drawable.logo3)
                                 .setContentTitle("Tin nhắn : "+jsonObject.get("Name"))
                                 .setContentText(""+jsonObject.get("Content"))
                                 .setAutoCancel(true)
@@ -130,7 +130,7 @@ public class ReceiveMess extends Service {
 
 
                         Notification notification= new NotificationCompat.Builder(getApplicationContext(), CHANNEL_1_ID)//Notification(getApplicationContext(),5);
-                                .setSmallIcon(R.drawable.logo)
+                                .setSmallIcon(R.drawable.logo3)
                                 .setContentTitle("Binh luan : "+jsonObject.get("Name"))
                                 .setContentText(""+jsonObject.get("Content"))
                                 .setAutoCancel(true)
