@@ -40,7 +40,7 @@
                 android:textColor="#0E0B0B"/>
 
             <at.markushi.ui.CircleButton
-                android:id="@+id/notifi_btnSearch"
+                android:id="@+id/menu_btnSearch"
                 android:layout_width="50dp"
                 android:layout_height="45dp"
                 android:layout_gravity="right"
@@ -56,10 +56,12 @@
             android:layout_height="50dp"
             android:weightSum="12"
             android:clickable="true"
-
+            android:layout_gravity="bottom"
             android:backgroundTint="@color/bootstrap_brand_danger"
             android:orientation="horizontal">
+
             <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                android:id="@+id/menu_Avt"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"
@@ -67,7 +69,7 @@
                 android:src="@drawable/ac11"
                 app:bootstrapBrand="info"
                 app:bootstrapSize="lg"
-                app:hasBorder="false"/>
+                app:hasBorder="false" />
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -78,6 +80,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/menu_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="6"
@@ -213,7 +216,7 @@
                             android:layout_width="28dp"
                             android:layout_height="23dp"
                             android:layout_gravity="center|left"
-                            android:layout_marginTop="1dp"
+                            android:layout_marginTop="8dp"
                             android:layout_marginRight="1dp"
                             android:layout_marginBottom="12dp"
                             android:layoutDirection="inherit"
@@ -400,7 +403,7 @@
                                 android:backgroundTint="#FFFFFF"
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="bottom|left"
-                                android:text="Market"
+                                android:text="Bạn bè"
                                 android:textColor="@color/bootstrap_brand_secondary_text" />
                         </LinearLayout>
 
@@ -412,7 +415,7 @@
                             android:layout_marginTop="1dp"
                             android:layout_marginRight="1dp"
                             android:layoutDirection="inherit"
-                            android:src="@drawable/ic_bookmark"
+                            android:src="@drawable/ic_group"
                             app:fab_size="mini"
                             app:menu_fab_size="mini"
                             fab:fab_colorNormal="#FFFFFF"
@@ -446,7 +449,7 @@
                                 android:backgroundTint="#FFFFFF"
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="bottom|left"
-                                android:text="Market"
+                                android:text="Video trên watch"
                                 android:textColor="@color/bootstrap_brand_secondary_text" />
                         </LinearLayout>
 
@@ -458,7 +461,7 @@
                             android:layout_marginTop="1dp"
                             android:layout_marginRight="1dp"
                             android:layoutDirection="inherit"
-                            android:src="@drawable/ic_bookmark"
+                            android:src="@drawable/ic_live_tv"
                             app:fab_size="mini"
                             app:menu_fab_size="mini"
                             fab:fab_colorNormal="#FFFFFF"
@@ -492,7 +495,7 @@
                                 android:backgroundTint="#FFFFFF"
                                 android:fontFamily="@font/roboto_medium"
                                 android:gravity="bottom|left"
-                                android:text="Market"
+                                android:text="Hẹn hò"
                                 android:textColor="@color/bootstrap_brand_secondary_text" />
                         </LinearLayout>
 
@@ -504,7 +507,7 @@
                             android:layout_marginTop="1dp"
                             android:layout_marginRight="1dp"
                             android:layoutDirection="inherit"
-                            android:src="@drawable/ic_bookmark"
+                            android:src="@drawable/ic_baseline_favorite_24"
                             app:fab_size="mini"
                             app:menu_fab_size="mini"
                             fab:fab_colorNormal="#FFFFFF"
@@ -637,6 +640,7 @@
                     app:bootstrapText="{fa_star}  Cài đặt  riêng tư" />
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/menu_btnLogOut"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableTint="@color/bootstrap_brand_primary"

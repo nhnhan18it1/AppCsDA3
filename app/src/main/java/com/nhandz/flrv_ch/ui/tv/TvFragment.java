@@ -89,6 +89,7 @@ public class TvFragment extends Fragment {
                 "https://nhavbnm.000webhostapp.com/Sea%20-%2033194.mp4",
                 "video",
                 1,
+                true,
                 "",
                 "",
                 null

@@ -16,8 +16,8 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cmt_avt"
-            android:layout_width="53dp"
-            android:layout_height="51dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginStart="2dp"
             android:layout_marginTop="5dp"
             app:civ_border_color="#5FCC57"

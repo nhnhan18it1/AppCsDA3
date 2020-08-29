@@ -43,6 +43,7 @@ import com.beardedhen.androidbootstrap.*;
 import com.nhandz.flrv_ch.Adapters.*;
 
 import com.nhandz.flrv_ch.ApiResuorce.*;
+import com.nhandz.flrv_ch.VideoCall.SendCallActivity;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener;
@@ -142,6 +143,16 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void event(){
+        btnVideoCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(ChatActivity.this, SendCallActivity.class);
+                intent.putExtra("ID",String.valueOf(AccOnChat.getID()));
+                intent.putExtra("Type","S");
+                startActivity(intent);
+            }
+        });
+
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

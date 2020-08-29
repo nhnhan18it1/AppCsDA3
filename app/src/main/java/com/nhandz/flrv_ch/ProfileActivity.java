@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,10 +17,16 @@ import com.nhandz.flrv_ch.Adapters.adapter_home_news;
 import java.util.ArrayList;
 
 import com.nhandz.flrv_ch.ApiResuorce.NewsApi;
+import com.nhandz.flrv_ch.ApiResuorce.Utils2;
 import com.nhandz.flrv_ch.DT.*;
 
-public class ProfileActivity extends AppCompatActivity implements SendIDBV {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
+public class ProfileActivity extends AppCompatActivity {
+
+    private String TAG=getClass().getSimpleName();
     private ImageView imgPage;
     private ImageView imgAvt;
     private TextView txtname;
@@ -58,6 +65,22 @@ public class ProfileActivity extends AppCompatActivity implements SendIDBV {
         txtname.setText(MainActivity.OnAccount.getName());
         txtSubName.setText("Vua lì đòn");
         initR();
+        Utils2.getInstance().getRetrofitInstance().getNewsProfile(String.valueOf(MainActivity.OnAccount.getID()),"0").enqueue(new Callback<news[]>() {
+            @Override
+            public void onResponse(Call<news[]> call, Response<news[]> response) {
+                Log.e(TAG, "onResponse: "+response.body() );
+                for (news n:response.body()
+                     ) {
+                    listnews.add(n);
+                }
+                adt.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<news[]> call, Throwable t) {
+                Log.e(TAG, "onFailure: "+t.getMessage() );
+            }
+        });
     }
 
     private void Anhxa() {
@@ -77,14 +100,11 @@ public class ProfileActivity extends AppCompatActivity implements SendIDBV {
                 false);
         listnews=new ArrayList<>();
         recyclerView.setLayoutManager(linearLayoutManager);
-        adt=new adapter_home_news(listnews,getApplicationContext());
+        adt=new adapter_home_news(listnews,getApplicationContext(),getSupportFragmentManager());
         recyclerView.setAdapter(adt);
         recyclerView.setNestedScrollingEnabled(true);
-        new NewsApi.getNewsProfile(listnews,adt).execute();
+        //new NewsApi.getNewsProfile(listnews,adt).execute();
     }
 
-    @Override
-    public void GetCmt(comments[] cmt, int IDBV) {
 
-    }
 }

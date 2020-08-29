@@ -1,7 +1,9 @@
 package com.nhandz.flrv_ch.VideoCall;
 
 import com.nhandz.flrv_ch.DT.Notification;
+import com.nhandz.flrv_ch.DT.account;
 import com.nhandz.flrv_ch.DT.news;
+import com.nhandz.flrv_ch.MainActivity;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,10 +20,27 @@ public interface TurnServer {
     Call<Notification[]> getNotification(@Field("ID") String ID);
     @POST("api/getnews2")
     @FormUrlEncoded
-    Call<news[]> getNews(@Field("offset") String offset);
+    Call<news[]> getNews(@Field("offset") String offset,@Field("IDND")String IDND);
     @GET("api/getGalary")
     Call<news[]> getGalary();
     @GET("api/getvideo")
-
     Call<news[]> getVideo(@Query("ID") String ID, @Query("offset") String offset);
+    @GET("api/getnews4")
+    Call<news[]> getNewsProfile(@Query("IDND") String IDND, @Query("offset") String offset);
+    @GET("api/search")
+    Call<account[]> Search(@Query("name") String name);
+    @POST("api/scmt")
+    @FormUrlEncoded
+    Call<String> sendComments(@Field("IDBV") String IDBV,
+                              @Field("ID") String ID,
+                              @Field("Avt") String Avt,
+                              @Field("Name") String Name,
+                              @Field("CmtContent") String cmtct,
+                              @Field("Content") String smContent
+    );
+    @GET("api/GetANews")
+    Call<news[]> getAnews(@Query("IDBV")String IDBV ,@Field("IDND")String IDND);
+    @POST("api/postlike")
+    @FormUrlEncoded
+    Call<String> postLike(@Field("IDND")String IDND,@Field("IDBV")String IDBV);
 }

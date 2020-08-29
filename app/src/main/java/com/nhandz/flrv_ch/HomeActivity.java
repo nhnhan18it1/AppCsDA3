@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
@@ -50,6 +51,9 @@ import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 import com.nhandz.flrv_ch.Adapters.adapter_comment;
 import com.nhandz.flrv_ch.Adapters.adapter_home_news;
 import com.nhandz.flrv_ch.ApiResuorce.NewsApi;
@@ -75,6 +79,9 @@ import com.nhandz.flrv_ch.Service.ReceiveMess;
 import com.nhandz.flrv_ch.VideoCall.RCallActivity;
 import com.nhandz.flrv_ch.VideoCall.SendCallActivity;
 import com.nhandz.flrv_ch.ui.pagehome.PageHomeFragment;
+import com.nhandz.flrv_ch.Alert.*;
+
+import org.json.JSONArray;
 
 
 public class HomeActivity extends AppCompatActivity implements SendIDBV {
@@ -89,7 +96,7 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
     adapter_home_news adt;
     private BootstrapCircleThumbnail avtfix;
     private BootstrapEditText txtinputtus;
-    private BootstrapButton btnmess;
+    private at.markushi.ui.CircleButton btnmess;
     public DrawerLayout drawerLayout;
     private RecyclerView recyclerViewCMT;
     ArrayList<comments> listCMT=new ArrayList<>();
@@ -98,10 +105,10 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
     private CardView relativeLayout_ctnComments;
     private BottomNavigationView bottomNavigationView;
     private ImageButton btnCloseDr;
-    private BootstrapButton btnFacebook;
+    private at.markushi.ui.CircleButton btnFacebook;
     private BootstrapButton btnSendCmt;
     private BootstrapEditText txtCmt;
-    private BootstrapButton btnSearch;
+    private at.markushi.ui.CircleButton btnSearch;
     public static int OnIDBV=0;
     public static BadgeDrawable badgeDrawable;
     SendIDBV sendIDBV;
@@ -159,7 +166,9 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         btnFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                stopService(intent);
+                //stopService(intent);
+                Intent intent1=new Intent(HomeActivity.this,ReceiveCallActivity.class);
+                startActivity(intent1);
             }
         });
         btnSendCmt.setOnClickListener(new View.OnClickListener() {
@@ -182,15 +191,15 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(HomeActivity.this, RCallActivity.class);
+                Intent intent1=new Intent(HomeActivity.this, SearchActivity.class);
                 startActivity(intent1);
             }
         });
         btnSearch.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent intent1=new Intent(HomeActivity.this, SendCallActivity.class);
-                startActivity(intent1);
+//                Intent intent1=new Intent(HomeActivity.this, SendCallActivity.class);
+//                startActivity(intent1);
                 return false;
             }
         });
@@ -285,18 +294,25 @@ public class HomeActivity extends AppCompatActivity implements SendIDBV {
 //        recyclerView.getLayoutManager().scrollToPosition(0);
 //        new NewsApi.getNews(listnews,adt).execute(MainActivity.server+"/api/getnews");
 //        listnews.removeAll(listnews);
-        if (bottomNavigationView.getSelectedItemId()==R.id.navigation_home){
-            PageHomeFragment.reLoadNews();
-            Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+        if (drawerLayout.isDrawerOpen(GravityCompat.END)){
+            drawerLayout.closeDrawers();
         }
         else {
-            
+            if (bottomNavigationView.getSelectedItemId()==R.id.navigation_home){
+                PageHomeFragment.reLoadNews();
+                Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+            }
+            else {
+
+            }
+
+
+            if (PageHomeFragment.nestedScrollView!=null){
+                PageHomeFragment.nestedScrollView.smoothScrollTo(0,0);
+            }
         }
 
 
-        if (PageHomeFragment.nestedScrollView!=null){
-            PageHomeFragment.nestedScrollView.smoothScrollTo(0,0);
-        }
     }
 
     public String getRealPathFromURI(Uri contentUri) {

@@ -89,11 +89,9 @@
                     android:layout_height="18dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="1dp"
-                    android:layout_marginEnd="12dp"
                     android:text="1 gio"
                     android:textColor="#918A8C"
                     android:textStyle="italic"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/cmt_avt"
                     app:layout_constraintTop_toBottomOf="@+id/home_adt_header" />
 
@@ -133,6 +131,7 @@
                 android:layout_height="wrap_content"
                 android:transitionName="simple_activity_transition"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:scaleType="centerCrop"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_adt_txtcontent"

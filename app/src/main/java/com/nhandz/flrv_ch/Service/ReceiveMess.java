@@ -19,6 +19,7 @@ import com.nhandz.flrv_ch.ChatActivity;
 import com.nhandz.flrv_ch.MainActivity;
 import com.nhandz.flrv_ch.MessengerListActivity;
 import com.nhandz.flrv_ch.R;
+import com.nhandz.flrv_ch.ReceiveCallActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,6 +33,7 @@ import io.socket.emitter.Emitter;
 
 
 public class ReceiveMess extends Service {
+    private String TAG = getClass().getSimpleName();
     public static final String CHANNEL_1_ID="Channel 1";
     public static final String CHANNEL_2_ID="Channel 2";
     public static Socket socket;
@@ -117,6 +119,29 @@ public class ReceiveMess extends Service {
                         e.printStackTrace();
                     }
 
+                }
+            });
+
+            socket.on("s_request", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    try {
+                        //data {IDS,Avt,name}
+
+
+
+                        JSONArray jsonArray=new JSONArray(args);
+                        Log.e(TAG, "call: s_request "+jsonArray.toString() );
+                        JSONObject jsonObject=(JSONObject) jsonArray.get(0);
+                        Intent intent1=new Intent(ReceiveMess.this, ReceiveCallActivity.class);
+                        intent1.putExtra("data",jsonObject.toString());
+                        intent1.putExtra("Type","R");
+                        intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        startActivity(intent1);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
 

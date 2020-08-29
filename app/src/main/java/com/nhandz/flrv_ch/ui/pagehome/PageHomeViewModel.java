@@ -61,7 +61,7 @@ public class PageHomeViewModel extends ViewModel {
 
 
     public void createNews(){
-        Utils2.getInstance().getRetrofitInstance().getNews("0").enqueue(new Callback<news[]>() {
+        Utils2.getInstance().getRetrofitInstance().getNews("0",String.valueOf(MainActivity.OnAccount.getID())).enqueue(new Callback<news[]>() {
             @Override
             public void onResponse(Call<news[]> call, Response<news[]> response) {
                 ArrayList<news> s=new ArrayList<>();

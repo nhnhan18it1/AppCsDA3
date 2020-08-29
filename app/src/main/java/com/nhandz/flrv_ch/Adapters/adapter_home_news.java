@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.media.MediaBrowserCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -36,7 +37,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.load.model.LazyHeaders;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 import com.nhandz.flrv_ch.Alert.News_bottom_sheet;
+import com.nhandz.flrv_ch.Alert.comments_bottom_sheet;
 import com.nhandz.flrv_ch.DT.*;
 import com.nhandz.flrv_ch.Detail2Activity;
 import com.nhandz.flrv_ch.DetailnewsActivity;
@@ -54,8 +59,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import com.beardedhen.androidbootstrap.*;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.ViewHolder> {
 
+    String TAG = getClass().getSimpleName();
     ArrayList<news> data_news;
     Context context;
     public  static DrawerLayout drawerLayout;
@@ -154,6 +163,14 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
             holder.txtccmt.setText(data_news.get(position).getCmt().length+" bình luận");
         }
 
+        Log.e(TAG, "onBindViewHolder: islike"+data_news.get(position).isIslike());
+
+        if (data_news.get(position).isIslike()){
+            holder.iconlike.setTextColor(context.getResources().getColor(R.color.bootstrap_brand_danger));
+        }
+        else {
+            holder.iconlike.setTextColor(context.getResources().getColor(R.color.bootstrap_brand_secondary_text));
+        }
 
         holder.ctnlike.setWeightSum(maxs/3);
         holder.iconlike.setOnClickListener(new View.OnClickListener() {
@@ -172,9 +189,21 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
         holder.iconcmt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.RIGHT);
-                sendIDBV=new HomeActivity();
-                sendIDBV.GetCmt(data_news.get(position).getCmt(),data_news.get(position).getIDBV());
+//                drawerLayout.openDrawer(Gravity.RIGHT);
+//                sendIDBV=new HomeActivity();
+//                sendIDBV.GetCmt(data_news.get(position).getCmt(),data_news.get(position).getIDBV());
+                comments_bottom_sheet comments_bottom_sheet=new comments_bottom_sheet();
+                Bundle bundle=new Bundle();
+                Gson gson=new Gson();
+                JsonElement jsonElement=gson.toJsonTree(data_news.get(position).getCmt(),new TypeToken<comments[]>(){}.getType());
+
+
+                JsonArray jsonArray=jsonElement.getAsJsonArray();
+                Log.e(TAG, "onClick: "+jsonArray.toString() );
+                bundle.putString("comments",jsonArray.toString());
+                bundle.putString("IDBV",String.valueOf(data_news.get(position).getIDBV()));
+                comments_bottom_sheet.setArguments(bundle);
+                comments_bottom_sheet.show(fragmentManager,"");
             }
         });
         holder.btnshowmn.setOnClickListener(new View.OnClickListener() {
@@ -264,11 +293,13 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
                 txticon.setTextColor(context.getResources().getColor(R.color.bootstrap_brand_danger));
                 count.setCLike(count.getCLike()+1);
                 txtclike.setText((count.getCLike())+ " người đã thích");
+                count.setIslike(true);
             }
             else {
                 txticon.setTextColor(context.getResources().getColor(R.color.bootstrap_brand_secondary_text));
                 count.setCLike(count.getCLike()-1);
                 txtclike.setText((count.getCLike())+ " người đã thích");
+                count.setIslike(false);
                 //txticon.setShowOutline(true);
 //                txticon.setTextColor(R.color.bootstrap_gray);
 //                //txtTl.setTextColor(R.color.bootstrap_gray);

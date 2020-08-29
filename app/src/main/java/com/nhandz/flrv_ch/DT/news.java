@@ -15,6 +15,7 @@ public class news extends account implements Serializable{
     protected String News_created_at;
     protected String News_updated_at;
     private comments[] comments;
+    private boolean islike;
     //protected String name;
 
 
@@ -55,6 +56,7 @@ public class news extends account implements Serializable{
                 String img,
                 String type_content,
                 int CLike,
+                boolean islike,
                 String news_created_at,
                 String news_updated_at){
         this.IDBV = IDBV;
@@ -65,6 +67,7 @@ public class news extends account implements Serializable{
         this.CLike = CLike;
         this.created_at = news_created_at;
         this.updated_at = news_updated_at;
+        this.islike = islike;
 
     }
 
@@ -81,7 +84,7 @@ public class news extends account implements Serializable{
 //
 //    }
 
-    public news(String name, String avt, int IDBV, int IDND, String content, String img, String type_content, int CLike, String news_created_at, String news_updated_at,comments[] comments) {
+    public news(String name, String avt, int IDBV, int IDND, String content, String img, String type_content, int CLike,boolean islike, String news_created_at, String news_updated_at,comments[] comments) {
         super(name, avt);
         this.IDBV = IDBV;
         this.IDND = IDND;
@@ -92,6 +95,7 @@ public class news extends account implements Serializable{
         News_created_at = news_created_at;
         News_updated_at = news_updated_at;
         this.comments=comments;
+        this.islike=islike;
     }
 
     public news(){
@@ -107,7 +111,13 @@ public class news extends account implements Serializable{
     }
 
 
+    public boolean isIslike() {
+        return islike;
+    }
 
+    public void setIslike(boolean islike) {
+        this.islike = islike;
+    }
 
     public String getName() {
         return name;

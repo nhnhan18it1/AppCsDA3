@@ -1,6 +1,7 @@
 package com.nhandz.flrv_ch.VideoCall;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -52,6 +53,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.socket.emitter.Emitter;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -63,6 +65,7 @@ import retrofit2.Response;
 public class SendCallActivity extends AppCompatActivity implements SignallingClient.SignalingInterface {
 
     private static final int ALL_PERMISSIONS_CODE = 1 ;
+    private String TAG=getClass().getSimpleName();
 
     List<PeerConnection.IceServer> peericeServers=new ArrayList<>();
     List<IceServer> iceServers;
@@ -133,9 +136,54 @@ public class SendCallActivity extends AppCompatActivity implements SignallingCli
                 onTryToStart();
             }
         });
+        Intent intent=getIntent();
+        if (intent.getStringExtra("Type").equals("R")){
+            try {
+
+                JSONObject jsonObject=new JSONObject(intent.getStringExtra("data"));
+                //SignallingClient.getInstance().emitInitStatement_join(jsonObject.getString("IDS")+MainActivity.OnAccount.getID());
+                SignallingClient.getInstance().isStarted=false;
+                onTryToStart();
+                Log.e(TAG, "onCreate: onJoin-R" );
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else if (intent.getStringExtra("Type").equals("S")){
+            SignallingClient.getInstance().emitInitStatement_create(MainActivity.OnAccount.getID()+intent.getStringExtra("ID"));
+            JSONObject jsonObject=new JSONObject();
+            try {
+                jsonObject.put("IDNG",String.valueOf(MainActivity.OnAccount.getID()));
+                jsonObject.put("Avt",MainActivity.OnAccount.getAvt());
+                jsonObject.put("name",MainActivity.OnAccount.getName());
+                jsonObject.put("IDNN",intent.getStringExtra("ID"));
+                Log.e(TAG, "onCreate: "+jsonObject.toString() );
+                MainActivity.mSocket.emit("request_to",jsonObject);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+            MainActivity.mSocket.on("join", new Emitter.Listener() {
+                @Override
+                public void call(Object... args) {
+                    Log.e(TAG, "call: joined" );
+                    SignallingClient.getInstance().isStarted=false;
+                    onTryToStart();
+                    //scall();
+                    //call();
+                }
+            });
+        }
+
         //call();
     }
 
+    public void scall(){
+        call();
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

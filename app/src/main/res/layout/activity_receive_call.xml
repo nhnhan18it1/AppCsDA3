@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rec_layout"
+    android:background="@drawable/gadient_list"
+    tools:context=".ReceiveCallActivity">
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/rec_caCall"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginStart="68dp"
+        android:layout_marginBottom="112dp"
+        android:src="@drawable/ic_baseline_call_end_24"
+        app:cb_color="#EBEFEDED"
+        app:cb_pressedRingWidth="4dip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+        android:id="@+id/bootstrapCircleThumbnail"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="300dp"
+        android:backgroundTint="@color/bootstrap_brand_secondary_fill"
+        android:src="@drawable/logo3"
+        app:bootstrapBrand="primary"
+        app:bootstrapSize="xs"
+        app:hasBorder="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <at.markushi.ui.CircleButton
+        android:id="@+id/rec_acCall"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginBottom="112dp"
+        android:src="@drawable/ic_baseline_call_24"
+        app:cb_color="#EBEFEDED"
+        app:cb_pressedRingWidth="4dip"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/rec_name"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="Nhận đc cuộc gọi từ nhândz"
+        android:textColor="@color/bootstrap_brand_secondary_fill"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bootstrapCircleThumbnail" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

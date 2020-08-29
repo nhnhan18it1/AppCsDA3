@@ -43,9 +43,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".Detail2Activity"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-            ></activity>
+        <activity android:name=".ReceiveCallActivity"></activity>
+        <activity
+            android:name=".SearchActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".Detail2Activity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".DetailnewsActivity"
             android:label="@string/title_activity_detailnews"
@@ -101,8 +105,12 @@
         <activity android:name=".ipconfig" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".VideoCall.RCallActivity" />
-        <activity android:name=".VideoCall.SendCallActivity" />
+        <activity
+            android:name=".VideoCall.RCallActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".VideoCall.SendCallActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -56,52 +56,36 @@
                     android:gravity="end"
                     android:weightSum="12">
 
-                    <com.beardedhen.androidbootstrap.BootstrapButton
+                    <at.markushi.ui.CircleButton
                         android:id="@+id/avtHome_search"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:layout_weight="2"
-                        android:text="a"
-                        app:bootstrapBrand="primary"
-                        app:bootstrapSize="md"
-                        app:buttonMode="regular"
-                        app:fontAwesomeIcon="fa_search"
-                        app:roundedCorners="true"
-                        app:showOutline="true"
-                        tools:layout_editor_absoluteX="264dp"
-                        tools:layout_editor_absoluteY="9dp" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:layout_gravity="right"
+                        android:src="@drawable/ic_search"
+                        app:cb_color="#EBEFEDED"
+                        app:cb_pressedRingWidth="4dip" />
 
-                    <com.beardedhen.androidbootstrap.BootstrapButton
+                    <at.markushi.ui.CircleButton
                         android:id="@+id/avtHome_facebook"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_weight="2"
-                        android:text="a"
-                        app:bootstrapBrand="primary"
-                        app:buttonMode="regular"
-                        app:fontAwesomeIcon="fa_facebook_official"
-                        app:roundedCorners="true"
-                        app:showOutline="true" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:layout_gravity="right"
+                        android:src="@drawable/ic_live_tv"
+                        app:cb_color="#EBEFEDED"
+                        app:cb_pressedRingWidth="4dip" />
 
-                    <com.beardedhen.androidbootstrap.BootstrapButton
+                    <at.markushi.ui.CircleButton
                         android:id="@+id/home_btnmess"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1.5"
+                        android:layout_gravity="right"
+                        android:src="@drawable/ic_baseline_chat_24"
+                        app:cb_color="#EBEFEDED"
+                        app:cb_pressedRingWidth="4dip" />
 
-                        android:layout_marginStart="1dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginEnd="1dp"
-                        android:layout_weight="2"
-                        android:text="a"
-                        app:bootstrapBrand="primary"
-                        app:bootstrapText="{fa_comments}"
-                        app:buttonMode="regular"
-                        app:fontAwesomeIcon="fa_comments"
-                        app:roundedCorners="true"
-                        app:showOutline="true" />
                 </LinearLayout>
 
             </LinearLayout>

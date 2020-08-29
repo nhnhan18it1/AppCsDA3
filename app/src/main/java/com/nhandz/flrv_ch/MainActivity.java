@@ -149,8 +149,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //Do something after 100ms
+                start();
                 if (!isFisrt){
-                    start();
+
                 }
                 //handler.postDelayed(this, 2000);
             }

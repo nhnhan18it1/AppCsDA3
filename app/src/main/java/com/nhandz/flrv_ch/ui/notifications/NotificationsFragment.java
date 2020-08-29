@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,19 +24,10 @@ import com.nhandz.flrv_ch.MainActivity;
 import com.nhandz.flrv_ch.R;
 
 import java.io.IOException;
-import java.security.Timestamp;
 import java.util.ArrayList;
 import com.nhandz.flrv_ch.DT.*;
 import com.nhandz.flrv_ch.Adapters.*;
-import com.nhandz.flrv_ch.VideoCall.TurnServerPojo;
-import com.nhandz.flrv_ch.VideoCall.Utils;
 
-import org.json.JSONArray;
-
-import okhttp3.Cache;
-import okhttp3.ConnectionPool;
-import okhttp3.FormBody;
-import okhttp3.Interceptor;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -71,7 +61,7 @@ public class NotificationsFragment extends Fragment {
 
 
     private void Anhxa() {
-        btnSearch=itemView.findViewById(R.id.notifi_btnSearch);
+        btnSearch=itemView.findViewById(R.id.menu_btnSearch);
         reAdviseFriend=itemView.findViewById(R.id.recyclerView_adviseF);
         txtXemThem=itemView.findViewById(R.id.notifi_seeMore);
         reNotifications=itemView.findViewById(R.id.notifi_reNotification);

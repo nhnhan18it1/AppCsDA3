@@ -1,6 +1,7 @@
 package com.nhandz.flrv_ch.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beardedhen.androidbootstrap.*;
 import com.bumptech.glide.Glide;
 import com.nhandz.flrv_ch.DT.Notification;
+import com.nhandz.flrv_ch.DetailnewsActivity;
 import com.nhandz.flrv_ch.MainActivity;
 import com.nhandz.flrv_ch.R;
 
@@ -45,6 +47,14 @@ public class adapter_notification extends RecyclerView.Adapter<adapter_notificat
                     .into(holder.avtNoti);
             holder.txtName.setText(notifications.get(position).getAccountx().getName());
             holder.txtContent.setText(notifications.get(position).getType());
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(context, DetailnewsActivity.class);
+                    intent.putExtra("IDBV",notifications.get(position).getIDBV());
+                    context.startActivity(intent);
+                }
+            });
         }
 
     }
@@ -59,12 +69,14 @@ public class adapter_notification extends RecyclerView.Adapter<adapter_notificat
         public TextView txtName;
         public TextView txtContent;
         public ImageButton btnMenu;
+        public View view;
         public Viewholder(@NonNull View itemView) {
             super(itemView);
             avtNoti=itemView.findViewById(R.id.item_noti_avt);
             txtName=itemView.findViewById(R.id.item_notifi_name);
             txtContent=itemView.findViewById(R.id.item_notifi_content);
             btnMenu=itemView.findViewById(R.id.item_notifi_btnMenu);
+            this.view=itemView;
         }
     }
 }

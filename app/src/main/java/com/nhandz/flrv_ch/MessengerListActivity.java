@@ -45,6 +45,7 @@ public class MessengerListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_messenger_list);
+        TypefaceProvider.registerDefaultIconSets();
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("TIÊU ĐỀ ACTIVITY"); //Thiết lập tiêu đề nếu muốn
         String title = actionBar.getTitle().toString(); //Lấy tiêu đề nếu muốn

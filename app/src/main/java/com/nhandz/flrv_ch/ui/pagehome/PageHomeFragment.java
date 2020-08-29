@@ -91,7 +91,7 @@ public class PageHomeFragment extends Fragment {
              recyclerViewNews.scrollToPosition(0);
              swipeRefreshLayout.setRefreshing(true);
              count=0;
-            Utils2.getInstance().getRetrofitInstance().getNews("0").enqueue(new Callback<news[]>() {
+            Utils2.getInstance().getRetrofitInstance().getNews("0",String.valueOf(MainActivity.OnAccount.getID())).enqueue(new Callback<news[]>() {
                 @Override
                 public void onResponse(Call<news[]> call, Response<news[]> response) {
                     Log.e("F_home", "onResponse: "+response.body().length );
@@ -101,6 +101,8 @@ public class PageHomeFragment extends Fragment {
                         listnews.add(n);
                     }
                     adt.notifyDataSetChanged();
+                    recyclerViewNews.clearAnimation();
+                    swipeRefreshLayout.setRefreshing(false);
                 }
 
                 @Override
@@ -231,7 +233,7 @@ public class PageHomeFragment extends Fragment {
         }
         isLoading=true;
         count++;
-        Utils2.getInstance().getRetrofitInstance().getNews(s).enqueue(new Callback<news[]>() {
+        Utils2.getInstance().getRetrofitInstance().getNews(s,String.valueOf(MainActivity.OnAccount.getID())).enqueue(new Callback<news[]>() {
             @Override
             public void onResponse(Call<news[]> call, Response<news[]> response) {
                 Log.e("F_home", "onResponse: "+response.body().length );

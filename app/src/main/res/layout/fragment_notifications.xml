@@ -37,7 +37,7 @@
             android:textStyle="bold" />
 
         <at.markushi.ui.CircleButton
-            android:id="@+id/notifi_btnSearch"
+            android:id="@+id/menu_btnSearch"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
