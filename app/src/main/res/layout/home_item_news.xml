@@ -17,6 +17,7 @@
         android:orientation="vertical"
         app:cardCornerRadius="25dp"
         app:contentPaddingBottom="15dp"
+        app:cardElevation="10dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_creator="@integer/config_navAnimTime"
         app:layout_constraintEnd_toEndOf="parent"

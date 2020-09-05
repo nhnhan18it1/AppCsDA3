@@ -68,9 +68,12 @@ public class DashboardFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        Glide.with(getContext())
-                .load(MainActivity.serverImg+MainActivity.OnAccount.getAvt())
-                .into(Avt);
+        if (MainActivity.OnAccount!=null){
+            Glide.with(getContext())
+                    .load(MainActivity.serverImg+MainActivity.OnAccount.getAvt())
+                    .into(Avt);
+        }
+
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

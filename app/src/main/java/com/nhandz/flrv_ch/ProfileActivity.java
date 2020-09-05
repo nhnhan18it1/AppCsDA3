@@ -100,7 +100,7 @@ public class ProfileActivity extends AppCompatActivity {
                 false);
         listnews=new ArrayList<>();
         recyclerView.setLayoutManager(linearLayoutManager);
-        adt=new adapter_home_news(listnews,getApplicationContext(),getSupportFragmentManager());
+        adt=new adapter_home_news(listnews,this,getSupportFragmentManager());
         recyclerView.setAdapter(adt);
         recyclerView.setNestedScrollingEnabled(true);
         //new NewsApi.getNewsProfile(listnews,adt).execute();

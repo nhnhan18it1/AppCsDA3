@@ -1,6 +1,7 @@
 package com.nhandz.flrv_ch.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.nhandz.flrv_ch.DT.account;
 import com.nhandz.flrv_ch.DT.news;
 import com.nhandz.flrv_ch.MainActivity;
+import com.nhandz.flrv_ch.OtprofileActivity;
 import com.nhandz.flrv_ch.R;
 
 import java.util.ArrayList;
@@ -51,6 +53,14 @@ public class adapter_search extends RecyclerView.Adapter<adapter_search.ViewHold
                     .into(holder.avt);
             holder.txtName.setText(ac.getName());
             holder.txtBanChung.setText("2 bạn chung");
+            holder.itv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(context, OtprofileActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
+            });
         }
 
     }
@@ -66,11 +76,13 @@ public class adapter_search extends RecyclerView.Adapter<adapter_search.ViewHold
         public BootstrapCircleThumbnail avt;
         public TextView txtName;
         public TextView txtBanChung;
+        public View itv;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             avt=itemView.findViewById(R.id.itSearch_avt);
             txtName=itemView.findViewById(R.id.itSearch_txtName);
             txtBanChung=itemView.findViewById(R.id.itSearch_txtBC);
+            itv=itemView;
         }
     }
 }

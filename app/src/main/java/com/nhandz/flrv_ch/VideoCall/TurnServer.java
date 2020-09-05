@@ -39,7 +39,7 @@ public interface TurnServer {
                               @Field("Content") String smContent
     );
     @GET("api/GetANews")
-    Call<news[]> getAnews(@Query("IDBV")String IDBV ,@Field("IDND")String IDND);
+    Call<news[]> getAnews(@Query("IDBV")String IDBV ,@Query("IDND")String IDND);
     @POST("api/postlike")
     @FormUrlEncoded
     Call<String> postLike(@Field("IDND")String IDND,@Field("IDBV")String IDBV);

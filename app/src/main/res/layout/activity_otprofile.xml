@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OtprofileActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/roundedImageView"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/backgroundl"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_corner_radius_bottom_left="60dp"
+                app:riv_corner_radius_bottom_right="60dp" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="170dp"
+                android:layout_marginEnd="25dp"
+                android:outlineSpotShadowColor="@color/bootstrap_brand_secondary_text"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
+                        android:id="@+id/bootstrapCircleThumbnail2"
+                        android:layout_width="85dp"
+                        android:layout_height="85dp"
+                        android:layout_marginStart="10dp"
+                        android:src="@drawable/backgroundl"
+                        app:bootstrapBrand="primary"
+                        app:bootstrapSize="xs"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="left|center"
+                        android:text="TextView"
+                        android:textColor="#000000"
+                        android:textSize="22dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail2"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="26dp"
+                        android:fontFamily="@font/roboto"
+                        android:gravity="left|center"
+                        android:paddingEnd="3dp"
+                        android:text="TextView"
+                        android:textSize="15sp"
+                        android:textStyle="italic"
+                        app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail2"
+                        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+                    <View
+                        android:id="@+id/divider10"
+                        android:layout_width="220dp"
+                        android:layout_height="3dp"
+                        android:layout_marginTop="4dp"
+                        android:background="?android:attr/listDivider"
+                        android:backgroundTint="@color/bootstrap_brand_primary"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail2"
+                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+                    <LinearLayout
+                        android:layout_width="220dp"
+                        android:layout_height="55dp"
+                        android:layout_marginBottom="2dp"
+                        android:orientation="horizontal"
+                        android:weightSum="12"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail2"
+                        app:layout_constraintTop_toBottomOf="@+id/divider10">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:orientation="vertical"
+
+                            android:weightSum="12">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="6"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="follow"
+                                android:textColor="@color/bootstrap_brand_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="6"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="10"
+                                android:textColor="@color/design_default_color_secondary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:orientation="vertical"
+
+                            android:weightSum="12">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="6"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="friends"
+                                android:textColor="@color/bootstrap_brand_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="6"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="10"
+                                android:textColor="@color/design_default_color_secondary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="4"
+                            android:orientation="vertical"
+
+                            android:weightSum="12">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="6"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="like"
+                                android:textColor="@color/bootstrap_brand_primary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="6"
+                                android:fontFamily="@font/roboto"
+                                android:gravity="center"
+                                android:text="10"
+                                android:textColor="@color/design_default_color_secondary"
+                                android:textSize="18sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/linearLayout14"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2">
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="8"
+                    android:textStyle="bold"
+                    app:bootstrapBrand="primary"
+                    app:bootstrapSize="md"
+                    app:bootstrapText="{fa_user_plus} Thêm bạn bè"
+                    app:roundedCorners="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="2"
+                    android:backgroundTint="#E2F1EEEE"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:bootstrapBrand="secondary"
+                    app:bootstrapSize="md"
+                    app:bootstrapText="{fa_comment_o}"
+                    app:roundedCorners="true" />
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:backgroundTint="#E2F1EEEE"
+                    android:textStyle="bold"
+                    app:bootstrapBrand="secondary"
+                    app:bootstrapSize="md"
+                    app:bootstrapText="{fa_ellipsis_h}"
+                    app:roundedCorners="true" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider11"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="8dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout14" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:orientation="vertical"
+                android:paddingTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider11">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_add_24"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="left|center"
+                    android:paddingLeft="8dp"
+                    android:paddingBottom="2dp"
+                    android:textStyle="bold"
+                    android:text="Học Công Nghệ Thông Tin (IT) tại Trường Đại học Công nghệ Thông tin  Truyền thông Việt Hàn - ĐHĐN"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_favorite_24"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="left|center"
+                    android:textStyle="bold"
+                    android:paddingLeft="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="Đến từ Anh Sơn"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_person_24"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="left|center"
+                    android:textStyle="bold"
+                    android:paddingLeft="8dp"
+                    android:paddingBottom="2dp"
+                    android:text="Sống tại Vinh"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_baseline_school_24"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:gravity="left|center"
+                    android:paddingLeft="8dp"
+                    android:textStyle="bold"
+                    android:paddingBottom="2dp"
+                    android:text="Đã học tại Thpt Anh Sơn I"
+                    android:textSize="17sp" />
+            </LinearLayout>
+
+            <View
+                android:id="@+id/divider12"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout15" />
+
+            <GridView
+                android:id="@+id/otp_galary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="1dp"
+                android:background="@color/bootstrap_brand_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider12" />
+
+            <View
+                android:id="@+id/divider13"
+                android:layout_width="409dp"
+                android:layout_height="1dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="1dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider12" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/otp_listbv"
+                android:layout_width="409dp"
+                android:layout_height="341dp"
+                android:layout_marginTop="3dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/divider13" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
+</androidx.core.widget.NestedScrollView>

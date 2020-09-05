@@ -102,6 +102,8 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
+        if (data_news.get(position)!=null){
+
         int maxs= holder.ctntt.getWidth();
         holder.txtname.setText(String.valueOf(data_news.get(position).getName()));
         String urlAvt="";
@@ -229,6 +231,7 @@ public class adapter_home_news extends RecyclerView.Adapter<adapter_home_news.Vi
                 context.startActivity(intent,optionsCompat.toBundle());
             }
         });
+        }
 
     }
 
