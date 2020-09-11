@@ -36,9 +36,9 @@ public class Detail2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail2);
-        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.DONUT) {
-            Detail2Activity.this.overridePendingTransition(R.anim.fragment_fade_enter,R.anim.nav_default_pop_exit_anim);
-        }
+//        if (android.os.Build.VERSION.SDK_INT > android.os.Build.VERSION_CODES.DONUT) {
+//            Detail2Activity.this.overridePendingTransition(R.anim.fragment_fade_enter,R.anim.nav_default_pop_exit_anim);
+//        }
         Anhxa();
         Intent intent=getIntent();
         OnNews=(news) intent.getSerializableExtra("news");

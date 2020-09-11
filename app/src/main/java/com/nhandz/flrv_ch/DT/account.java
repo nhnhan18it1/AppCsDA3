@@ -16,9 +16,27 @@ public class account implements Serializable {
     protected String created_at;
     protected String updated_at;
     protected String remember_token;
+    protected Infor infor;
+
+
+    public account(int ID, String username, String password, String name, String SDT, String email, String dob, String avtpage, String avt, String sex, String created_at, String updated_at, String remember_token) {
+        this.ID = ID;
+        Username = username;
+        this.password = password;
+        this.name = name;
+        this.SDT = SDT;
+        Email = email;
+        Dob = dob;
+        Avtpage = avtpage;
+        Avt = avt;
+        this.sex = sex;
+        this.created_at = created_at;
+        this.updated_at = updated_at;
+        this.remember_token = remember_token;
+    }
 
     public account(int ID, String username, String password, String name, String SDT, String email, String dob, String avtpage, String avt,
-                   String sex, String created_at, String updated_at, String remember_token) {
+                   String sex, String created_at, String updated_at, String remember_token, Infor infor) {
         this.ID = ID;
         this.Username = username;
         this.password = password;
@@ -32,6 +50,7 @@ public class account implements Serializable {
         this.created_at = created_at;
         this.updated_at = updated_at;
         this.remember_token = remember_token;
+        this.infor=infor;
     }
 
     public account(String name, String avt) {
@@ -48,18 +67,27 @@ public class account implements Serializable {
 
     public account(){
         int ID=0;
-        String Username=null;
-        String password=null;
-        String name=null;
-        String SDT=null;
-        String Email=null;
-        String Dob=null;
-        String Avtpage=null;
-        String Avt=null;
-        String sex=null;
-        String created_at=null;
-        String updated_at=null;
-        String remember_token=null;
+        this.Username=null;
+        this.password=null;
+        this.name=null;
+        this.SDT=null;
+        this.Email=null;
+        this.Dob=null;
+        this.Avtpage=null;
+        this.Avt=null;
+        this.sex=null;
+        this.created_at=null;
+        this.updated_at=null;
+        this.remember_token=null;
+        this.infor=null;
+    }
+
+    public Infor getInfor() {
+        return infor;
+    }
+
+    public void setInfor(Infor infor) {
+        this.infor = infor;
     }
 
     public int getID() {

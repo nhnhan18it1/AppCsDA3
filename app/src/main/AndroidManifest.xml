@@ -43,9 +43,12 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:windowSoftInputMode="adjustResize">
-        <activity android:name=".OtprofileActivity"
+        <activity android:name=".SlideActivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
             ></activity>
+        <activity
+            android:name=".OtprofileActivity"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity android:name=".ReceiveCallActivity" />
         <activity
             android:name=".SearchActivity"

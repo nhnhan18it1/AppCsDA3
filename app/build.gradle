@@ -97,4 +97,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-alpha06"
 
     implementation "com.github.tcking:giraffeplayer2:0.1.25-full"
+
+    implementation 'com.flaviofaria:kenburnsview:1.0.7'
+
+    implementation 'com.ornach.nobobutton:nobobutton:1.6'
 }

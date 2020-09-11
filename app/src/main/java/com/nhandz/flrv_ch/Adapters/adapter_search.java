@@ -58,6 +58,7 @@ public class adapter_search extends RecyclerView.Adapter<adapter_search.ViewHold
                 public void onClick(View view) {
                     Intent intent=new Intent(context, OtprofileActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("IDND",String.valueOf(ac.getID()));
                     context.startActivity(intent);
                 }
             });

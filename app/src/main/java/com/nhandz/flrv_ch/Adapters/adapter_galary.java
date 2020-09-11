@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.nhandz.flrv_ch.DT.news;
 import com.nhandz.flrv_ch.MainActivity;
+import com.nhandz.flrv_ch.R;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public class adapter_galary extends BaseAdapter {
 
     @Override
     public Object getItem(int i) {
-        return null;
+        return newsArrayList.get(i);
     }
 
     @Override
@@ -45,6 +46,7 @@ public class adapter_galary extends BaseAdapter {
         imageView.setPadding(0, 0, 0, 0);
         Glide.with(context)
                 .load(MainActivity.serverImg+newsArrayList.get(i).getImg())
+                .error(R.drawable.backgroundl)
                 .into(imageView);
         //imageView.setImageResource(thumbImages[position]);
         return imageView;

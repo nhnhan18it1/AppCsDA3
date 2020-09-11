@@ -6,6 +6,7 @@ import com.nhandz.flrv_ch.DT.news;
 import com.nhandz.flrv_ch.MainActivity;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -43,4 +44,14 @@ public interface TurnServer {
     @POST("api/postlike")
     @FormUrlEncoded
     Call<String> postLike(@Field("IDND")String IDND,@Field("IDBV")String IDBV);
+    @GET("api/getInforS")
+    Call<account[]> getInforAcc(@Query("IDND") String IDND,@Query("IDS") String IDS);
+    @GET("api/addFriend")
+    Call<String> getAddfriends(@Query("IDS")String IDS,@Query("IDR")String IDR);
+    @DELETE("api/deleteAdvise")
+    Call<String> deleteAdvise(@Query("IDS")String IDS,@Query("IDR")String IDR);
+    @POST("api/acceptAdvise")
+    @FormUrlEncoded
+    Call<String> postAceptAdvise(@Field("IDS")String IDS,@Field("IDR")String IDR);
+
 }

@@ -291,9 +291,9 @@ public class LoginActivity extends AppCompatActivity {
             //Toast.makeText(LoginActivity.this, account.toString(), Toast.LENGTH_SHORT).show();
             Gson gson=new Gson();
             account[] accounts=gson.fromJson(s,account[].class);
-            LoginActivity.ID=String.valueOf(accounts[0].getID()) ;
-            LoginActivity.Avt=accounts[0].getAvt();
-            LoginActivity.Name=accounts[0].getName();
+//            LoginActivity.ID=String.valueOf(accounts[0].getID()) ;
+//            LoginActivity.Avt=accounts[0].getAvt();
+//            LoginActivity.Name=accounts[0].getName();
             MainActivity.OnAccount=accounts[0];
 
             String ttac="{IDND : "+accounts[0].getID()+" , Name : ' "+accounts[0].getName()+" ' , Avt : ' "+accounts[0].getAvt()+" ' }";

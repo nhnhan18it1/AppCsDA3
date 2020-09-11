@@ -47,7 +47,7 @@
                     android:layout_height="match_parent">
 
                     <com.beardedhen.androidbootstrap.BootstrapCircleThumbnail
-                        android:id="@+id/bootstrapCircleThumbnail2"
+                        android:id="@+id/otp_avt"
                         android:layout_width="85dp"
                         android:layout_height="85dp"
                         android:layout_marginStart="10dp"
@@ -59,7 +59,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView11"
+                        android:id="@+id/otp_name"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginStart="24dp"
@@ -70,11 +70,11 @@
                         android:textColor="#000000"
                         android:textSize="22dp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail2"
+                        app:layout_constraintStart_toEndOf="@+id/otp_avt"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView12"
+                        android:id="@+id/otp_Sname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="26dp"
@@ -84,8 +84,8 @@
                         android:text="TextView"
                         android:textSize="15sp"
                         android:textStyle="italic"
-                        app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail2"
-                        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+                        app:layout_constraintStart_toEndOf="@+id/otp_avt"
+                        app:layout_constraintTop_toBottomOf="@+id/otp_name" />
 
                     <View
                         android:id="@+id/divider10"
@@ -95,8 +95,8 @@
                         android:background="?android:attr/listDivider"
                         android:backgroundTint="@color/bootstrap_brand_primary"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail2"
-                        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+                        app:layout_constraintStart_toEndOf="@+id/otp_avt"
+                        app:layout_constraintTop_toBottomOf="@+id/otp_Sname" />
 
                     <LinearLayout
                         android:layout_width="220dp"
@@ -106,7 +106,7 @@
                         android:weightSum="12"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/bootstrapCircleThumbnail2"
+                        app:layout_constraintStart_toEndOf="@+id/otp_avt"
                         app:layout_constraintTop_toBottomOf="@+id/divider10">
 
                         <LinearLayout
@@ -210,7 +210,7 @@
             <LinearLayout
                 android:id="@+id/linearLayout14"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="5dp"
@@ -221,16 +221,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2">
 
-                <com.beardedhen.androidbootstrap.BootstrapButton
+                <com.ornach.nobobutton.NoboButton
+                    android:id="@+id/otp_btnAddFriend"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="3dp"
                     android:layout_weight="8"
                     android:textStyle="bold"
-                    app:bootstrapBrand="primary"
-                    app:bootstrapSize="md"
-                    app:bootstrapText="{fa_user_plus} Thêm bạn bè"
-                    app:roundedCorners="true" />
+
+                    android:paddingBottom="8dp"
+                    android:gravity="top|center"
+                    app:nb_gravity="top"
+                    app:nb_textSize="14sp"
+                    app:nb_iconColor="@color/bootstrap_brand_secondary_fill"
+                    app:nb_text="Thêm bạn bè"
+                    app:nb_borderColor="#00120606"
+                    app:nb_borderWidth="0.1dp"
+                    app:nb_backgroundColor="#144B9E"
+                    app:nb_focusColor="#B83CC3"
+                    app:nb_textColor="#FFF"
+                    app:nb_radius="5dp"
+                    app:nb_fontIcon="&#xf234;" />
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
                     android:layout_width="0dp"
@@ -246,6 +257,7 @@
                     app:roundedCorners="true" />
 
                 <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/otp_btnMenu"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
@@ -268,7 +280,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout14" />
 
             <LinearLayout
-                android:id="@+id/linearLayout15"
+                android:id="@+id/otp_groupIF"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1dp"
@@ -278,101 +290,94 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider11">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_baseline_add_24"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="left|center"
-                    android:paddingLeft="8dp"
-                    android:paddingBottom="2dp"
-                    android:textStyle="bold"
-                    android:text="Học Công Nghệ Thông Tin (IT) tại Trường Đại học Công nghệ Thông tin  Truyền thông Việt Hàn - ĐHĐN"
-                    android:textSize="17sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableLeft="@drawable/ic_baseline_add_24"-->
+<!--                    android:drawablePadding="5dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:gravity="left|center"-->
+<!--                    android:paddingLeft="8dp"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:text="Học Công Nghệ Thông Tin (IT) tại Trường Đại học Công nghệ Thông tin  Truyền thông Việt Hàn - ĐHĐN"-->
+<!--                    android:textSize="17sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_baseline_favorite_24"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="left|center"
-                    android:textStyle="bold"
-                    android:paddingLeft="8dp"
-                    android:paddingBottom="2dp"
-                    android:text="Đến từ Anh Sơn"
-                    android:textSize="17sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableLeft="@drawable/ic_baseline_favorite_24"-->
+<!--                    android:drawablePadding="5dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:gravity="left|center"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:paddingLeft="8dp"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:text="Đến từ Anh Sơn"-->
+<!--                    android:textSize="17sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_baseline_person_24"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="left|center"
-                    android:textStyle="bold"
-                    android:paddingLeft="8dp"
-                    android:paddingBottom="2dp"
-                    android:text="Sống tại Vinh"
-                    android:textSize="17sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableLeft="@drawable/ic_baseline_person_24"-->
+<!--                    android:drawablePadding="5dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:gravity="left|center"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:paddingLeft="8dp"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:text="Sống tại Vinh"-->
+<!--                    android:textSize="17sp" />-->
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableLeft="@drawable/ic_baseline_school_24"
-                    android:drawablePadding="5dp"
-                    android:fontFamily="@font/roboto"
-                    android:gravity="left|center"
-                    android:paddingLeft="8dp"
-                    android:textStyle="bold"
-                    android:paddingBottom="2dp"
-                    android:text="Đã học tại Thpt Anh Sơn I"
-                    android:textSize="17sp" />
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:drawableLeft="@drawable/ic_baseline_school_24"-->
+<!--                    android:drawablePadding="5dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:gravity="left|center"-->
+<!--                    android:paddingLeft="8dp"-->
+<!--                    android:textStyle="bold"-->
+<!--                    android:paddingBottom="2dp"-->
+<!--                    android:text="Đã học tại Thpt Anh Sơn I"-->
+<!--                    android:textSize="17sp" />-->
             </LinearLayout>
 
             <View
                 android:id="@+id/divider12"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="5dp"
                 android:background="?android:attr/listDivider"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout15" />
+                app:layout_constraintTop_toBottomOf="@+id/otp_groupIF" />
 
             <GridView
                 android:id="@+id/otp_galary"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:layout_marginStart="1dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="1dp"
-                android:background="@color/bootstrap_brand_primary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider12" />
-
-            <View
-                android:id="@+id/divider13"
-                android:layout_width="409dp"
-                android:layout_height="1dp"
-                android:layout_marginStart="1dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="1dp"
-                android:background="?android:attr/listDivider"
+                android:horizontalSpacing="5dp"
+                android:numColumns="4"
+                android:minHeight="200dp"
+                android:verticalSpacing="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/divider12" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/otp_listbv"
-                android:layout_width="409dp"
-                android:layout_height="341dp"
-                android:layout_marginTop="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/divider13" />
+                app:layout_constraintTop_toBottomOf="@+id/otp_galary" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 

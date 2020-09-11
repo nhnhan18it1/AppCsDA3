@@ -139,6 +139,7 @@ public class MessengerListActivity extends AppCompatActivity {
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             Gson gson=new Gson();
+            Log.e("lisf", "onPostExecute: "+s );
             listfriend[] listfriendrs=gson.fromJson(s,listfriend[].class);
             if (listfriendrs.length!=0){
                 for (int i=0;i<listfriendrs.length;i++){
@@ -147,7 +148,7 @@ public class MessengerListActivity extends AppCompatActivity {
             }
             adt.notifyDataSetChanged();
             MainActivity.mSocket.emit("mobile-require-list");
-            Log.e("lisf", "onPostExecute: "+s );
+
 
         }
     }
